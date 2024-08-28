@@ -1,0 +1,58 @@
+@startuml prueba1
+
+    actor Cliente
+
+package Trabajadores{
+    actor Taquillero
+    actor Gerente
+    actor administrador
+    actor 
+}
+
+package Ventas{
+    usecase "Ver cartelera" as verCar
+    usecase "Seleccionar funcion" as selFun
+    usecase "Comprar boleta" as comBol
+    usecase "Reservar asientos" as resAsi 
+    
+}
+
+package logisticaCine{
+    
+    usecase "Gestión de cartelera" as gesCar
+    usecase "Gestión de salas" as GesSal
+    usecase "gestion de horarios" as gesHor
+    usecase "Gestión de funcion" as gesFun
+
+}
+
+package Restaurante{
+    usecase "Comprar comida" as comCom
+    usecase "Gestionar menús" as gesMen
+}
+
+package logisticaUsuarios{
+    
+    usecase "Iniciar sesion" as iniSes
+    usecase "Registrarse" as reg 
+    (Gestionar cargos) as gesCarg
+     
+}
+
+
+    Taquillero --> verCar
+    Taquillero --> comBol
+    Taquillero --> selAsi
+
+    Cliente --> Taquillero
+    
+    Gerente --> gesCar
+    Gerente --> GesSal
+
+
+
+    Cliente --> comCom
+
+
+    verCar <. selAsi: Extends
+@enduml
