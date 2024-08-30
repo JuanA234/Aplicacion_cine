@@ -2,32 +2,128 @@
 left to right direction
 skinparam packageStyle rectangle
 skinparam usecase {
-    BackgroundColor<<Ventas>> LightSkyBlue
-    BackgroundColor<<LogisticaCine>> LightGreen
-    BackgroundColor<<Restaurante>> LightCoral
-    BackgroundColor<<LogisticaUsuarios>> LightYellow
+    BorderColor DarkSlateGray
+    BackgroundColor DarkSeaGreen
+  
 }
-
+' Página para el actor Cliente
 actor Cliente
 
-package Trabajadores {
-    actor Taquillero
-    actor Gerente
-    actor RecursosHumanos
-    actor EmpleadoRestaurante
-}
-
-package Ventas <<Ventas>> {
+package Ventas{
     usecase "Ver cartelera" as verCar
     usecase "Ver funciones disponibles" as verFun
-    usecase "Seleccionar función" as selFun
+    usecase "Seleccionar funcion" as selFun
     usecase "Comprar boleta" as comBol
     usecase "Ver asientos disponibles" as verAsi
     usecase "Seleccionar sillas" as selAsi
     usecase "Reservar asientos" as resAsi 
+    
+}
+package LogisticaUsuarios{
+    usecase "Iniciar sesión" as iniSes
+    usecase "Registrarse" as reg 
 }
 
-package LogisticaCine <<LogisticaCine>> {
+Cliente -- iniSes
+Cliente -- verCar
+Cliente -- comBol
+Cliente -- verFun
+Cliente -- reg
+
+iniSes <.. comBol : <<extend>>
+verCar <.. comBol : <<extend>>
+comBol ..> verFun : <<include>>
+comBol ..> selFun : <<include>>
+reg <.. iniSes : <<extend>>
+comBol ..> verAsi : <<include>>
+comBol ..> selAsi : <<include>>
+comBol ..> resAsi : <<include>>
+
+newpage
+
+' Página para el actor Taquillero
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+    BorderColor DarkSlateGray
+    BackgroundColor DarkSeaGreen
+  
+}
+actor Taquillero
+
+package Trabajadores {
+    actor Taquillero
+}
+
+package Ventas{
+    usecase "Ver cartelera" as verCar
+    usecase "Ver funciones disponibles" as verFun
+    usecase "Seleccionar función" as selFun
+    usecase "Comprar boleta" as comBol
+}
+
+package LogisticaUsuarios{
+    usecase "Iniciar sesión" as iniSes
+    usecase "Registrarse" as reg 
+}
+
+Taquillero -- iniSes
+Taquillero -- verCar
+Taquillero -- verFun
+Taquillero -- selFun
+Taquillero -- comBol
+Taquillero -- reg
+
+iniSes <.. comBol : <<extend>>
+verCar <.. comBol : <<extend>>
+comBol ..> verFun : <<include>>
+comBol ..> selFun : <<include>>
+reg <.. iniSes : <<extend>>
+newpage
+
+' Página para el actor EmpleadoRestaurante
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+    BorderColor DarkSlateGray
+    BackgroundColor DarkSeaGreen
+  
+}
+actor EmpleadoRestaurante
+
+package Trabajadores {
+    actor EmpleadoRestaurante
+}
+
+package Restaurante{
+    usecase "Vender comida" as venCom
+    usecase "Ver comidas disponibles" as verCom
+}
+
+EmpleadoRestaurante -- venCom
+EmpleadoRestaurante -- verCom
+
+venCom ..> verCom : <<include>>
+
+newpage
+
+' Página para el actor Gerente
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+    BorderColor DarkSlateGray
+    BackgroundColor DarkSeaGreen
+  
+}
+actor Gerente
+
+package Trabajadores {
+    actor Gerente
+}
+
+package LogisticaCine{
     usecase "Añadir película a cartelera" as addPelCar
     usecase "Eliminar película de cartelera" as eliPelCar
     usecase "Gestionar salas" as GesSal
@@ -39,69 +135,67 @@ package LogisticaCine <<LogisticaCine>> {
     usecase "Modificar función" as modFun
 }
 
-package Restaurante <<Restaurante>> {
-    usecase "Vender comida" as venCom
-    usecase "Ver comidas disponibles" as verCom
-    usecase "Seleccionar comida" as selCom 
+package Restaurante{
     usecase "Añadir menú" as addMen
     usecase "Eliminar menú" as eliMen
     usecase "Modificar menú" as modMen
 }
 
-package LogisticaUsuarios <<LogisticaUsuarios>> {
+package LogisticaUsuarios {
     usecase "Iniciar sesión" as iniSes
-    usecase "Registrarse" as reg 
-    usecase "Añadir empleado" as addEmp
     usecase "Asignar cargos" as AsiCarg
     usecase "Eliminar cargos" as eliCar
     usecase "Modificar cargos" as modCar
 }
 
-Cliente -- iniSes
-Cliente -- verCar
-Cliente -- comBol
-Cliente -- verFun
-Cliente -- reg
+' Relaciones de Gerente con Casos de Uso de LogisticaCine
+Gerente -down-> iniSes
+Gerente -down-> GesSal
+Gerente -down-> addPelCar
+Gerente -down-> addHor
+Gerente -down-> addMen
+Gerente -down-> eliHor
+Gerente -down-> eliMen
+Gerente -down-> eliPelCar
+Gerente -down-> modHor
+Gerente -down-> modMen
 
-Taquillero -- iniSes
-Taquillero -- verFun
-Taquillero -- selFun
-Taquillero -- comBol
-Taquillero -- reg
 
-EmpleadoRestaurante -- venCom
-EmpleadoRestaurante -- verCom
+eliHor ..> eliFun :<<include>> 
+addHor ..> addFun :<<include>>
+modHor ..> modFun :<<include>>
 
-Gerente -- iniSes
-Gerente -- GesSal
-Gerente -- AsiCarg
-Gerente -- addPelCar
-Gerente -- addFun
-Gerente -- addHor
-Gerente -- addMen
-Gerente -- eliCar
-Gerente -- eliFun
-Gerente -- eliHor
-Gerente -- eliMen
-Gerente -- eliPelCar
-Gerente -- modCar
-Gerente -- modFun
-Gerente -- modHor
-Gerente -- modMen
+iniSes <.. AsiCarg :<<extend>>
+
+iniSes <.. eliCar :<<extend>>
+
+iniSes <.. modCar :<<extend>>
+newpage
+
+' Página para el actor RecursosHumanos
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+    BorderColor DarkSlateGray
+    BackgroundColor DarkSeaGreen
+  
+}
+actor RecursosHumanos
+
+package Trabajadores {
+    actor RecursosHumanos
+}
+
+package LogisticaUsuarios {
+    usecase "Iniciar sesión" as iniSes
+    usecase "Añadir empleado" as addEmp
+    usecase "Modificar cargos" as modCar
+}
 
 RecursosHumanos -- iniSes
-RecursosHumanos -- modCar
-RecursosHumanos -- addEmp
 
-venCom ..> verCom : <<include>>
-venCom ..> selCom : <<include>>
-
-iniSes ..> comBol : <<extend>>
-verCar ..> comBol : <<extend>>
-comBol ..> verFun : <<include>>
-comBol ..> selFun : <<include>>
-comBol ..> verAsi : <<include>>
-comBol ..> selAsi : <<include>>
-comBol ..> resAsi : <<include>>
+iniSes <.. addEmp :<<Extend>>
+iniSes <.. modCar :<<Extend>>
 
 @enduml
