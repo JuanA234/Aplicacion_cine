@@ -70,15 +70,15 @@ class CineDAO {
             let queHacer = 1;
             let respuBase: any;
             const cubi = await consulta.one(SQL_CINES.HOW_MANY, [datos.idCine])
-            if(cubi.existe == 0){
+            if(cubi.existe != 0){
                 queHacer = 2;
-                respuBase = await consulta.none(SQL_CINES.UPDATE, [datos.idUbicacion, datos.idUbicacion, datos.idCine]);
+                respuBase = await consulta.none(SQL_CINES.UPDATE, [datos.nombreCine, datos.idUbicacion, datos.idCine]);
             }
             return {queHacer, respuBase};
         })
         .then(({queHacer, respuBase})=>{
             switch(queHacer){
-                case 2: 
+                case 1: 
                     res.status(400).json({respuesta: "Compita no existe"});
                     break;
                 default:

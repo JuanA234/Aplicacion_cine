@@ -2,7 +2,7 @@ export const SQL_CINES={
     GET_ALL: "SELECT c.id_cine, c.nombre_cine, c.id_ubicacion \
     FROM cines c",
 
-    ADD: "INSERT INTO cines (nombre_cine id_ubicacion) \
+    ADD: "INSERT INTO cines (nombre_cine, id_ubicacion) \
     VALUES ($1, $2) RETURNING id_cine",
 
     HOW_MANY: "SELECT COUNT(id_cine) as existe FROM cines \

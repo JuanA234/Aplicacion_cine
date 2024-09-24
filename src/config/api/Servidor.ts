@@ -3,6 +3,7 @@ import  express  from "express";
 import morgan from "morgan";
 import apiSalaRuta from "../../app/salas/route/SalaRuta";
 import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
+import apiRutaCine from "../../app/cines/route/CineRuta";
 
 class Servidor{
     public app:express.Application;
@@ -16,6 +17,7 @@ class Servidor{
     public exponerEndPoint() :void{
        this.app.use("/room", apiSalaRuta);
        this.app.use("/butaca", apiRutaButaca);
+       this.app.use("/cine", apiRutaCine);
     }
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);

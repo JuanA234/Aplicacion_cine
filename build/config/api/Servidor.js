@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const SalaRuta_1 = __importDefault(require("../../app/salas/route/SalaRuta"));
 const ButacaRuta_1 = __importDefault(require("../../app/butacas/route/ButacaRuta"));
+const CineRuta_1 = __importDefault(require("../../app/cines/route/CineRuta"));
 class Servidor {
     constructor() {
         this.app = (0, express_1.default)();
@@ -17,6 +18,7 @@ class Servidor {
     exponerEndPoint() {
         this.app.use("/room", SalaRuta_1.default);
         this.app.use("/butaca", ButacaRuta_1.default);
+        this.app.use("/cine", CineRuta_1.default);
     }
     cargarConfiguracion() {
         this.app.set("PORT", 3123);

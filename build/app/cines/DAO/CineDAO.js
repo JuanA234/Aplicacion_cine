@@ -83,15 +83,15 @@ class CineDAO {
                 let queHacer = 1;
                 let respuBase;
                 const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine]);
-                if (cubi.existe == 0) {
+                if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE, [datos.idUbicacion, datos.idUbicacion, datos.idCine]);
+                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE, [datos.nombreCine, datos.idUbicacion, datos.idCine]);
                 }
                 return { queHacer, respuBase };
             }))
                 .then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
-                    case 2:
+                    case 1:
                         res.status(400).json({ respuesta: "Compita no existe" });
                         break;
                     default:
