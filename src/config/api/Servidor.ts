@@ -5,6 +5,7 @@ import apiSalaRuta from "../../app/salas/route/SalaRuta";
 import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
 import apiRutaCine from "../../app/cines/route/CineRuta";
 import apiRutaComida from "../../app/comidas/route/ComidaRuta";
+import apiRutaTipoComida from "../../app/tipos_comidas/route/TipoComidaRuta";
 
 class Servidor{
     public app:express.Application;
@@ -20,7 +21,8 @@ class Servidor{
        this.app.use("/butaca", apiRutaButaca);
        this.app.use("/cine", apiRutaCine);
        this.app.use("/comida", apiRutaComida);
-    }
+       this.app.use("/tipocomida", apiRutaTipoComida);
+    } 
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);
         this.app.use(cors());
