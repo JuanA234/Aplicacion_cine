@@ -6,7 +6,8 @@ import Butaca from "../entity/Butacas";
 class ButacaControlador extends ButacaDAO{
 
     public dameButacas(req:Request, res:Response){
-        ButacaDAO.obtenerTodo([],res);
+        let {tamPag, page} = req.query;
+        ButacaDAO.obtenerTodo(tamPag,page,res);
     }
 
     public cogeTuButaca(req: Request, res: Response): void{

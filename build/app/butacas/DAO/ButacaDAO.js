@@ -15,12 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sql_butacas_1 = require("../repository/sql_butacas");
 const dbConnection_1 = __importDefault(require("../../../config/connection/dbConnection"));
 class ButacaDAO {
-    static obtenerTodo(params, res) {
+    static obtenerTodo(tamPag, page, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
-                .result(sql_butacas_1.SQL_BUTACAS.GET_ALL, params)
-                .then((resultado) => {
-                res.status(200).json(resultado.rows);
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const cubi = yield consulta.many(sql_butacas_1.SQL_BUTACAS.TOTAL);
+                const rows = cubi[0].count;
+                const offset = (page - 1) * tamPag;
+                const resultado = yield consulta.result(sql_butacas_1.SQL_BUTACAS.GET_ALL, [tamPag, offset]);
+                return { resultado, rows };
+            }))
+                .then(({ resultado, rows }) => {
+                res.status(200).json({
+                    butacas: resultado.rows,
+                    totalButacas: rows
+                });
+                res.status(200).json({
+                    totalButacas: rows,
+                    butacas: resultado.rows
+                });
             }).catch((miError) => {
                 console.log("mi error");
                 res.status(400).json({
@@ -35,7 +48,7 @@ class ButacaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_butacas_1.SQL_BUTACAS.HOW_MANY, [datos.idButaca]);
+                const cubi = yield consulta.oneOrNone(sql_butacas_1.SQL_BUTACAS.HOW_MANY, [datos.idButaca, datos.fila, datos.columna]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_butacas_1.SQL_BUTACAS.ADD, [datos.fila, datos.columna, datos.idSala]);
@@ -71,8 +84,7 @@ class ButacaDAO {
                 });
             })
                 .catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ mensaje: miErrorcito });
             });
         });
     }

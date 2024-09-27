@@ -7,7 +7,8 @@ const ButacaDAO_1 = __importDefault(require("../DAO/ButacaDAO"));
 const Butacas_1 = __importDefault(require("../entity/Butacas"));
 class ButacaControlador extends ButacaDAO_1.default {
     dameButacas(req, res) {
-        ButacaDAO_1.default.obtenerTodo([], res);
+        let { tamPag, page } = req.query;
+        ButacaDAO_1.default.obtenerTodo(tamPag, page, res);
     }
     cogeTuButaca(req, res) {
         const objCubi = new Butacas_1.default(0, "", 0, 0);
