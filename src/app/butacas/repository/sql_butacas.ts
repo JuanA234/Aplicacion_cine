@@ -1,6 +1,6 @@
 export const SQL_BUTACAS={
     GET_ALL: "SELECT b.id_butaca, b.fila, b.columna, b.id_sala \
-    FROM butacas b LIMIT $1 OFFSET $2",
+    FROM butacas b ORDER BY b.id_butaca ASC LIMIT $1 OFFSET $2",
 
     ADD: "INSERT INTO butacas (fila, columna, id_sala) \
     VALUES ($1, $2, $3) RETURNING id_butaca",
@@ -12,6 +12,9 @@ export const SQL_BUTACAS={
 
     UPDATE: "UPDATE butacas SET fila = $1, columna = $2, id_sala = $3 \
     WHERE id_butaca= $4",
+
+    UPDATE_MASIVO: "UPDATE butacas set fila = $1, columna = $2, id_sala = $3 \
+    where fila = $4",
 
     TOTAL: "SELECT COUNT(*) FROM butacas",
 

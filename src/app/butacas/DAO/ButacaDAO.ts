@@ -2,6 +2,7 @@ import {Response } from "express";
 import { SQL_BUTACAS } from "../repository/sql_butacas";
 import pool from "../../../config/connection/dbConnection";
 import Butaca from "../entity/Butacas";
+import { errors, queryResult } from "pg-promise";
 
 
 class ButacaDAO {
@@ -26,10 +27,12 @@ class ButacaDAO {
                 butacas: resultado.rows
                 
             });
-        }).catch((miError) => {
-            console.log("mi error");
+        }).catch((miError:any) => {
             res.status(400).json({
-                "respuesta": "ay no sirve"
+                "respuesta": "ay no sirve",
+                mensaje: miError.message,
+                Error: miError,
+                NombreError: miError.name,
             });
         });
     }
@@ -58,8 +61,11 @@ class ButacaDAO {
             }
         })
         .catch((miError:any)=>{
-            console.log(miError);
-            res.status(400).json({respuesta: "Se totio mano"});
+            res.status(400).json({respuesta: "Se totio mano",
+                mensaje: miError.message,
+                Error: miError,
+                NombreError: miError.name,
+            });
         });
     }
 
@@ -74,8 +80,14 @@ class ButacaDAO {
                 info: respuesta.rowCount,
             });
         })
-        .catch((miErrorcito)=>{
-            res.status(400).json({mensaje: miErrorcito});
+        .catch((miErrorcito:any)=>{
+            res.status(400).json({
+                resultado: "Pailas, sql totiao",
+                mensaje: miErrorcito.message,
+                Error: miErrorcito,
+                //NombreError: miErrorcito.name,
+                //stackError: miErrorcito.stack
+            });
         });
     }
     
@@ -84,10 +96,10 @@ class ButacaDAO {
         .task(async(consulta)=>{
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_BUTACAS.HOW_MANY, [datos.idButaca])
+            const cubi = await consulta.one(SQL_BUTACAS.HOW_MANY, [datos.idButaca, datos.fila, datos.columna])
             if(cubi.existe != 0){
                 queHacer = 2;
-                respuBase = await consulta.none(SQL_BUTACAS.UPDATE, [datos.fila, datos.columna, datos.idSala, datos.idButaca]);
+                respuBase = await consulta.none(SQL_BUTACAS.UPDATE_MASIVO,[datos.fila, datos.columna, datos.idSala, datos.fila]);
             }
             return {queHacer, respuBase};
         })
@@ -102,8 +114,12 @@ class ButacaDAO {
             }
         })
         .catch((miError:any)=>{
-            console.log(miError);
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+            res.status(400).json({respuesta: "pailas, sql totiao",
+                mensaje: miError.message,
+                NombreError: miError.name,
+                Error: miError,
+                //stackError: miError.stack
+            });
         });
     }
 
