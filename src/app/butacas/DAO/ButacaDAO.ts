@@ -10,22 +10,14 @@ class ButacaDAO {
     protected static async obtenerTodo(tamPag: any, page: any, res: Response) {
         await pool
         .task(async(consulta)=>{
-            const cubi = await consulta.many(SQL_BUTACAS.TOTAL);
-            const rows = cubi[0].count;
             const offset = (page-1)*tamPag;
             const resultado = await consulta.result(SQL_BUTACAS.GET_ALL, [tamPag, offset]);
-        return{resultado, rows};
+        return{resultado};
         })
-        .then(({resultado, rows})=>{
+        .then(({resultado})=>{
             res.status(200).json({
                 butacas: resultado.rows,
-                totalButacas: rows
-                
-            });
-            res.status(200).json({
-                totalButacas: rows,
-                butacas: resultado.rows
-                
+                totalButacas: resultado.rowCount
             });
         }).catch((miError:any) => {
             res.status(400).json({

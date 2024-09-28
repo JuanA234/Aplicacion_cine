@@ -15,12 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sql_comidas_1 = require("../repository/sql_comidas");
 const dbConnection_1 = __importDefault(require("../../../config/connection/dbConnection"));
 class ComidaDAO {
-    static obtenerTodo(params, res) {
+    static obtenerTodo(tamPag, page, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
-                .result(sql_comidas_1.SQL_COMIDAS.GET_ALL, params)
-                .then((resultado) => {
-                res.status(200).json(resultado.rows);
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const offset = (page - 1) * tamPag;
+                const resultado = yield consulta.result(sql_comidas_1.SQL_COMIDAS.GET_ALL, [tamPag, offset]);
+                return { resultado };
+            }))
+                .then(({ resultado }) => {
+                res.status(200).json({
+                    resultado: resultado.rows,
+                    totalComidas: resultado.rowCount,
+                });
             }).catch((miError) => {
                 console.log("mi error");
                 res.status(400).json({
@@ -35,7 +42,7 @@ class ComidaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_comidas_1.SQL_COMIDAS.HOW_MANY, [datos.idComida]);
+                const cubi = yield consulta.one(sql_comidas_1.SQL_COMIDAS.HOW_MANY, [datos.idComida, datos.nombreComida]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_comidas_1.SQL_COMIDAS.ADD, [datos.nombreComida, datos.idTipoComida]);
@@ -53,8 +60,10 @@ class ComidaDAO {
                 }
             })
                 .catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: "Se totio mano",
+                    mensaje: miError.message,
+                    error: miError
+                });
             });
         });
     }
@@ -71,8 +80,10 @@ class ComidaDAO {
                 });
             })
                 .catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                    mensaje: miErrorcito.message,
+                    error: miErrorcito
+                });
             });
         });
     }
@@ -82,10 +93,11 @@ class ComidaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_comidas_1.SQL_COMIDAS.HOW_MANY, [datos.idComida]);
+                const cubi = yield consulta.one(sql_comidas_1.SQL_COMIDAS.HOW_MANY, [datos.idComida, datos.nombreComida]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_comidas_1.SQL_COMIDAS.UPDATE, [datos.nombreComida, datos.idTipoComida, datos.idComida]);
+                    const like = datos.nombreComida + "%";
+                    respuBase = yield consulta.none(sql_comidas_1.SQL_COMIDAS.UPDATE_MASIVO, [datos.idTipoComida, like]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -100,8 +112,10 @@ class ComidaDAO {
                 }
             })
                 .catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                    mensaje: miError.message,
+                    error: miError
+                });
             });
         });
     }

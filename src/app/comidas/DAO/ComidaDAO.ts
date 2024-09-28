@@ -6,11 +6,18 @@ import Comida from "../entity/Comidas";
 
 class ComidaDAO {
 
-    protected static async obtenerTodo(params: any, res: Response) {
+    protected static async obtenerTodo(tamPag: any, page: any, res: Response) {
         await pool
-        .result(SQL_COMIDAS.GET_ALL, params)
-        .then((resultado)=>{
-            res.status(200).json(resultado.rows);
+        .task(async(consulta)=>{
+            const offset = (page-1)*tamPag;
+            const resultado = await consulta.result(SQL_COMIDAS.GET_ALL, [tamPag, offset]);
+        return{resultado};
+        })
+        .then(({resultado})=>{
+            res.status(200).json({
+                resultado: resultado.rows,
+                totalComidas: resultado.rowCount,
+            });
         }).catch((miError) => {
             console.log("mi error");
             res.status(400).json({
@@ -24,7 +31,7 @@ class ComidaDAO {
         .task(async(consulta)=>{
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_COMIDAS.HOW_MANY, [datos.idComida])
+            const cubi = await consulta.one(SQL_COMIDAS.HOW_MANY, [datos.idComida, datos.nombreComida])
             if(cubi.existe == 0){
                 queHacer = 2;
                 respuBase = await consulta.one(SQL_COMIDAS.ADD, [datos.nombreComida, datos.idTipoComida]);
@@ -42,8 +49,10 @@ class ComidaDAO {
             }
         })
         .catch((miError:any)=>{
-            console.log(miError);
-            res.status(400).json({respuesta: "Se totio mano"});
+            res.status(400).json({respuesta: "Se totio mano",
+                mensaje: miError.message,
+                error: miError
+            });
         });
     }
 
@@ -59,8 +68,11 @@ class ComidaDAO {
             });
         })
         .catch((miErrorcito)=>{
-            console.log(miErrorcito );
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+            
+            res.status(400).json({respuesta: "Pailas, sql totiado",
+                mensaje: miErrorcito.message,
+                error: miErrorcito
+            });
         });
     }
     
@@ -69,10 +81,11 @@ class ComidaDAO {
         .task(async(consulta)=>{
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_COMIDAS.HOW_MANY, [datos.idComida])
+            const cubi = await consulta.one(SQL_COMIDAS.HOW_MANY, [datos.idComida, datos.nombreComida])
             if(cubi.existe != 0){
                 queHacer = 2;
-                respuBase = await consulta.none(SQL_COMIDAS.UPDATE, [datos.nombreComida, datos.idTipoComida, datos.idComida]);
+                 const like = datos.nombreComida + "%"
+                respuBase = await consulta.none(SQL_COMIDAS.UPDATE_MASIVO, [datos.idTipoComida, like]);
             }
             return {queHacer, respuBase};
         })
@@ -87,8 +100,10 @@ class ComidaDAO {
             }
         })
         .catch((miError:any)=>{
-            console.log(miError);
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+            res.status(400).json({respuesta: "Pailas, sql totiado",
+                mensaje: miError.message,
+                error: miError
+            });
         });
     }
 

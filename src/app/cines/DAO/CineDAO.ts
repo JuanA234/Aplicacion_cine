@@ -9,16 +9,14 @@ class CineDAO {
     protected static async obtenerTodo(tamPag: any, page: any, res: Response) {
         await pool
         .task(async(consulta)=>{
-            const cubi = await consulta.many(SQL_CINES.TOTAL);
-            const rows = cubi[0].count;
             const offset = (page-1)*tamPag;
             const resultado = await consulta.result(SQL_CINES.GET_ALL, [tamPag, offset]);
-        return{resultado, rows};
+        return{resultado};
         })
-        .then(({resultado, rows})=>{
+        .then(({resultado})=>{
             res.status(200).json({
                 cines: resultado.rows,
-                totalCines: rows
+                totalCines: resultado.rowCount
             }
             );
         }).catch((miError) => {

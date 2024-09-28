@@ -19,16 +19,14 @@ class CineDAO {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
-                const cubi = yield consulta.many(sql_cine_1.SQL_CINES.TOTAL);
-                const rows = cubi[0].count;
                 const offset = (page - 1) * tamPag;
                 const resultado = yield consulta.result(sql_cine_1.SQL_CINES.GET_ALL, [tamPag, offset]);
-                return { resultado, rows };
+                return { resultado };
             }))
-                .then(({ resultado, rows }) => {
+                .then(({ resultado }) => {
                 res.status(200).json({
                     cines: resultado.rows,
-                    totalCines: rows
+                    totalCines: resultado.rowCount
                 });
             }).catch((miError) => {
                 console.log("mi error");

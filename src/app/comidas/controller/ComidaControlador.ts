@@ -5,7 +5,8 @@ import ComidaDAO from "../DAO/ComidaDAO";
 class ComidaControlador extends ComidaDAO{
 
     public dameComidas(req:Request, res:Response){
-        ComidaDAO.obtenerTodo([],res);
+        let {tamPag, page} = req.query;
+        ComidaDAO.obtenerTodo(tamPag,page,res);
     }
 
     public cogeTuComida(req: Request, res: Response): void{
