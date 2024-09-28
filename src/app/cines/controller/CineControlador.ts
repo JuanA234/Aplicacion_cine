@@ -5,7 +5,8 @@ import CineDAO from "../DAO/CineDAO";
 class CineControlador extends CineDAO{
 
     public dameCines(req:Request, res:Response){
-        CineDAO.obtenerTodo([],res);
+        let {tamPag, page} = req.query;
+        CineDAO.obtenerTodo(tamPag,page,res);
     }
 
     public cogeTuCine(req: Request, res: Response): void{

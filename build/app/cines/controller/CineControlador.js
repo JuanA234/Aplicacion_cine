@@ -7,7 +7,8 @@ const Cine_1 = __importDefault(require("../entity/Cine"));
 const CineDAO_1 = __importDefault(require("../DAO/CineDAO"));
 class CineControlador extends CineDAO_1.default {
     dameCines(req, res) {
-        CineDAO_1.default.obtenerTodo([], res);
+        let { tamPag, page } = req.query;
+        CineDAO_1.default.obtenerTodo(tamPag, page, res);
     }
     cogeTuCine(req, res) {
         const objCubi = new Cine_1.default(0, "", 0);

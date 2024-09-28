@@ -6,11 +6,21 @@ import Cine from "../entity/Cine";
 
 class CineDAO {
 
-    protected static async obtenerTodo(params: any, res: Response) {
+    protected static async obtenerTodo(tamPag: any, page: any, res: Response) {
         await pool
-        .result(SQL_CINES.GET_ALL, params)
-        .then((resultado)=>{
-            res.status(200).json(resultado.rows);
+        .task(async(consulta)=>{
+            const cubi = await consulta.many(SQL_CINES.TOTAL);
+            const rows = cubi[0].count;
+            const offset = (page-1)*tamPag;
+            const resultado = await consulta.result(SQL_CINES.GET_ALL, [tamPag, offset]);
+        return{resultado, rows};
+        })
+        .then(({resultado, rows})=>{
+            res.status(200).json({
+                cines: resultado.rows,
+                totalCines: rows
+            }
+            );
         }).catch((miError) => {
             console.log("mi error");
             res.status(400).json({
@@ -24,7 +34,7 @@ class CineDAO {
         .task(async(consulta)=>{
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_CINES.HOW_MANY, [datos.idCine])
+            const cubi = await consulta.one(SQL_CINES.HOW_MANY, [datos.idCine, datos.nombreCine])
             if(cubi.existe == 0){
                 queHacer = 2;
                 respuBase = await consulta.one(SQL_CINES.ADD, [datos.nombreCine, datos.idUbicacion]);
@@ -42,8 +52,9 @@ class CineDAO {
             }
         })
         .catch((miError:any)=>{
-            console.log(miError);
-            res.status(400).json({respuesta: "Se totio mano"});
+            res.status(400).json({respuesta: "Se totio mano",
+                mensaje: miError.message,
+            });
         });
     }
 
@@ -58,9 +69,11 @@ class CineDAO {
                 info: respuesta.rowCount,
             });
         })
-        .catch((miErrorcito)=>{
-            console.log(miErrorcito );
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+        .catch((miErrorcito:any)=>{
+            res.status(400).json({respuesta: "Pailas, sql totiado",
+                mensaje: miErrorcito.message,
+                error: miErrorcito
+            });
         });
     }
     
@@ -69,10 +82,12 @@ class CineDAO {
         .task(async(consulta)=>{
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_CINES.HOW_MANY, [datos.idCine])
+            const cubi = await consulta.one(SQL_CINES.HOW_MANY, [datos.idCine, datos.nombreCine])
+
             if(cubi.existe != 0){
                 queHacer = 2;
-                respuBase = await consulta.none(SQL_CINES.UPDATE, [datos.nombreCine, datos.idUbicacion, datos.idCine]);
+                const like = datos.nombreCine + "%"
+                respuBase = await consulta.none(SQL_CINES.UPDATE_MASIVO, [datos.idUbicacion, like]);
             }
             return {queHacer, respuBase};
         })
@@ -87,8 +102,11 @@ class CineDAO {
             }
         })
         .catch((miError:any)=>{
-            console.log(miError);
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+            res.status(400).json({respuesta: "Pailas, sql totiado",
+                mensaje: miError.message,
+                error: miError
+            });
+        
         });
     }
 

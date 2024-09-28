@@ -15,12 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sql_cine_1 = require("../repository/sql_cine");
 const dbConnection_1 = __importDefault(require("../../../config/connection/dbConnection"));
 class CineDAO {
-    static obtenerTodo(params, res) {
+    static obtenerTodo(tamPag, page, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
-                .result(sql_cine_1.SQL_CINES.GET_ALL, params)
-                .then((resultado) => {
-                res.status(200).json(resultado.rows);
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const cubi = yield consulta.many(sql_cine_1.SQL_CINES.TOTAL);
+                const rows = cubi[0].count;
+                const offset = (page - 1) * tamPag;
+                const resultado = yield consulta.result(sql_cine_1.SQL_CINES.GET_ALL, [tamPag, offset]);
+                return { resultado, rows };
+            }))
+                .then(({ resultado, rows }) => {
+                res.status(200).json({
+                    cines: resultado.rows,
+                    totalCines: rows
+                });
             }).catch((miError) => {
                 console.log("mi error");
                 res.status(400).json({
@@ -35,7 +44,7 @@ class CineDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine]);
+                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine, datos.nombreCine]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_cine_1.SQL_CINES.ADD, [datos.nombreCine, datos.idUbicacion]);
@@ -53,8 +62,9 @@ class CineDAO {
                 }
             })
                 .catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: "Se totio mano",
+                    mensaje: miError.message,
+                });
             });
         });
     }
@@ -71,8 +81,10 @@ class CineDAO {
                 });
             })
                 .catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                    mensaje: miErrorcito.message,
+                    error: miErrorcito
+                });
             });
         });
     }
@@ -82,10 +94,11 @@ class CineDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine]);
+                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine, datos.nombreCine]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE, [datos.nombreCine, datos.idUbicacion, datos.idCine]);
+                    const like = datos.nombreCine + "%";
+                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE_MASIVO, [datos.idUbicacion, like]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -100,8 +113,10 @@ class CineDAO {
                 }
             })
                 .catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                    mensaje: miError.message,
+                    error: miError
+                });
             });
         });
     }
