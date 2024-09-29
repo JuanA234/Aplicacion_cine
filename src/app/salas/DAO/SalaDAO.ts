@@ -37,37 +37,47 @@ class SalaDAO {
             res.status(400).json({
                 "respuesta": "Se estalló"
             });
-        }
+            }
         );
     }
 
-    protected static async grabeloYa(datos:Sala, res:Response): Promise<any>{
-        await pool
-        .task(async(consulta)=>{
-            let queHacer = 1;
-            let respuBase: any;
-            const cubi = await consulta.one(SQL_SALAS.HOW_MANY, [datos.idSala]);
-            if(cubi.existe == 0){
-                queHacer = 2;
-                respuBase = await consulta.one(SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine]);
+    protected static async grabeloYa(datos: Sala, res: Response): Promise<any> {
+        await pool.task(async (consulta) => {
+
+            const existeSala = await consulta.one(SQL_SALAS.HOW_MANY, [datos.idSala]);
+            const existeCapacidad = await consulta.one(SQL_SALAS.HOW_MANY_CAPACITY, [datos.salaCapacidad]);
+            const existeCine = await consulta.one(SQL_SALAS.HOW_MANY_CINE, [datos.idCine]);
+    
+      
+            const camposRepetidos = [];
+            if (existeSala.existe > 0) camposRepetidos.push('idSala');
+            if (existeCapacidad.existe > 0) camposRepetidos.push('salaCapacidad');
+            if (existeCine.existe > 0) camposRepetidos.push('idCine');
+    
+            if (camposRepetidos.length > 0) { 
+                return { queHacer: 1, camposRepetidos };
             }
-            return {queHacer, respuBase};
+    
+            // Si no hay duplicados, procede a agregar la sala
+            const respuBase = await consulta.one(SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine, datos.idSala]);
+            return { queHacer: 2, respuBase }; 
         })
-        .then(({queHacer, respuBase})=>{
-            switch(queHacer){
-                case 1: 
-                    res.status(400).json({respuesta: "Compita ya existe la sala"});
+        .then(({ queHacer, respuBase, camposRepetidos }) => {
+            switch (queHacer) {
+                case 1:
+                    res.status(400).json({ respuesta: "Compita, los siguientes campos ya existen:", camposRepetidos });
                     break;
-                default:
-                    res.status(200).json(respuBase);
+                case 2:
+                    res.status(200).json(respuBase); 
                     break;
             }
         })
-        .catch((miError:any)=>{
+        .catch((miError: any) => {
             console.log(miError);
-            res.status(400).json({respuesta: "Se totio mano"});
+            res.status(400).json({ respuesta: "Se produjo un error al procesar la solicitud" });
         });
     }
+    
 
     protected static async borreloYa(datos: Sala, res: Response): Promise<any>{
         pool

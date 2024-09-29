@@ -53,30 +53,37 @@ class SalaDAO {
     }
     static grabeloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default
-                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
-                let queHacer = 1;
-                let respuBase;
-                const cubi = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY, [datos.idSala]);
-                if (cubi.existe == 0) {
-                    queHacer = 2;
-                    respuBase = yield consulta.one(sql_sala_1.SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine]);
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const existeSala = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY, [datos.idSala]);
+                const existeCapacidad = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY_CAPACITY, [datos.salaCapacidad]);
+                const existeCine = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY_CINE, [datos.idCine]);
+                const camposRepetidos = [];
+                if (existeSala.existe > 0)
+                    camposRepetidos.push('idSala');
+                if (existeCapacidad.existe > 0)
+                    camposRepetidos.push('salaCapacidad');
+                if (existeCine.existe > 0)
+                    camposRepetidos.push('idCine');
+                if (camposRepetidos.length > 0) {
+                    return { queHacer: 1, camposRepetidos };
                 }
-                return { queHacer, respuBase };
+                // Si no hay duplicados, procede a agregar la sala
+                const respuBase = yield consulta.one(sql_sala_1.SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine, datos.idSala]);
+                return { queHacer: 2, respuBase };
             }))
-                .then(({ queHacer, respuBase }) => {
+                .then(({ queHacer, respuBase, camposRepetidos }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe la sala" });
+                        res.status(400).json({ respuesta: "Compita, los siguientes campos ya existen:", camposRepetidos });
                         break;
-                    default:
+                    case 2:
                         res.status(200).json(respuBase);
                         break;
                 }
             })
                 .catch((miError) => {
                 console.log(miError);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: "Se produjo un error al procesar la solicitud" });
             });
         });
     }
