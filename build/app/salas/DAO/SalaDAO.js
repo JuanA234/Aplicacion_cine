@@ -81,20 +81,25 @@ class SalaDAO {
     }
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            dbConnection_1.default
-                .task((consulta) => {
-                return consulta.result(sql_sala_1.SQL_SALAS.DELETE, [datos.idSala]);
-            })
-                .then((respuesta) => {
-                res.status(200).json({
-                    respuesta: "Lo borre sin miedo",
-                    info: respuesta.rowCount,
+            try {
+                dbConnection_1.default
+                    .task((consulta) => {
+                    return consulta.result(sql_sala_1.SQL_SALAS.DELETE, [datos.idSala]);
+                })
+                    .then((respuesta) => {
+                    res.status(200).json({
+                        respuesta: "Lo borre sin miedo",
+                        info: respuesta.rowCount,
+                    });
+                })
+                    .catch((miErrorcito) => {
+                    res.status(400).json({ respuesta: "Pailas, sql totiado" });
                 });
-            })
-                .catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
-            });
+            }
+            catch (e) {
+                //console.log(e);
+                res.status(400).json({ respuesta: "se explotó" });
+            }
         });
     }
     static actualiceloYa(datos, res) {
