@@ -3,6 +3,9 @@ import  express  from "express";
 import morgan from "morgan";
 import apiSalaRuta from "../../app/salas/route/SalaRuta";
 import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
+import apiRutaGenero from "../../app/generos/route/GeneroRuta";
+import apiRutaFunctions from "../../app/funciones/route/FuncionRuta";
+import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
 
 class Servidor{
     public app:express.Application;
@@ -16,6 +19,9 @@ class Servidor{
     public exponerEndPoint() :void{
        this.app.use("/room", apiSalaRuta);
        this.app.use("/butaca", apiRutaButaca);
+       this.app.use("/genders", apiRutaGenero);
+       this.app.use("/functions", apiRutaFunctions);
+       this.app.use("/bookings", apiRutaReservacion);
     }
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);

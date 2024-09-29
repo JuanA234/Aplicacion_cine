@@ -3,7 +3,6 @@ import { SQL_SALAS } from "../repository/sql_sala";
 import pool from "../../../config/connection/dbConnection";
 import Sala from "../entity/Sala";
 
-
 class SalaDAO {
 
     protected static async obtenerTodo(params: any, res: Response) {
