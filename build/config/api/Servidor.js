@@ -11,6 +11,9 @@ const ButacaRuta_1 = __importDefault(require("../../app/butacas/route/ButacaRuta
 const GeneroRuta_1 = __importDefault(require("../../app/generos/route/GeneroRuta"));
 const FuncionRuta_1 = __importDefault(require("../../app/funciones/route/FuncionRuta"));
 const ReservacionRuta_1 = __importDefault(require("../../app/reservaciones/route/ReservacionRuta"));
+const PeliculasRuta_1 = __importDefault(require("../../app/peliculas/route/PeliculasRuta"));
+const UsuariosRuta_1 = __importDefault(require("../../app/usuarios/route/UsuariosRuta"));
+const CartelerasRuta_1 = __importDefault(require("../../app/carteleras/route/CartelerasRuta"));
 class Servidor {
     constructor() {
         this.app = (0, express_1.default)();
@@ -18,11 +21,14 @@ class Servidor {
         this.exponerEndPoint();
     }
     exponerEndPoint() {
-        this.app.use("/room", SalaRuta_1.default);
-        this.app.use("/butaca", ButacaRuta_1.default);
+        this.app.use("/rooms", SalaRuta_1.default);
+        this.app.use("/butacas", ButacaRuta_1.default);
         this.app.use("/genders", GeneroRuta_1.default);
         this.app.use("/functions", FuncionRuta_1.default);
         this.app.use("/bookings", ReservacionRuta_1.default);
+        this.app.use("/movies", PeliculasRuta_1.default);
+        this.app.use("/users", UsuariosRuta_1.default);
+        this.app.use("/billboards", CartelerasRuta_1.default);
     }
     cargarConfiguracion() {
         this.app.set("PORT", 3123);
