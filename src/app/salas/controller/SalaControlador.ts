@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 import SalaDAO from "../DAO/SalaDAO";
 import Sala from "../entity/Sala";
+import Pagina from "../DAO/Pagina";
 
 
 class SalaControlador extends SalaDAO{
@@ -14,6 +15,10 @@ class SalaControlador extends SalaDAO{
         objCubi.salaCapacidad = req.body.salaCapacidad;
         objCubi.idCine = req.body.idCine;
         SalaDAO.grabeloYa(objCubi, res);
+    }
+
+    public salasPaginadas(req: Request, res: Response) : void {
+        SalaDAO.vistaPaginada(req, res); 
     }
 
     public borraTuSala(req: Request, res: Response): void {

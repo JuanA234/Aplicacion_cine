@@ -15,6 +15,9 @@ class SalaControlador extends SalaDAO_1.default {
         objCubi.idCine = req.body.idCine;
         SalaDAO_1.default.grabeloYa(objCubi, res);
     }
+    salasPaginadas(req, res) {
+        SalaDAO_1.default.vistaPaginada(req, res);
+    }
     borraTuSala(req, res) {
         if (isNaN(Number(req.params.idSala))) {
             res.status(400).json({ respuesta: "Y el codigo mi vale" });
