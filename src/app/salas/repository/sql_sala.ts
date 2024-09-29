@@ -11,6 +11,9 @@ export const SQL_SALAS={
     HOW_MANY: "SELECT COUNT(id_sala) as existe FROM salas \
     WHERE id_sala = $1",
 
+    HOW_MANY_CINE: "SELECT COUNT(id_cine) as existe FROM salas \
+    WHERE id_cine = $1",
+
     DELETE: "DELETE FROM salas WHERE id_sala = $1",
 
     UPDATE: "UPDATE salas SET sala_capacidad = $1, id_cine = $2 \

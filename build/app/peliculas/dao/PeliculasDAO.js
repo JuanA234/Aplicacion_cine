@@ -12,58 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sql_sala_1 = require("../repository/sql_sala");
+const sql_peliculas_1 = require("../repository/sql_peliculas");
 const dbConnection_1 = __importDefault(require("../../../config/connection/dbConnection"));
-class SalaDAO {
+class PeliculasDAO {
     static obtenerTodo(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default
-                .result(sql_sala_1.SQL_SALAS.GET_ALL, params)
-                .then((resultado) => {
+            yield dbConnection_1.default.result(sql_peliculas_1.SQL_PELICULAS.GET_ALL).then((resultado) => {
                 res.status(200).json(resultado.rows);
             }).catch((miError) => {
-                console.log("mi error");
+                console.log(miError);
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    "Respuesta": "Ay no sirve"
                 });
             });
         });
     }
-    static vistaPaginada(params, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
-                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
-                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
-                if (page > limit && page <= 0)
-                    return res.status(400).json({ respuesta: "Pagina invalida" });
-                const desde = (page - 1) * limit;
-                const salas = yield consulta.manyOrNone(sql_sala_1.SQL_SALAS.GET_PAGE, [Number(limit), Number(desde)]);
-                return salas;
-            })).then((salas) => {
-                res.status(200).json(salas);
-            })
-                .catch(err => {
-                console.log("mi error");
-                res.status(400).json({
-                    "respuesta": "Se estalló"
-                });
-            });
-        });
-    }
+    ;
     static grabeloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default
-                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY, [datos.idSala]);
+                const cubi = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.HOW_MANY, [datos.id_pelicula]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(sql_sala_1.SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine]);
+                    respuBase = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.ADD, [datos.nombre_pelicula, datos.duracion_pelicula, datos.id_genero]);
                 }
                 return { queHacer, respuBase };
-            }))
-                .then(({ queHacer, respuBase }) => {
+            })).then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({ respuesta: "Compita ya existe la sala" });
@@ -72,59 +48,55 @@ class SalaDAO {
                         res.status(200).json(respuBase);
                         break;
                 }
-            })
-                .catch((miError) => {
+            }).catch((miError) => {
                 console.log(miError);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: "Se totió mano" });
             });
         });
     }
+    ;
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            dbConnection_1.default
-                .task((consulta) => {
-                return consulta.result(sql_sala_1.SQL_SALAS.DELETE, [datos.idSala]);
-            })
-                .then((respuesta) => {
+            console.log("hola");
+            dbConnection_1.default.task((consulta) => {
+                return consulta.result(sql_peliculas_1.SQL_PELICULAS.DELETE, [datos.id_pelicula]);
+            }).then((respuesta) => {
                 res.status(200).json({
-                    respuesta: "Lo borre sin miedo",
+                    respuesta: "Lo borré sin miedo",
                     info: respuesta.rowCount,
                 });
-            })
-                .catch((miErrorcito) => {
+            }).catch((miErrorcito) => {
                 console.log(miErrorcito);
                 res.status(400).json({ respuesta: "Pailas, sql totiado" });
             });
         });
     }
+    ;
     static actualiceloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default
-                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+            dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY, [datos.idSala]);
+                const cubi = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.HOW_MANY, [datos.id_pelicula]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_sala_1.SQL_SALAS.UPDATE, [datos.salaCapacidad, datos.idCine, datos.idSala]);
+                    respuBase = yield consulta.none(sql_peliculas_1.SQL_PELICULAS.UPDATE, [datos.nombre_pelicula, datos.duracion_pelicula, datos.id_genero, datos.id_pelicula]);
                 }
                 return { queHacer, respuBase };
-            }))
-                .then(({ queHacer, respuBase }) => {
+            })).then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita no existe" });
+                        res.status(400).json({ respuesta: "Compita ya existe" });
                         break;
                     default:
-                        res.status(200).json({ acualizado: "Ok" });
+                        res.status(200).json({ actualizado: "ok" });
                         break;
                 }
-            })
-                .catch((miError) => {
-                console.log(miError);
+            }).catch((miErrorcito) => {
+                console.log(miErrorcito);
                 res.status(400).json({ respuesta: "Pailas, sql totiado" });
             });
         });
     }
 }
-exports.default = SalaDAO;
+exports.default = PeliculasDAO;

@@ -25,9 +25,8 @@ class SalaDAO {
 
             if(page > limit && page <= 0)
                 return res.status(400).json({respuesta: "Pagina invalida"});
-            const desde = (page - 1) * limit;
-            const hasta = limit;
-            const salas = await consulta.manyOrNone(SQL_SALAS.GET_PAGE, [Number(hasta), Number(desde)]);
+            const desde = (page - 1) * limit;  
+            const salas = await consulta.manyOrNone(SQL_SALAS.GET_PAGE, [Number(limit), Number(desde)]);
             return salas
         }).then((salas) => {
             res.status(200).json(salas);
@@ -37,47 +36,37 @@ class SalaDAO {
             res.status(400).json({
                 "respuesta": "Se estalló"
             });
-            }
+        }
         );
     }
 
-    protected static async grabeloYa(datos: Sala, res: Response): Promise<any> {
-        await pool.task(async (consulta) => {
-
-            const existeSala = await consulta.one(SQL_SALAS.HOW_MANY, [datos.idSala]);
-            const existeCapacidad = await consulta.one(SQL_SALAS.HOW_MANY_CAPACITY, [datos.salaCapacidad]);
-            const existeCine = await consulta.one(SQL_SALAS.HOW_MANY_CINE, [datos.idCine]);
-    
-      
-            const camposRepetidos = [];
-            if (existeSala.existe > 0) camposRepetidos.push('idSala');
-            if (existeCapacidad.existe > 0) camposRepetidos.push('salaCapacidad');
-            if (existeCine.existe > 0) camposRepetidos.push('idCine');
-    
-            if (camposRepetidos.length > 0) { 
-                return { queHacer: 1, camposRepetidos };
+    protected static async grabeloYa(datos:Sala, res:Response): Promise<any>{
+        await pool
+        .task(async(consulta)=>{
+            let queHacer = 1;
+            let respuBase: any;
+            const cubi = await consulta.one(SQL_SALAS.HOW_MANY, [datos.idSala]);
+            if(cubi.existe == 0){
+                queHacer = 2;
+                respuBase = await consulta.one(SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine]);
             }
-    
-            // Si no hay duplicados, procede a agregar la sala
-            const respuBase = await consulta.one(SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine, datos.idSala]);
-            return { queHacer: 2, respuBase }; 
+            return {queHacer, respuBase};
         })
-        .then(({ queHacer, respuBase, camposRepetidos }) => {
-            switch (queHacer) {
-                case 1:
-                    res.status(400).json({ respuesta: "Compita, los siguientes campos ya existen:", camposRepetidos });
+        .then(({queHacer, respuBase})=>{
+            switch(queHacer){
+                case 1: 
+                    res.status(400).json({respuesta: "Compita ya existe la sala"});
                     break;
-                case 2:
-                    res.status(200).json(respuBase); 
+                default:
+                    res.status(200).json(respuBase);
                     break;
             }
         })
-        .catch((miError: any) => {
+        .catch((miError:any)=>{
             console.log(miError);
-            res.status(400).json({ respuesta: "Se produjo un error al procesar la solicitud" });
+            res.status(400).json({respuesta: "Se totio mano"});
         });
     }
-    
 
     protected static async borreloYa(datos: Sala, res: Response): Promise<any>{
         pool
@@ -95,7 +84,7 @@ class SalaDAO {
             res.status(400).json({respuesta: "Pailas, sql totiado"});
         });
     }
-    
+
     protected static async actualiceloYa(datos:Sala, res:Response): Promise<any>{
         await pool
         .task(async(consulta)=>{
@@ -123,7 +112,6 @@ class SalaDAO {
             res.status(400).json({respuesta: "Pailas, sql totiado"});
         });
     }
-
 }
 
 export default SalaDAO;
