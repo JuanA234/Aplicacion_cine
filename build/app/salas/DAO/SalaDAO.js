@@ -29,6 +29,27 @@ class SalaDAO {
             });
         });
     }
+    static vistaPaginada(params, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
+                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
+                if (page > limit && page <= 0)
+                    return res.status(400).json({ respuesta: "Pagina invalida" });
+                const desde = (page - 1) * limit;
+                const salas = yield consulta.manyOrNone(sql_sala_1.SQL_SALAS.GET_PAGE, [Number(limit), Number(desde)]);
+                return salas;
+            })).then((salas) => {
+                res.status(200).json(salas);
+            })
+                .catch(err => {
+                console.log("mi error");
+                res.status(400).json({
+                    "respuesta": "Se estalló"
+                });
+            });
+        });
+    }
     static grabeloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default

@@ -3,7 +3,6 @@ import { SQL_SALAS } from "../repository/sql_sala";
 import pool from "../../../config/connection/dbConnection";
 import Sala from "../entity/Sala";
 
-
 class SalaDAO {
 
     protected static async obtenerTodo(params: any, res: Response) {
@@ -17,6 +16,28 @@ class SalaDAO {
                 "respuesta": "ay no sirve"
             });
         });
+    }
+
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;  
+            const salas = await consulta.manyOrNone(SQL_SALAS.GET_PAGE, [Number(limit), Number(desde)]);
+            return salas
+        }).then((salas) => {
+            res.status(200).json(salas);
+        })
+        .catch(err => {
+            console.log("mi error");
+            res.status(400).json({
+                "respuesta": "Se estalló"
+            });
+        }
+        );
     }
 
     protected static async grabeloYa(datos:Sala, res:Response): Promise<any>{
@@ -63,7 +84,7 @@ class SalaDAO {
             res.status(400).json({respuesta: "Pailas, sql totiado"});
         });
     }
-    
+
     protected static async actualiceloYa(datos:Sala, res:Response): Promise<any>{
         await pool
         .task(async(consulta)=>{
@@ -91,7 +112,6 @@ class SalaDAO {
             res.status(400).json({respuesta: "Pailas, sql totiado"});
         });
     }
-
 }
 
 export default SalaDAO;
