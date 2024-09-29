@@ -51,8 +51,7 @@ class PeliculasDAO {
                 info: respuesta.rowCount,
             });
         }).catch( (miErrorcito) => {
-            console.log(miErrorcito);
-            res.status(400).json({ respuesta: "Pailas, sql totiado" });
+            res.status(400).json({ respuesta: miErrorcito.detail});
         });
     };
 
