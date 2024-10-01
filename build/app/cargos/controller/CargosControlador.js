@@ -12,6 +12,12 @@ class CargosControlador extends CargosDAO_1.default {
     funcionesPaginadas(req, res) {
         CargosDAO_1.default.vistaPaginada(req, res);
     }
+    actuaizarTod(req, res) {
+        const objCubi = new Cargos_1.default(0, "", "");
+        objCubi.nombreCargo = req.body.nombreCargo;
+        objCubi.descripcionCargo = req.body.descripcionCargo;
+        CargosDAO_1.default.actualizarTodo(objCubi, res);
+    }
     obtenerCargo(req, res) {
         const objCubi = new Cargos_1.default(0, "", "");
         objCubi.idCargo = req.body.idCargo;

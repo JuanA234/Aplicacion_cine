@@ -14,6 +14,7 @@ class CargosRuta {
         this.apiRutaCargos.put("/update", CargosControlador_1.default.actualizarCargo);
         this.apiRutaCargos.put("/updateMasive", CargosControlador_1.default.actualizacionMasiva);
         this.apiRutaCargos.get("/getPage", CargosControlador_1.default.funcionesPaginadas);
+        this.apiRutaCargos.put("/updateAll", CargosControlador_1.default.actuaizarTod);
     }
 }
 const cargosRuta = new CargosRuta();

@@ -11,6 +11,7 @@ export const SQL_CARGOS = {
     HOW_MANY: "SELECT COUNT (id_cargo) as existe FROM cargos \
         WHERE id_cargo = $1 OR nombre_cargo = $2",
 
+
     HOW_MANY_1: "SELECT COUNT (id_cargo) as existe FROM cargos \
     WHERE nombre_cargo LIKE '%' || $1 || '%'",
 
@@ -21,4 +22,9 @@ export const SQL_CARGOS = {
     
     MASSIVE_UPDATE: "UPDATE Cargos SET nombre_cargo = REPLACE(nombre_cargo, $1, $2) \
         WHERE nombre_cargo LIKE '%' || $1 || '%'",
+
+    UPDATE_ALL_NAMES: "UPDATE Cargos SET nombre_cargo = $1",
+    UPDATE_ALL_DESC: "UPDATE Cargos SET descripcion_cargo = $1",
+
+    DELETE_ALL:"DELETE FROM cargos"
 };

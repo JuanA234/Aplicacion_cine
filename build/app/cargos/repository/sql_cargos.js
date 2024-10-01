@@ -17,4 +17,7 @@ exports.SQL_CARGOS = {
         WHERE id_cargo = $3",
     MASSIVE_UPDATE: "UPDATE Cargos SET nombre_cargo = REPLACE(nombre_cargo, $1, $2) \
         WHERE nombre_cargo LIKE '%' || $1 || '%'",
+    UPDATE_ALL_NAMES: "UPDATE Cargos SET nombre_cargo = $1",
+    UPDATE_ALL_DESC: "UPDATE Cargos SET descripcion_cargo = $1",
+    DELETE_ALL: "DELETE FROM cargos"
 };

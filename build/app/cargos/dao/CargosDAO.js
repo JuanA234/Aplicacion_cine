@@ -48,6 +48,41 @@ class CargosDAO {
             });
         });
     }
+    /** Metodo para actulizar todo */
+    static actualizarTodo(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let respuBase;
+                let queHacer = 1;
+                const cubi = yield consulta.one(sql_cargos_1.SQL_CARGOS.HOW_MANY, [datos.idCargo, datos.nombreCargo]);
+                if (cubi.existe == 0) {
+                    if (datos.descripcionCargo != undefined) {
+                        queHacer = 2;
+                        respuBase = yield consulta.none(sql_cargos_1.SQL_CARGOS.UPDATE_ALL_DESC, [datos.descripcionCargo]);
+                    }
+                    if (datos.nombreCargo != undefined) {
+                        queHacer = 3;
+                    }
+                }
+                return { queHacer, respuBase };
+            })).then(({ queHacer, respuBase }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(400).json({ respuesta: "Ya existe un cargo con ese nombre" });
+                        break;
+                    case 2:
+                        res.status(200).json({ respuesta: "ok" });
+                        break;
+                    default:
+                        res.status(400).json({ respuesta: "Cada cargo debe tener un nombre unico" });
+                }
+            }).catch((miError) => {
+                console.log(miError);
+                res.status(400).json({ respuesta: "Ocurrio un error" });
+            });
+        });
+    }
+    ;
     static grabeloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
@@ -79,6 +114,21 @@ class CargosDAO {
         return __awaiter(this, void 0, void 0, function* () {
             dbConnection_1.default.task((consulta) => {
                 return consulta.result(sql_cargos_1.SQL_CARGOS.DELETE, [datos.idCargo]);
+            }).then((respuesta) => {
+                res.status(200).json({
+                    respuesta: "Lo borré sin miedo",
+                    info: respuesta.rowCount,
+                });
+            }).catch((miErrorcito) => {
+                res.status(400).json({ error: miErrorcito.detail });
+            });
+        });
+    }
+    ;
+    static borreloTodo(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            dbConnection_1.default.task((consulta) => {
+                return consulta.result(sql_cargos_1.SQL_CARGOS.DELETE_ALL, []);
             }).then((respuesta) => {
                 res.status(200).json({
                     respuesta: "Lo borré sin miedo",

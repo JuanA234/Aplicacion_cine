@@ -12,6 +12,7 @@ class CargosRuta{
         this.apiRutaCargos.put("/update", cargosControlador.actualizarCargo);  
         this.apiRutaCargos.put("/updateMasive", cargosControlador.actualizacionMasiva);
         this.apiRutaCargos.get("/getPage", cargosControlador.funcionesPaginadas);
+        this.apiRutaCargos.put("/updateAll", cargosControlador.actuaizarTod);
     }
 }
 
