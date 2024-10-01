@@ -13,6 +13,7 @@ class ReservacionRuta {
         this.apiRutaReservacion.post("/addicto", ReservacionesControlador_1.default.cogeTuReservacion);
         this.apiRutaReservacion.delete("/delete/:idReservacion", ReservacionesControlador_1.default.borraTuReservacion);
         this.apiRutaReservacion.put("/update", ReservacionesControlador_1.default.actualizaTuTAbla);
+        this.apiRutaReservacion.put("/changeAllBookings", ReservacionesControlador_1.default.reservarTodo);
     }
 }
 const reservacionRuta = new ReservacionRuta();

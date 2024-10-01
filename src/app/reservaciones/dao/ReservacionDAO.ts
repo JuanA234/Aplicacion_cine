@@ -3,6 +3,7 @@ import { SQL_RESERVACIONES } from "../repository/sql_reservaciones";
 import pool from "../../../config/connection/dbConnection";
 import Reservacion from "../entity/Reservacion";
 
+
 class ReservacionDAO {
 
     protected static async obtenerTodo(params: any, res: Response) {
@@ -45,6 +46,30 @@ class ReservacionDAO {
             .catch((miError: any) => {
                 res.status(400).json({ respuesta: miError.detail });
             });
+    }
+
+    protected static async reservarTodo(datos: Reservacion, res: Response){
+        await pool.task(async (consulta) => {
+            let queHacer = 1;
+            let respuBase: any;
+
+            const cubi = await consulta.one(SQL_RESERVACIONES.HOW_MANY_PERSONS, [datos.idPersona]);
+            if(cubi.existe != 0){
+                queHacer = 2;
+                respuBase = await consulta.none(SQL_RESERVACIONES.RESERV_ALL, [datos.idPersona]);
+            }
+            return {queHacer, respuBase}
+
+        }).then(({queHacer, respuBase}) => {
+            switch (queHacer) {
+                case 1: 
+                    res.status(400).json({respuesta: "No se puede cambiar la reservación porque la persona especificada no existe"});
+                    break;
+                case 2:
+                    res.status(200).json({respuesta : "Ok"});
+                    break;
+            }   
+        }).catch();
     }
 
     protected static async vistaPaginada(params: any, res: Response){

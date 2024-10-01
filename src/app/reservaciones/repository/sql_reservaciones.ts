@@ -11,8 +11,12 @@ export const SQL_RESERVACIONES={
     ADD: "INSERT INTO reservaciones (id_persona, id_butaca, id_funcion) \
     VALUES ($1, $2, $3) RETURNING id_reservacion",
 
+    HOW_MANY_PERSONS : "SELECT COUNT(id_persona) as existe from reservaciones WHERE id_persona = $1",
+
     HOW_MANY: "SELECT COUNT(id_reservacion) as existe FROM reservaciones \
     WHERE id_funcion = $1",
+
+    RESERV_ALL : "UPDATE reservaciones SET id_persona = $1",
 
     DELETE: "DELETE FROM reservaciones WHERE id_reservacion = $1",
 

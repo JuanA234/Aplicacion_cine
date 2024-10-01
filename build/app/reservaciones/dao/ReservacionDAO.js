@@ -58,6 +58,29 @@ class ReservacionDAO {
             });
         });
     }
+    static reservarTodo(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuBase;
+                const cubi = yield consulta.one(sql_reservaciones_1.SQL_RESERVACIONES.HOW_MANY_PERSONS, [datos.idPersona]);
+                if (cubi.existe != 0) {
+                    queHacer = 2;
+                    respuBase = yield consulta.none(sql_reservaciones_1.SQL_RESERVACIONES.RESERV_ALL, [datos.idPersona]);
+                }
+                return { queHacer, respuBase };
+            })).then(({ queHacer, respuBase }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(400).json({ respuesta: "No se puede cambiar la reservación porque la persona especificada no existe" });
+                        break;
+                    case 2:
+                        res.status(200).json({ respuesta: "Ok" });
+                        break;
+                }
+            }).catch();
+        });
+    }
     static vistaPaginada(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {

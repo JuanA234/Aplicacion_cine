@@ -32,6 +32,12 @@ class ReservacionControlador extends ReservacionDAO{
         ReservacionDAO.vistaPaginada(req, res); 
     }
 
+    public reservarTodo(req: Request, res: Response) : void {
+        const objCubi: Reservacion = new Reservacion(0,0,0,0);
+        objCubi.idPersona = req.body.idPersona;
+        ReservacionDAO.reservarTodo(objCubi, res);
+    }
+
     public actualizaTuTAbla(req: Request, res:Response): void{
         const objCubi: Reservacion = new Reservacion(0, 0, 0, 0);
         objCubi.idReservacion = Number(req.body.idReservacion)

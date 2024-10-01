@@ -11,6 +11,7 @@ class ReservacionRuta{
         this.apiRutaReservacion.post("/addicto", reservacionControlador.cogeTuReservacion);
         this.apiRutaReservacion.delete("/delete/:idReservacion", reservacionControlador.borraTuReservacion);
         this.apiRutaReservacion.put("/update", reservacionControlador.actualizaTuTAbla);
+        this.apiRutaReservacion.put("/changeAllBookings", reservacionControlador.reservarTodo);
     }
 }
 
