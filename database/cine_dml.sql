@@ -98,9 +98,6 @@ insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (97, 'orci
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (98, 'convallis nunc', 'vestibulum sed');
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (99, 'proin', 'porttitor');
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (100, 'mattis', 'nulla ac');
-SELECT setval(pg_get_serial_sequence('Cargos', 'id_cargo'), MAX(id_cargo)) FROM Cargos;
-
-
 
 insert into Ubicaciones (id_ubicacion, nombre_ubicacion, id_padre) values (1, 1, 1);
 insert into Ubicaciones (id_ubicacion, nombre_ubicacion, id_padre) values (2, 2, 2);
@@ -1517,7 +1514,6 @@ insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_u
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (98, 'Tulley Ragate', '1965-02-21', 50, 28, 11, 87);
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (99, 'Malcolm Gammet', '1993-08-02', 47, 38, 24, 58);
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (100, 'Lindsay McNamee', '1981-08-06', 69, 79, 15, 18);
-SELECT setval(pg_get_serial_sequence('Personas', 'id_persona'), MAX(id_persona)) FROM Personas;
 
 
 insert into Reservaciones (id_reservacion, id_persona, id_butaca, id_funcion) values (1, 1, 1, 1);
@@ -1722,3 +1718,8 @@ insert into Carteleras_Cines (id_cartelera, id_pelicula, fecha_desde, fecha_hast
 insert into Carteleras_Cines (id_cartelera, id_pelicula, fecha_desde, fecha_hasta, id_cine) values (95, 51, '2023-12-17', '2025-07-19', 4);
 insert into Carteleras_Cines (id_cartelera, id_pelicula, fecha_desde, fecha_hasta, id_cine) values (32, 80, '2024-01-26', '2024-09-13', 33);
 insert into Carteleras_Cines (id_cartelera, id_pelicula, fecha_desde, fecha_hasta, id_cine) values (35, 58, '2024-07-30', '2024-09-07', 52)
+
+
+SELECT setval(pg_get_serial_sequence('Cargos', 'id_cargo'), MAX(id_cargo)) FROM Cargos;
+SELECT setval(pg_get_serial_sequence('Personas', 'id_persona'), MAX(id_persona)) FROM Personas;
+
