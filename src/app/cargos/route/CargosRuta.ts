@@ -10,6 +10,7 @@ class CargosRuta{
         this.apiRutaCargos.post("/addcito", cargosControlador.obtenerCargo);
         this.apiRutaCargos.delete("/delete/:idCargo", cargosControlador.borrarCargo);
         this.apiRutaCargos.put("/update", cargosControlador.actualizarCargo);
+        this.apiRutaCargos.get("/getPage", cargosControlador.funcionesPaginadas);
     }
 }
 

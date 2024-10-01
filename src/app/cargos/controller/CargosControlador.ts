@@ -8,6 +8,11 @@ class CargosControlador extends CargosDAO{
         CargosDAO.obtenerTodo([], res);
     }
 
+    public funcionesPaginadas(req: Request, res: Response) : void {
+        CargosDAO.vistaPaginada(req, res); 
+    }
+
+
     public obtenerCargo(req: Request, res: Response): void {
         const objCubi: Cargos = new Cargos(0, "", "");
         objCubi.idCargo = req.body.idCargo;

@@ -1,11 +1,16 @@
 import { Response, Request } from "express";
 import CartelerasCinesDAO from "../dao/CartelerasCinesDAO";
 import CartelerasCines from "../entity/CartelerasCines";
+import cartelerasControlador from "../../carteleras/controller/CartelerasControlador";
 
 class CartelerasCinesControlador extends CartelerasCinesDAO{
 
     public dameCartelerasCines(req:Request, res:Response){
         CartelerasCinesDAO.obtenerTodo([], res);
+    }
+
+    public cartelerasCinesPaginadas(req: Request, res: Response) : void {
+        CartelerasCinesDAO.vistaPaginada(req, res); 
     }
 
     public obtenerCartelerasCines(req: Request, res: Response): void {

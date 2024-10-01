@@ -8,6 +8,10 @@ class PersonasControlador extends PersonasDAO{
         PersonasDAO.obtenerTodo([], res);
     }
 
+    public damePersonasPaginadas(req: Request, res: Response) : void {
+        PersonasDAO.vistaPaginada(req, res); 
+    }
+
     public obtenerPersona(req: Request, res: Response): void {
         const objCubi: Personas = new Personas(0, "", new Date(0), 0, 0, 0,0);
         objCubi.idPersona = req.body.idPersona;

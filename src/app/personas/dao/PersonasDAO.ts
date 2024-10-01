@@ -15,11 +15,31 @@ class PersonasDAO {
         });
     };
 
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;
+            const personas = await consulta.manyOrNone(SQL_PERSONAS.GET_PAGE, [Number(limit), Number(desde)]);
+            return personas;
+        }).then((personas) => {
+            res.status(200).json(personas);
+        })
+        .catch(err => {
+            res.status(400).json({
+                "respuesta": err
+                });
+            }
+        );
+    }
+
     protected static async grabeloYa(datos: Personas, res: Response): Promise<any> {
         await pool.task(async (consulta) => {
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_PERSONAS.HOW_MANY, [datos.idPersona]);
+            const cubi = await consulta.one(SQL_PERSONAS.HOW_MANY, [datos.idPersona, datos.idUsuario]);
             if (cubi.existe == 0) {
                 queHacer = 2;
                 respuBase = await consulta.one(SQL_PERSONAS.ADD, [datos.nombrePersona, datos.fechaNacimientoPersona,
@@ -29,7 +49,7 @@ class PersonasDAO {
         }).then( ({ queHacer, respuBase }) => {
             switch (queHacer) {
                 case 1:
-                    res.status(400).json({ respuesta: "El cargo ya existe" });
+                    res.status(400).json({ respuesta: "La persona con id_usuario: " + datos.idUsuario + " ya existe" });
                     break;
                 default:
                     res.status(200).json(respuBase);
@@ -50,8 +70,7 @@ class PersonasDAO {
                 info: respuesta.rowCount,
             });
         }).catch( (miErrorcito) => {
-            console.log(miErrorcito);
-            res.status(400).json({ respuesta: "Pailas, sql totiado" });
+            res.status(400).json({ respuesta: miErrorcito.detail});
         });
     };
 
@@ -59,7 +78,7 @@ class PersonasDAO {
         pool.task(async (consulta) => {
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_PERSONAS.HOW_MANY, [datos.idPersona]);
+            const cubi = await consulta.one(SQL_PERSONAS.HOW_MANY, [datos.idPersona, datos.idUsuario]);
             if (cubi.existe != 0) {
                 queHacer = 2;
                 respuBase = await consulta.none(SQL_PERSONAS.UPDATE, [datos.nombrePersona, datos.fechaNacimientoPersona,

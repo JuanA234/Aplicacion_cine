@@ -10,6 +10,8 @@ class PersonasRuta{
         this.apiRutaPersonas.post("/addcito", PersonasControlador.obtenerPersona);
         this.apiRutaPersonas.delete("/delete/:idPersona", PersonasControlador.borrarPersona);
         this.apiRutaPersonas.put("/update", PersonasControlador.actualizarPersona);
+        this.apiRutaPersonas.get("/getPage", PersonasControlador.damePersonasPaginadas);
+
     }
 }
 

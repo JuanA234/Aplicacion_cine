@@ -5,7 +5,7 @@ import Cargos from "../entity/Cargos";
 
 class CargosDAO {
     protected static async obtenerTodo(params: any, res: Response) {
-        await pool.result(SQL_CARGOS.GET_ALL).then((resultado)=>{
+        await pool.result(SQL_CARGOS.GET_ALL, params).then((resultado)=>{
             res.status(200).json(resultado.rows);
         }).catch((miError) => {
             console.log(miError);
@@ -15,11 +15,31 @@ class CargosDAO {
         });
     };
 
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;
+            const cargos = await consulta.manyOrNone(SQL_CARGOS.GET_PAGE, [Number(limit), Number(desde)]);
+            return cargos;
+        }).then((cargos) => {
+            res.status(200).json(cargos);
+        })
+        .catch(err => {
+            res.status(400).json({
+                "respuesta": err
+                });
+            }
+        );
+    }
+
     protected static async grabeloYa(datos: Cargos, res: Response): Promise<any> {
         await pool.task(async (consulta) => {
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_CARGOS.HOW_MANY, [datos.idCargo]);
+            const cubi = await consulta.one(SQL_CARGOS.HOW_MANY, [datos.idCargo, datos.nombreCargo]);
             if (cubi.existe == 0) {
                 queHacer = 2;
                 respuBase = await consulta.one(SQL_CARGOS.ADD, [datos.nombreCargo, datos.descripcionCargo]);
@@ -49,16 +69,41 @@ class CargosDAO {
                 info: respuesta.rowCount,
             });
         }).catch( (miErrorcito) => {
-            console.log(miErrorcito);
-            res.status(400).json({ respuesta: "Pailas, sql totiado" });
+            res.status(400).json({ error: miErrorcito.detail });
         });
     };
+
+    protected static async actualizacionMasiva(datos: Cargos, res: Response): Promise<any> {
+        await pool
+        .task( async (consulta) => {
+            let queHacer = 1;
+            let respuBase: any;
+            const cubi = await consulta.one(SQL_CARGOS.HOW_MANY, [datos.idCargo]);
+            console.log(cubi);
+            if(cubi.existe != 0){
+                queHacer = 2;
+                respuBase = await consulta.none(SQL_CARGOS.MASSIVE_UPDATE, [datos.nombreCargo]);
+            }
+            return { queHacer, respuBase };
+        }).then(({ queHacer, respuBase}) => {
+            switch (queHacer) {
+                case 1:
+                    res.status(400).json({ respuesta: "Compita no existe la función" });
+                    break;
+                case 2:
+                    res.status(200).json({acualizado: "Ok"});
+                    break;
+            }
+        }).catch(err => {
+            res.status(400).json({ respuesta: err });
+        } )
+    }
 
     protected static async actualiceloYa(datos: Cargos, res: Response): Promise<any>{
         pool.task(async (consulta) => {
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_CARGOS.HOW_MANY, [datos.idCargo]);
+            const cubi = await consulta.one(SQL_CARGOS.HOW_MANY, [datos.idCargo, datos.nombreCargo]);
             if (cubi.existe != 0) {
                 queHacer = 2;
                 respuBase = await consulta.none(SQL_CARGOS.UPDATE, [datos.nombreCargo, datos.descripcionCargo, datos.idCargo]);

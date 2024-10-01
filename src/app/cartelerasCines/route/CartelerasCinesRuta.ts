@@ -1,5 +1,6 @@
 import { Router } from "express";
 import CartelerasCinesControlador from "../controller/CartelerasCinesControlador";
+import cartelerasCinesControlador from "../controller/CartelerasCinesControlador";
 
 class CartelerasCinesRuta{
     public apiRutaCartelerasCines:Router
@@ -10,6 +11,7 @@ class CartelerasCinesRuta{
         this.apiRutaCartelerasCines.post("/addcito", CartelerasCinesControlador.obtenerCartelerasCines);
         this.apiRutaCartelerasCines.delete("/delete/:idCartelera/:idPelicula", CartelerasCinesControlador.borrarCartelerasCines);
         this.apiRutaCartelerasCines.put("/update", CartelerasCinesControlador.actualizarCartelerasCines);
+        this.apiRutaCartelerasCines.get("/getPage", cartelerasCinesControlador.cartelerasCinesPaginadas);
     }
 }
 
