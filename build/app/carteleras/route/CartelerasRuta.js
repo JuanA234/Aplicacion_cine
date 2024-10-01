@@ -9,6 +9,7 @@ class CartelerasRuta {
     constructor() {
         this.apiRutaCarteleras = (0, express_1.Router)();
         this.apiRutaCarteleras.get("/getall", CartelerasControlador_1.default.dameCarteleras);
+        this.apiRutaCarteleras.get("/getPage", CartelerasControlador_1.default.cartelerasPaginadas);
         this.apiRutaCarteleras.post("/addcito", CartelerasControlador_1.default.obtenerCartelera);
         this.apiRutaCarteleras.delete("/delete/:idCartelera", CartelerasControlador_1.default.borrarCartelera);
         this.apiRutaCarteleras.put("/update", CartelerasControlador_1.default.actualizarCartelera);

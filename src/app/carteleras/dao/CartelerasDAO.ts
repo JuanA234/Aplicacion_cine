@@ -22,7 +22,7 @@ class CartelerasDAO {
             const cubi = await consulta.one(SQL_CARTELERAS.HOW_MANY, [datos.idCartelera]);
             if (cubi.existe == 0) {
                 queHacer = 2;
-                respuBase = await consulta.one(SQL_CARTELERAS.ADD, [datos.idCartelera, datos.idCine]);
+                respuBase = await consulta.one(SQL_CARTELERAS.ADD, [datos.idCine]);
             }
             return { queHacer, respuBase };
         }).then( ({ queHacer, respuBase }) => {
@@ -39,8 +39,31 @@ class CartelerasDAO {
             res.status(400).json({ respuesta: "Ocurrio un error" });
         });
     };
+
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;  
+            const salas = await consulta.manyOrNone(SQL_CARTELERAS.GET_PAGE, [Number(limit), Number(desde)]);
+            return salas
+        }).then((salas) => {
+            res.status(200).json(salas);
+        })
+        .catch(err => {
+            console.log("mi error");
+            res.status(400).json({
+                "respuesta": "Se estalló"
+                });
+            }
+        );
+    }
      
     protected static async borreloYa(datos: Carteleras, res: Response): Promise<any> {
+        console.log("hola");
         pool.task((consulta) => {
             return consulta.result(SQL_CARTELERAS.DELETE, [datos.idCartelera]);
         }).then((respuesta) => {
@@ -49,10 +72,11 @@ class CartelerasDAO {
                 info: respuesta.rowCount,
             });
         }).catch( (miErrorcito) => {
-            console.log(miErrorcito);
-            res.status(400).json({ respuesta: "Pailas, sql totiado" });
+            res.status(400).json({ respuesta: miErrorcito.detail});
         });
     };
+
+
 
     protected static async actualiceloYa(datos: Carteleras, res: Response): Promise<any> {
         try {

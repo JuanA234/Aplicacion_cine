@@ -10,17 +10,23 @@ class UsuariosControlador extends UsuariosDAO{
 
     public obtenerUsuarios(req: Request, res: Response): void {
         const objCubi: Usuarios = new Usuarios(0, "", "");
-        objCubi.id_usuario = req.body.id_usuario;
+        objCubi.idUsuario = req.body.idUsuario;
         objCubi.correo = String(req.body.correo);
         objCubi.contrasena = req.body.contrasena;
         UsuariosDAO.grabeloYa(objCubi, res);
     }
+
+    
+    public usuariosPaginadas(req: Request, res: Response) : void {
+        UsuariosDAO.vistaPaginada(req, res); 
+    }
+
     
     public borrarUsuarios(req: Request, res: Response): void {
-        if (isNaN(Number(req.params.id_usuario))) {
+        if (isNaN(Number(req.params.idUsuario))) {
             res.status(400).json({ respuesta: "Y el código mi vale?"});
         } else {
-            const codiguito = Number(req.params.id_usuario);
+            const codiguito = Number(req.params.idUsuario);
             const objcubi: Usuarios = new Usuarios(codiguito, "", "");
             UsuariosDAO.borreloYa(objcubi, res);
         }
@@ -28,7 +34,7 @@ class UsuariosControlador extends UsuariosDAO{
 
     public actualizarUsuarios(req: Request, res: Response): void {
         const objCubi: Usuarios = new Usuarios(0, "", "");
-        objCubi.id_usuario = Number(req.body.id_usuario);
+        objCubi.idUsuario = Number(req.body.idUsuario);
         objCubi.correo = String(req.body.correo);
         objCubi.contrasena = String(req.body.contrasena)
         UsuariosDAO.actualiceloYa(objCubi, res);

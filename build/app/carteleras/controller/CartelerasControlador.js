@@ -11,9 +11,12 @@ class CartelerasControlador extends CartelerasDAO_1.default {
     }
     obtenerCartelera(req, res) {
         const objCartelera = new Carteleras_1.default(0, 0);
-        objCartelera.idCartelera = Number(req.body.idCartelera);
+        //objCartelera.idCartelera = Number(req.body.idCartelera);
         objCartelera.idCine = Number(req.body.idCine);
         CartelerasDAO_1.default.grabeloYa(objCartelera, res);
+    }
+    cartelerasPaginadas(req, res) {
+        CartelerasDAO_1.default.vistaPaginada(req, res);
     }
     borrarCartelera(req, res) {
         if (isNaN(Number(req.params.idCartelera))) {

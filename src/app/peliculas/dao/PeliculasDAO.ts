@@ -20,16 +20,16 @@ class PeliculasDAO {
             
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_PELICULAS.HOW_MANY, [datos.id_pelicula]);
+            const cubi = await consulta.one(SQL_PELICULAS.HOW_MANY, [datos.idPelicula, datos.nombrePelicula]);
             if (cubi.existe == 0) {
                 queHacer = 2;
-                respuBase = await consulta.one(SQL_PELICULAS.ADD, [datos.nombre_pelicula, datos.duracion_pelicula, datos.id_genero]);
+                respuBase = await consulta.one(SQL_PELICULAS.ADD, [datos.nombrePelicula, datos.duracionPelicula, datos.idGenero]);
             }
             return { queHacer, respuBase };
         }).then( ({ queHacer, respuBase }) => {
             switch (queHacer) {
                 case 1:
-                    res.status(400).json({ respuesta: "Compita ya existe la sala" });
+                    res.status(400).json({ respuesta: "Compita ya existe la pelicula" });
                     break;
                 default:
                     res.status(200).json(respuBase);
@@ -43,7 +43,7 @@ class PeliculasDAO {
     protected static async borreloYa(datos: Peliculas, res: Response): Promise<any> {
         console.log("hola");
         pool.task((consulta) => {
-            return consulta.result(SQL_PELICULAS.DELETE, [datos.id_pelicula]);
+            return consulta.result(SQL_PELICULAS.DELETE, [datos.idPelicula]);
         }).then((respuesta) => {
             res.status (200).json({
                 respuesta: "Lo borré sin miedo",
@@ -54,14 +54,36 @@ class PeliculasDAO {
         });
     };
 
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;  
+            const salas = await consulta.manyOrNone(SQL_PELICULAS.GET_PAGE, [Number(limit), Number(desde)]);
+            return salas
+        }).then((salas) => {
+            res.status(200).json(salas);
+        })
+        .catch(err => {
+            console.log("mi error");
+            res.status(400).json({
+                "respuesta": "Se estalló"
+                });
+            }
+        );
+    }
+
     protected static async actualiceloYa(datos: Peliculas, res: Response): Promise<any>{
         pool.task(async (consulta) => {
             let queHacer = 1;
             let respuBase: any;
-            const cubi = await consulta.one(SQL_PELICULAS.HOW_MANY, [datos.id_pelicula]);
+            const cubi = await consulta.one(SQL_PELICULAS.HOW_MANY, [datos.idPelicula]);
             if (cubi.existe != 0) {
                 queHacer = 2;
-                respuBase = await consulta.none(SQL_PELICULAS. UPDATE, [datos.nombre_pelicula, datos.duracion_pelicula, datos.id_genero, datos.id_pelicula]);
+                respuBase = await consulta.none(SQL_PELICULAS. UPDATE, [datos.nombrePelicula, datos.duracionPelicula, datos.idGenero, datos.idPelicula]);
             }
             return { queHacer, respuBase };
             }).then( ({ queHacer, respuBase }) => {

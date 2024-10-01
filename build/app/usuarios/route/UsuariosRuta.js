@@ -10,6 +10,7 @@ class UsuariosRuta {
         this.apiRutaUsuarios = (0, express_1.Router)();
         this.apiRutaUsuarios.get("/getall", UsuariosControlador_1.default.dameUsuarios);
         this.apiRutaUsuarios.post("/addcito", UsuariosControlador_1.default.obtenerUsuarios);
+        this.apiRutaUsuarios.get("/getPage", UsuariosControlador_1.default.usuariosPaginadas);
         this.apiRutaUsuarios.delete("/delete/:id_usuario", UsuariosControlador_1.default.borrarUsuarios);
         this.apiRutaUsuarios.put("/update", UsuariosControlador_1.default.actualizarUsuarios);
     }

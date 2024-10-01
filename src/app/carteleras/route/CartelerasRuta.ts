@@ -8,6 +8,7 @@ class CartelerasRuta{
     constructor(){
         this.apiRutaCarteleras = Router();
         this.apiRutaCarteleras.get("/getall", cartelerasControlador.dameCarteleras);
+        this.apiRutaCarteleras.get("/getPage", cartelerasControlador.cartelerasPaginadas);
         this.apiRutaCarteleras.post("/addcito", cartelerasControlador.obtenerCartelera);
         this.apiRutaCarteleras.delete("/delete/:idCartelera", cartelerasControlador.borrarCartelera);
         this.apiRutaCarteleras.put("/update", cartelerasControlador.actualizarCartelera);
