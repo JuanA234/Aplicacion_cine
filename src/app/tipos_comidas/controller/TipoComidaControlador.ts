@@ -5,7 +5,8 @@ import TipoComida from "../entity/TipoComida";
 class TipoComidaControlador extends TipoComidaDAO{
 
     public dameTipoComidas(req:Request, res:Response){
-        TipoComidaDAO.obtenerTodo([],res);
+        let {tamPag, page} = req.query;
+        TipoComidaDAO.obtenerTodo(tamPag, page,res);
     }
 
     public cogeTuTipoComida(req: Request, res: Response): void{

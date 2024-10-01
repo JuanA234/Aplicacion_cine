@@ -21,12 +21,14 @@ class ComidaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 const offset = (page - 1) * tamPag;
                 const resultado = yield consulta.result(sql_comidas_1.SQL_COMIDAS.GET_ALL, [tamPag, offset]);
-                return { resultado };
+                const cubi = yield consulta.manyOrNone(sql_comidas_1.SQL_COMIDAS.TOTAL);
+                const totalComidas = cubi[0].count;
+                return { resultado, totalComidas };
             }))
-                .then(({ resultado }) => {
+                .then(({ resultado, totalComidas }) => {
                 res.status(200).json({
                     resultado: resultado.rows,
-                    totalComidas: resultado.rowCount,
+                    totalComidas: totalComidas
                 });
             }).catch((miError) => {
                 console.log("mi error");

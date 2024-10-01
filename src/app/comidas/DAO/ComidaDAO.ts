@@ -11,12 +11,14 @@ class ComidaDAO {
         .task(async(consulta)=>{
             const offset = (page-1)*tamPag;
             const resultado = await consulta.result(SQL_COMIDAS.GET_ALL, [tamPag, offset]);
-        return{resultado};
+            const cubi = await consulta.manyOrNone(SQL_COMIDAS.TOTAL);
+            const totalComidas = cubi[0].count;
+        return{resultado, totalComidas};
         })
-        .then(({resultado})=>{
+        .then(({resultado, totalComidas})=>{
             res.status(200).json({
                 resultado: resultado.rows,
-                totalComidas: resultado.rowCount,
+                totalComidas: totalComidas
             });
         }).catch((miError) => {
             console.log("mi error");

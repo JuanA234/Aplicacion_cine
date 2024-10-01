@@ -7,7 +7,8 @@ const TipoComidaDAO_1 = __importDefault(require("../DAO/TipoComidaDAO"));
 const TipoComida_1 = __importDefault(require("../entity/TipoComida"));
 class TipoComidaControlador extends TipoComidaDAO_1.default {
     dameTipoComidas(req, res) {
-        TipoComidaDAO_1.default.obtenerTodo([], res);
+        let { tamPag, page } = req.query;
+        TipoComidaDAO_1.default.obtenerTodo(tamPag, page, res);
     }
     cogeTuTipoComida(req, res) {
         const objCubi = new TipoComida_1.default(0, "", "");
