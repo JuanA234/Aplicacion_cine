@@ -75,29 +75,38 @@ class CargosDAO {
 
     protected static async actualizacionMasiva(datos: Cargos, res: Response): Promise<any> {
         await pool
-        .task( async (consulta) => {
-            let queHacer = 1;
-            let respuBase: any;
-            const cubi = await consulta.one(SQL_CARGOS.HOW_MANY, [datos.idCargo]);
-            console.log(cubi);
-            if(cubi.existe != 0){
-                queHacer = 2;
-                respuBase = await consulta.none(SQL_CARGOS.MASSIVE_UPDATE, [datos.nombreCargo]);
-            }
-            return { queHacer, respuBase };
-        }).then(({ queHacer, respuBase}) => {
-            switch (queHacer) {
-                case 1:
-                    res.status(400).json({ respuesta: "Compita no existe la función" });
-                    break;
-                case 2:
-                    res.status(200).json({acualizado: "Ok"});
-                    break;
-            }
-        }).catch(err => {
-            res.status(400).json({ respuesta: err });
-        } )
+            .task(async (consulta) => {
+                let queHacer = 1;
+                let respuBase: any;
+    
+                // Verifica si existe el cargo antes de proceder
+                const cubi = await consulta.one(SQL_CARGOS.HOW_MANY_1, [datos.nombreCargo]);
+                console.log(cubi)
+                if (cubi.existe != 0) {
+                    queHacer = 2
+                    console.log(":p");
+                    // Ejecutar la actualización masiva con los dos parámetros dinámicos
+                    respuBase = await consulta.none(SQL_CARGOS.MASSIVE_UPDATE, [datos.nombreCargo, datos.descripcionCargo]);
+                    console.log(respuBase);
+                }
+                return { queHacer, respuBase };
+            })
+            .then(({ queHacer, respuBase }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(400).json({ respuesta: "Compita no existe la función" });
+                        break;
+                    case 2:
+                        res.status(200).json({ actualizado: "Ok", resultado: respuBase });
+                        break;
+                }
+            })
+            .catch((err) => {
+                res.status(400).json({ respuesta: err });
+            });
+        
     }
+    
 
     protected static async actualiceloYa(datos: Cargos, res: Response): Promise<any>{
         pool.task(async (consulta) => {

@@ -28,6 +28,26 @@ class CartelerasCinesDAO {
         });
     }
     ;
+    static vistaPaginada(params, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
+                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
+                if (page > limit && page <= 0)
+                    return res.status(400).json({ respuesta: "Pagina invalida" });
+                const desde = (page - 1) * limit;
+                const cartelerasCines = yield consulta.manyOrNone(sql_cartelerasCines_1.SQL_CARTELERAS_CINES.GET_PAGE, [Number(limit), Number(desde)]);
+                return cartelerasCines;
+            })).then((cartelerasCines) => {
+                res.status(200).json(cartelerasCines);
+            })
+                .catch(err => {
+                res.status(400).json({
+                    "respuesta": err
+                });
+            });
+        });
+    }
     static grabeloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
@@ -51,7 +71,9 @@ class CartelerasCinesDAO {
                 }
             }).catch((miError) => {
                 console.log(miError);
-                res.status(400).json({ respuesta: "Ocurrio un error" });
+                res.status(400).json({ respuesta: "Ocurrio un error",
+                    error: miError.detail
+                });
             });
         });
     }
@@ -67,7 +89,7 @@ class CartelerasCinesDAO {
                 });
             }).catch((miErrorcito) => {
                 console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: miErrorcito.detail });
             });
         });
     }

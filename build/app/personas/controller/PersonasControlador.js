@@ -9,6 +9,9 @@ class PersonasControlador extends PersonasDAO_1.default {
     damePersonas(req, res) {
         PersonasDAO_1.default.obtenerTodo([], res);
     }
+    damePersonasPaginadas(req, res) {
+        PersonasDAO_1.default.vistaPaginada(req, res);
+    }
     obtenerPersona(req, res) {
         const objCubi = new Personas_1.default(0, "", new Date(0), 0, 0, 0, 0);
         objCubi.idPersona = req.body.idPersona;

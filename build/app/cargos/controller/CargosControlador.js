@@ -9,6 +9,9 @@ class CargosControlador extends CargosDAO_1.default {
     dameCargos(req, res) {
         CargosDAO_1.default.obtenerTodo([], res);
     }
+    funcionesPaginadas(req, res) {
+        CargosDAO_1.default.vistaPaginada(req, res);
+    }
     obtenerCargo(req, res) {
         const objCubi = new Cargos_1.default(0, "", "");
         objCubi.idCargo = req.body.idCargo;
@@ -32,6 +35,20 @@ class CargosControlador extends CargosDAO_1.default {
         objCubi.nombreCargo = String(req.body.nombreCargo);
         objCubi.descripcionCargo = String(req.body.descripcionCargo);
         CargosDAO_1.default.actualiceloYa(objCubi, res);
+    }
+    actualizacionMasiva(req, res) {
+        const textoAReemplazar = req.body.textoAReemplazar; // Este sería el nombre_cargo
+        const nuevoTexto = req.body.nuevoTexto; // Este sería la descripción   
+        console.log(nuevoTexto, textoAReemplazar);
+        if (!textoAReemplazar || !nuevoTexto) {
+            res.status(400).json({ respuesta: "Faltan parámetros para la actualización masiva" });
+        }
+        else {
+            // Crear el objeto `Cargos` con los datos del request
+            const objCubi = new Cargos_1.default(0, textoAReemplazar, nuevoTexto);
+            // Llamar al método de DAO para realizar la actualización masiva
+            CargosDAO_1.default.actualizacionMasiva(objCubi, res);
+        }
     }
 }
 const cargosControlador = new CargosControlador();

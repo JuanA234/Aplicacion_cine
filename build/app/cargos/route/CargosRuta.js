@@ -12,6 +12,8 @@ class CargosRuta {
         this.apiRutaCargos.post("/addcito", CargosControlador_1.default.obtenerCargo);
         this.apiRutaCargos.delete("/delete/:idCargo", CargosControlador_1.default.borrarCargo);
         this.apiRutaCargos.put("/update", CargosControlador_1.default.actualizarCargo);
+        this.apiRutaCargos.put("/updateMasive", CargosControlador_1.default.actualizacionMasiva);
+        this.apiRutaCargos.get("/getPage", CargosControlador_1.default.funcionesPaginadas);
     }
 }
 const cargosRuta = new CargosRuta();

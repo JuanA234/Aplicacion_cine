@@ -27,7 +27,7 @@ class Servidor {
         this.app.use("/carteleras", CartelerasRuta_1.default);
         this.app.use("/cartelerasCines", CartelerasCinesRuta_1.default);
         this.app.use("/horarios", HorarioRuta_1.default);
-        this.app.use("/personas", PersonasRuta_1.default);
+        this.app.use("/person", PersonasRuta_1.default);
     }
     cargarConfiguracion() {
         this.app.set("PORT", 3123);

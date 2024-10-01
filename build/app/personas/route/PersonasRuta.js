@@ -12,6 +12,7 @@ class PersonasRuta {
         this.apiRutaPersonas.post("/addcito", PersonasControlador_1.default.obtenerPersona);
         this.apiRutaPersonas.delete("/delete/:idPersona", PersonasControlador_1.default.borrarPersona);
         this.apiRutaPersonas.put("/update", PersonasControlador_1.default.actualizarPersona);
+        this.apiRutaPersonas.get("/getPage", PersonasControlador_1.default.damePersonasPaginadas);
     }
 }
 const personasRuta = new PersonasRuta();

@@ -4,6 +4,8 @@ exports.SQL_CARTELERAS_CINES = void 0;
 exports.SQL_CARTELERAS_CINES = {
     GET_ALL: "SELECT id_cartelera, id_pelicula, fecha_desde, fecha_hasta, id_cine \
                FROM Carteleras_Cines",
+    GET_PAGE: "SELECT id_cartelera, id_pelicula, fecha_desde, fecha_hasta, id_cine \
+            FROM Carteleras_Cines LIMIT $1 OFFSET $2",
     ADD: "INSERT INTO Carteleras_Cines(id_cartelera, id_pelicula, fecha_desde, fecha_hasta, id_cine) \
           VALUES ($1, $2, $3, $4, $5) RETURNING id_cartelera, id_pelicula",
     HOW_MANY: "SELECT COUNT(*) as existe FROM Carteleras_Cines \

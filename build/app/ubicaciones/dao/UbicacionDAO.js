@@ -12,38 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sql_personas_1 = require("../repository/sql_personas");
+const sql_ubicaciones_1 = require("../repository/sql_ubicaciones");
 const dbConnection_1 = __importDefault(require("../../../config/connection/dbConnection"));
-class PersonasDAO {
-    static obtenerTodo(params, res) {
+class UbicacionDAO {
+    static obtenerTodo(tamPag, page, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default.result(sql_personas_1.SQL_PERSONAS.GET_ALL).then((resultado) => {
-                res.status(200).json(resultado.rows);
-            }).catch((miError) => {
-                console.log(miError);
-                res.status(400).json({
-                    "Respuesta": "No funciona"
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const cubi = yield consulta.many(sql_ubicaciones_1.SQL_UBICACIONES.TOTAL);
+                const rows = cubi[0].count;
+                const offset = (page - 1) * tamPag;
+                const resultado = yield consulta.result(sql_ubicaciones_1.SQL_UBICACIONES.GET_ALL, [tamPag, offset]);
+                return { resultado, rows };
+            }))
+                .then(({ resultado, rows }) => {
+                res.status(200).json({
+                    menus: resultado.rows,
+                    totalMenus: rows
                 });
-            });
-        });
-    }
-    ;
-    static vistaPaginada(params, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
-                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
-                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
-                if (page > limit && page <= 0)
-                    return res.status(400).json({ respuesta: "Pagina invalida" });
-                const desde = (page - 1) * limit;
-                const personas = yield consulta.manyOrNone(sql_personas_1.SQL_PERSONAS.GET_PAGE, [Number(limit), Number(desde)]);
-                return personas;
-            })).then((personas) => {
-                res.status(200).json(personas);
-            })
-                .catch(err => {
+                res.status(200).json({
+                    totalMenus: rows,
+                    menus: resultado.rows
+                });
+            }).catch((miError) => {
                 res.status(400).json({
-                    "respuesta": err
+                    "respuesta": "ay no sirve",
+                    mensaje: miError.message,
+                    Error: miError,
+                    NombreError: miError.name
                 });
             });
         });
@@ -53,17 +49,23 @@ class PersonasDAO {
             yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_personas_1.SQL_PERSONAS.HOW_MANY, [datos.idPersona, datos.idUsuario]);
+                const cubi = yield consulta.one(sql_ubicaciones_1.SQL_UBICACIONES.HOW_MANY, [datos.idUbicacion]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(sql_personas_1.SQL_PERSONAS.ADD, [datos.nombrePersona, datos.fechaNacimientoPersona,
-                        datos.idUbicacion, datos.idCine, datos.idCargo, datos.idUsuario]);
+                    const validacion = yield consulta.one(sql_ubicaciones_1.SQL_UBICACIONES.GET_REPEATED, [datos.nombreUbicacion, datos.idPadre]);
+                    if (validacion.total_repetidos == 0) {
+                        queHacer = 3;
+                        respuBase = yield consulta.one(sql_ubicaciones_1.SQL_UBICACIONES.ADD, [datos.nombreUbicacion, datos.idPadre]);
+                    }
                 }
                 return { queHacer, respuBase };
             })).then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "La persona con id_usuario: " + datos.idUsuario + " ya existe" });
+                        res.status(400).json({ respuesta: "Compita ya existe la ubicación" });
+                        break;
+                    case 2:
+                        res.status(400).json({ respuesta: "La misma ubicación ya fue creada" });
                         break;
                     default:
                         res.status(200).json(respuBase);
@@ -71,7 +73,7 @@ class PersonasDAO {
                 }
             }).catch((miError) => {
                 console.log(miError);
-                res.status(400).json({ respuesta: "Ocurrio un error" });
+                res.status(400).json({ respuesta: "Se totió mano" });
             });
         });
     }
@@ -79,44 +81,47 @@ class PersonasDAO {
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             dbConnection_1.default.task((consulta) => {
-                return consulta.result(sql_personas_1.SQL_PERSONAS.DELETE, [datos.idPersona]);
+                return consulta.result(sql_ubicaciones_1.SQL_UBICACIONES.DELETE, [datos.idUbicacion]);
             }).then((respuesta) => {
                 res.status(200).json({
                     respuesta: "Lo borré sin miedo",
                     info: respuesta.rowCount,
                 });
             }).catch((miErrorcito) => {
-                res.status(400).json({ respuesta: miErrorcito.detail });
+                console.log(miErrorcito);
+                res.status(400).json({ respuesta: "No se puede borrar esa ubicacion." });
             });
         });
     }
     ;
     static actualiceloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_personas_1.SQL_PERSONAS.HOW_MANY, [datos.idPersona, datos.idUsuario]);
+                const cubi = yield consulta.one(sql_ubicaciones_1.SQL_UBICACIONES.HOW_MANY, [datos.idUbicacion]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_personas_1.SQL_PERSONAS.UPDATE, [datos.nombrePersona, datos.fechaNacimientoPersona,
-                        datos.idUbicacion, datos.idCine, datos.idCargo, datos.idUsuario, datos.idPersona]);
+                    respuBase = yield consulta.none(sql_ubicaciones_1.SQL_UBICACIONES.UPDATE, [datos.nombreUbicacion, datos.idPadre]);
                 }
                 return { queHacer, respuBase };
-            })).then(({ queHacer, respuBase }) => {
+            }))
+                .then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe" });
+                        res.status(400).json({ respuesta: "Compita no existe" });
                         break;
                     default:
-                        res.status(200).json({ actualizado: "ok" });
+                        res.status(200).json({ acualizado: "Ok" });
                         break;
                 }
-            }).catch((miErrorcito) => {
-                console.log(miErrorcito);
+            })
+                .catch((miError) => {
+                console.log(miError);
                 res.status(400).json({ respuesta: "Pailas, sql totiado" });
             });
         });
     }
 }
-exports.default = PersonasDAO;
+exports.default = UbicacionDAO;

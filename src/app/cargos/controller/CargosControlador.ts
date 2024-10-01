@@ -39,6 +39,20 @@ class CargosControlador extends CargosDAO{
         CargosDAO.actualiceloYa(objCubi, res);
     }
     
+    public actualizacionMasiva(req: Request, res: Response): void {
+        const textoAReemplazar: string = req.body.textoAReemplazar; // Este sería el nombre_cargo
+        const nuevoTexto: string = req.body.nuevoTexto; // Este sería la descripción   
+        console.log(nuevoTexto, textoAReemplazar)
+        if (!textoAReemplazar || !nuevoTexto) {
+            res.status(400).json({ respuesta: "Faltan parámetros para la actualización masiva" });
+        } else {
+            // Crear el objeto `Cargos` con los datos del request
+            const objCubi: Cargos = new Cargos(0, textoAReemplazar, nuevoTexto);           
+            // Llamar al método de DAO para realizar la actualización masiva
+            CargosDAO.actualizacionMasiva(objCubi, res);
+        }
+    }
+    
 }
 
 const cargosControlador = new CargosControlador();

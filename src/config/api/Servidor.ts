@@ -27,7 +27,7 @@ class Servidor{
        this.app.use("/carteleras", apiRutaCarteleras);
        this.app.use("/cartelerasCines", apiRutaCartelerasCines);
        this.app.use("/horarios", apiRutaHorario);
-       this.app.use("/personas", apiRutaPersonas);
+       this.app.use("/person", apiRutaPersonas);
     }
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);

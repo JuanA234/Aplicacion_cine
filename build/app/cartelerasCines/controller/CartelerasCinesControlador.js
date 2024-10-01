@@ -9,6 +9,9 @@ class CartelerasCinesControlador extends CartelerasCinesDAO_1.default {
     dameCartelerasCines(req, res) {
         CartelerasCinesDAO_1.default.obtenerTodo([], res);
     }
+    cartelerasCinesPaginadas(req, res) {
+        CartelerasCinesDAO_1.default.vistaPaginada(req, res);
+    }
     obtenerCartelerasCines(req, res) {
         const objCubi = new CartelerasCines_1.default(0, 0, new Date(0), new Date(0), 0);
         objCubi.idCartelera = req.body.idCartelera;
