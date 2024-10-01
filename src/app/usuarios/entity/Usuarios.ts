@@ -1,10 +1,10 @@
 class Usuarios{
-    public id_usuario:number;
+    public idUsuario:number;
     public correo:string;
     public contrasena:string;
 
     constructor(cod:number, nom:string, des:string){
-        this.id_usuario = cod;
+        this.idUsuario = cod;
         this.correo = nom;
         this.contrasena = des;
     }

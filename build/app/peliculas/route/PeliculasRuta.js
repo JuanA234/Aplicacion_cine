@@ -9,6 +9,7 @@ class PeliculasRuta {
     constructor() {
         this.apiRutaPeliculas = (0, express_1.Router)();
         this.apiRutaPeliculas.get("/getall", PeliculasControlador_1.default.damePeliculas);
+        this.apiRutaPeliculas.get("/getPage", PeliculasControlador_1.default.peliculasPaginadas);
         this.apiRutaPeliculas.post("/addcito", PeliculasControlador_1.default.cogeTuPelicula);
         this.apiRutaPeliculas.delete("/delete/:id_pelicula", PeliculasControlador_1.default.borraTuPelicula);
         this.apiRutaPeliculas.put("/update", PeliculasControlador_1.default.actualizaTuPelicula);

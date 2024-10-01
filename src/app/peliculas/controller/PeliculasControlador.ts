@@ -11,18 +11,22 @@ class PeliculasControlador extends PeliculasDAO{
     public cogeTuPelicula(req: Request, res: Response): void {
         console.log(req.body);
         const objCubi: Peliculas = new Peliculas(0, "", "", 0);
-        objCubi.id_pelicula = req.body.id_pelicula;
-        objCubi.nombre_pelicula = req.body.nombre_pelicula;
-        objCubi.duracion_pelicula = req.body.duracion_pelicula;
-        objCubi.id_genero = req.body.id_genero;
+        objCubi.idPelicula = req.body.idPelicula;
+        objCubi.nombrePelicula = req.body.nombrePelicula;
+        objCubi.duracionPelicula = req.body.duracionPelicula;
+        objCubi.idGenero = req.body.idGenero;
         PeliculasDAO.grabeloYa(objCubi, res);
     }
 
+    public peliculasPaginadas(req: Request, res: Response) : void {
+        PeliculasDAO.vistaPaginada(req, res); 
+    }
+
     public borraTuPelicula(req: Request, res: Response): void {
-        if (isNaN(Number(req.params.id_pelicula))) {
+        if (isNaN(Number(req.params.idPelicula))) {
         res.status(400).json({ respuesta: "Y el código mi vale?"});
         } else {
-        const codiguito = Number(req.params.id_pelicula);
+        const codiguito = Number(req.params.idPelicula);
         const objcubi: Peliculas = new Peliculas(codiguito, "", "", 0);
         PeliculasDAO.borreloYa(objcubi, res);
         }
@@ -31,10 +35,10 @@ class PeliculasControlador extends PeliculasDAO{
 
     public actualizaTuPelicula(req: Request, res: Response): void {
         const objCubi: Peliculas = new Peliculas(0, "", "", 0);
-        objCubi.id_pelicula = Number(req.body.id_pelicula);
-        objCubi.nombre_pelicula = String(req.body.nombre_pelicula);
-        objCubi.duracion_pelicula = String(req.body.duracion_pelicula)
-        objCubi.id_genero = Number(req.body.id_genero);
+        objCubi.idPelicula = Number(req.body.idPelicula);
+        objCubi.nombrePelicula = String(req.body.nombrePelicula);
+        objCubi.duracionPelicula = String(req.body.duracionPelicula)
+        objCubi.idGenero = Number(req.body.idGenero);
         PeliculasDAO.actualiceloYa(objCubi, res);
     }
 

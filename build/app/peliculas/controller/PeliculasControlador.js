@@ -12,28 +12,31 @@ class PeliculasControlador extends PeliculasDAO_1.default {
     cogeTuPelicula(req, res) {
         console.log(req.body);
         const objCubi = new Peliculas_1.default(0, "", "", 0);
-        objCubi.id_pelicula = req.body.id_pelicula;
-        objCubi.nombre_pelicula = req.body.nombre_pelicula;
-        objCubi.duracion_pelicula = req.body.duracion_pelicula;
-        objCubi.id_genero = req.body.id_genero;
+        objCubi.idPelicula = req.body.idPelicula;
+        objCubi.nombrePelicula = req.body.nombrePelicula;
+        objCubi.duracionPelicula = req.body.duracionPelicula;
+        objCubi.idGenero = req.body.idGenero;
         PeliculasDAO_1.default.grabeloYa(objCubi, res);
     }
+    peliculasPaginadas(req, res) {
+        PeliculasDAO_1.default.vistaPaginada(req, res);
+    }
     borraTuPelicula(req, res) {
-        if (isNaN(Number(req.params.id_pelicula))) {
+        if (isNaN(Number(req.params.idPelicula))) {
             res.status(400).json({ respuesta: "Y el código mi vale?" });
         }
         else {
-            const codiguito = Number(req.params.id_pelicula);
+            const codiguito = Number(req.params.idPelicula);
             const objcubi = new Peliculas_1.default(codiguito, "", "", 0);
             PeliculasDAO_1.default.borreloYa(objcubi, res);
         }
     }
     actualizaTuPelicula(req, res) {
         const objCubi = new Peliculas_1.default(0, "", "", 0);
-        objCubi.id_pelicula = Number(req.body.id_pelicula);
-        objCubi.nombre_pelicula = String(req.body.nombre_pelicula);
-        objCubi.duracion_pelicula = String(req.body.duracion_pelicula);
-        objCubi.id_genero = Number(req.body.id_genero);
+        objCubi.idPelicula = Number(req.body.idPelicula);
+        objCubi.nombrePelicula = String(req.body.nombrePelicula);
+        objCubi.duracionPelicula = String(req.body.duracionPelicula);
+        objCubi.idGenero = Number(req.body.idGenero);
         PeliculasDAO_1.default.actualiceloYa(objCubi, res);
     }
 }

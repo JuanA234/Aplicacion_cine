@@ -33,7 +33,7 @@ class UsuariosDAO {
             yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_usuarios_1.SQL_USUARIOS.HOW_MANY, [datos.id_usuario]);
+                const cubi = yield consulta.one(sql_usuarios_1.SQL_USUARIOS.HOW_MANY, [datos.idUsuario, datos.correo]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_usuarios_1.SQL_USUARIOS.ADD, [datos.correo, datos.contrasena]);
@@ -55,18 +55,39 @@ class UsuariosDAO {
         });
     }
     ;
+    static vistaPaginada(params, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
+                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
+                if (page > limit && page <= 0)
+                    return res.status(400).json({ respuesta: "Pagina invalida" });
+                const desde = (page - 1) * limit;
+                const salas = yield consulta.manyOrNone(sql_usuarios_1.SQL_USUARIOS.GET_PAGE, [Number(limit), Number(desde)]);
+                return salas;
+            })).then((salas) => {
+                res.status(200).json(salas);
+            })
+                .catch(err => {
+                console.log("mi error");
+                res.status(400).json({
+                    "respuesta": "Se estalló"
+                });
+            });
+        });
+    }
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("hola");
             dbConnection_1.default.task((consulta) => {
-                return consulta.result(sql_usuarios_1.SQL_USUARIOS.DELETE, [datos.id_usuario]);
+                return consulta.result(sql_usuarios_1.SQL_USUARIOS.DELETE, [datos.idUsuario]);
             }).then((respuesta) => {
                 res.status(200).json({
                     respuesta: "Lo borré sin miedo",
                     info: respuesta.rowCount,
                 });
             }).catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: miErrorcito.detail });
             });
         });
     }
@@ -76,10 +97,10 @@ class UsuariosDAO {
             dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_usuarios_1.SQL_USUARIOS.HOW_MANY, [datos.id_usuario]);
+                const cubi = yield consulta.one(sql_usuarios_1.SQL_USUARIOS.HOW_MANY, [datos.idUsuario]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_usuarios_1.SQL_USUARIOS.UPDATE, [datos.correo, datos.contrasena, datos.id_usuario]);
+                    respuBase = yield consulta.none(sql_usuarios_1.SQL_USUARIOS.UPDATE, [datos.correo, datos.contrasena, datos.idUsuario]);
                 }
                 return { queHacer, respuBase };
             })).then(({ queHacer, respuBase }) => {

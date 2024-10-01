@@ -33,16 +33,16 @@ class PeliculasDAO {
             yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.HOW_MANY, [datos.id_pelicula]);
+                const cubi = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.HOW_MANY, [datos.idPelicula, datos.nombrePelicula]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.ADD, [datos.nombre_pelicula, datos.duracion_pelicula, datos.id_genero]);
+                    respuBase = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.ADD, [datos.nombrePelicula, datos.duracionPelicula, datos.idGenero]);
                 }
                 return { queHacer, respuBase };
             })).then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe la sala" });
+                        res.status(400).json({ respuesta: "Compita ya existe la pelicula" });
                         break;
                     default:
                         res.status(200).json(respuBase);
@@ -58,7 +58,7 @@ class PeliculasDAO {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("hola");
             dbConnection_1.default.task((consulta) => {
-                return consulta.result(sql_peliculas_1.SQL_PELICULAS.DELETE, [datos.id_pelicula]);
+                return consulta.result(sql_peliculas_1.SQL_PELICULAS.DELETE, [datos.idPelicula]);
             }).then((respuesta) => {
                 res.status(200).json({
                     respuesta: "Lo borré sin miedo",
@@ -70,15 +70,36 @@ class PeliculasDAO {
         });
     }
     ;
+    static vistaPaginada(params, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
+                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
+                if (page > limit && page <= 0)
+                    return res.status(400).json({ respuesta: "Pagina invalida" });
+                const desde = (page - 1) * limit;
+                const salas = yield consulta.manyOrNone(sql_peliculas_1.SQL_PELICULAS.GET_PAGE, [Number(limit), Number(desde)]);
+                return salas;
+            })).then((salas) => {
+                res.status(200).json(salas);
+            })
+                .catch(err => {
+                console.log("mi error");
+                res.status(400).json({
+                    "respuesta": "Se estalló"
+                });
+            });
+        });
+    }
     static actualiceloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.HOW_MANY, [datos.id_pelicula]);
+                const cubi = yield consulta.one(sql_peliculas_1.SQL_PELICULAS.HOW_MANY, [datos.idPelicula]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.none(sql_peliculas_1.SQL_PELICULAS.UPDATE, [datos.nombre_pelicula, datos.duracion_pelicula, datos.id_genero, datos.id_pelicula]);
+                    respuBase = yield consulta.none(sql_peliculas_1.SQL_PELICULAS.UPDATE, [datos.nombrePelicula, datos.duracionPelicula, datos.idGenero, datos.idPelicula]);
                 }
                 return { queHacer, respuBase };
             })).then(({ queHacer, respuBase }) => {

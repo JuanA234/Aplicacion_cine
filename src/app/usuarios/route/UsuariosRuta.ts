@@ -8,6 +8,7 @@ class UsuariosRuta{
         this.apiRutaUsuarios = Router();
         this.apiRutaUsuarios.get("/getall", usuariosControlador.dameUsuarios);
         this.apiRutaUsuarios.post("/addcito", usuariosControlador.obtenerUsuarios);
+        this.apiRutaUsuarios.get("/getPage", usuariosControlador.usuariosPaginadas);
         this.apiRutaUsuarios.delete("/delete/:id_usuario", usuariosControlador.borrarUsuarios);
         this.apiRutaUsuarios.put("/update", usuariosControlador.actualizarUsuarios);
     }

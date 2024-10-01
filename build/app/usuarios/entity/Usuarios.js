@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Usuarios {
     constructor(cod, nom, des) {
-        this.id_usuario = cod;
+        this.idUsuario = cod;
         this.correo = nom;
         this.contrasena = des;
     }
