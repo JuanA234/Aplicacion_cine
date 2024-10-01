@@ -14,6 +14,9 @@ class GeneroControlador extends GeneroDAO_1.default {
         objCubi.nombreGenero = req.body.nombreGenero;
         GeneroDAO_1.default.grabeloYa(objCubi, res);
     }
+    funcionesPaginadas(req, res) {
+        GeneroDAO_1.default.vistaPaginada(req, res);
+    }
     borraTuGenero(req, res) {
         if (isNaN(Number(req.params.idGenero))) {
             res.status(400).json({ respuesta: "Y el codigo mi vale" });

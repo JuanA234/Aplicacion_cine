@@ -28,6 +28,10 @@ class ReservacionControlador extends ReservacionDAO{
         }
     }
 
+    public funcionesPaginadas(req: Request, res: Response) : void {
+        ReservacionDAO.vistaPaginada(req, res); 
+    }
+
     public actualizaTuTAbla(req: Request, res:Response): void{
         const objCubi: Reservacion = new Reservacion(0, 0, 0, 0);
         objCubi.idReservacion = Number(req.body.idReservacion)

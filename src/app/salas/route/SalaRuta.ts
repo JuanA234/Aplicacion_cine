@@ -11,7 +11,7 @@ class SalaRuta{
         this.apiRutaSala.post("/addicto", salaControlador.cogeTusala);
         this.apiRutaSala.delete("/delete/:idSala", salaControlador.borraTuSala);
         this.apiRutaSala.put("/update", salaControlador.actualizaTuTAbla);
-
+        this.apiRutaSala.put("/changeRoomCapacity", salaControlador.actualizarCapacidadDeSalas);
     }
 }
 

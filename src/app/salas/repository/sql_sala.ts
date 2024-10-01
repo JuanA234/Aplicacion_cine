@@ -18,6 +18,6 @@ export const SQL_SALAS={
 
     UPDATE: "UPDATE salas SET sala_capacidad = $1, id_cine = $2 \
     WHERE id_sala = $3",
+
+    MASSIVE_UPDATE: "UPDATE salas SET sala_capacidad = $1 WHERE id_cine = $2",
 };
-
-

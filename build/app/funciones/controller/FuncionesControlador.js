@@ -10,11 +10,9 @@ class FuncionControlador extends FuncionDAO_1.default {
         FuncionDAO_1.default.obtenerTodo([], res);
     }
     cogeTuFuncion(req, res) {
-        console.log(req.body);
         const objCubi = new Funcion_1.default(0, 0, 0);
         objCubi.idHorario = Number(req.body.idHorario);
         objCubi.idSala = Number(req.body.idSala);
-        console.log(objCubi);
         FuncionDAO_1.default.grabeloYa(objCubi, res);
     }
     borraTuFuncion(req, res) {
@@ -26,6 +24,15 @@ class FuncionControlador extends FuncionDAO_1.default {
             const objCubi = new Funcion_1.default(codiguito, 0, 0);
             FuncionDAO_1.default.borreloYa(objCubi, res);
         }
+    }
+    cambiarHorariosDeSalas(req, res) {
+        const objCubi = new Funcion_1.default(0, 0, 0);
+        objCubi.idHorario = Number(req.body.idHorario);
+        objCubi.idSala = Number(req.body.idSala);
+        FuncionDAO_1.default.cambiarHorarioDeLasSalas(objCubi, res);
+    }
+    funcionesPaginadas(req, res) {
+        FuncionDAO_1.default.vistaPaginada(req, res);
     }
     actualizaTuFuncion(req, res) {
         const objCubi = new Funcion_1.default(0, 0, 0);

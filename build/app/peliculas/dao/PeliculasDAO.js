@@ -49,8 +49,7 @@ class PeliculasDAO {
                         break;
                 }
             }).catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Se totió mano" });
+                res.status(400).json({ respuesta: miError.detail });
             });
         });
     }

@@ -27,6 +27,9 @@ class ReservacionControlador extends ReservacionDAO_1.default {
             ReservacionDAO_1.default.borreloYa(objCubi, res);
         }
     }
+    funcionesPaginadas(req, res) {
+        ReservacionDAO_1.default.vistaPaginada(req, res);
+    }
     actualizaTuTAbla(req, res) {
         const objCubi = new Reservacion_1.default(0, 0, 0, 0);
         objCubi.idReservacion = Number(req.body.idReservacion);

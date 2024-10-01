@@ -8,11 +8,9 @@ class FuncionControlador extends FuncionDAO {
     }
 
     public cogeTuFuncion(req: Request, res: Response): void {
-        console.log(req.body);
         const objCubi: Funcion = new Funcion(0,0,0);
         objCubi.idHorario = Number(req.body.idHorario);
         objCubi.idSala = Number(req.body.idSala);
-        console.log(objCubi);
         FuncionDAO.grabeloYa(objCubi, res);
     }
 
@@ -24,6 +22,17 @@ class FuncionControlador extends FuncionDAO {
             const objCubi: Funcion = new Funcion(codiguito, 0,0);
             FuncionDAO.borreloYa(objCubi,res);
         }
+    }
+
+    public cambiarHorariosDeSalas(req: Request, res: Response): void {
+        const objCubi: Funcion = new Funcion(0, 0,0);
+        objCubi.idHorario = Number(req.body.idHorario);
+        objCubi.idSala = Number(req.body.idSala);
+        FuncionDAO.cambiarHorarioDeLasSalas(objCubi, res);
+    }
+
+    public funcionesPaginadas(req: Request, res: Response) : void {
+        FuncionDAO.vistaPaginada(req, res); 
     }
 
     public actualizaTuFuncion(req: Request, res: Response): void{

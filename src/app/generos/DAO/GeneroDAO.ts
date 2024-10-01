@@ -10,11 +10,30 @@ class GeneroDAO {
             .then((resultado) => {
                 res.status(200).json(resultado.rows);
             }).catch((miError) => {
-                console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    miError
                 });
             });
+    }
+
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;
+            const salas = await consulta.manyOrNone(SQL_GENEROS.GET_PAGE, [Number(limit), Number(desde)]);
+            return salas;
+        }).then((salas) => {
+            res.status(200).json(salas);
+        })
+        .catch(err => {
+            res.status(400).json({
+                "respuesta": err
+                });
+            }
+        );
     }
 
     protected static async grabeloYa(datos: Genero, res: Response): Promise<any> {
@@ -22,7 +41,7 @@ class GeneroDAO {
             .task(async (consulta) => {
                 let queHacer = 1;
                 let respuBase: any;
-                const cubi = await consulta.one(SQL_GENEROS.HOW_MANY, [datos.idGenero]);
+                const cubi = await consulta.one(SQL_GENEROS.HOW_MANY, [datos.idGenero, datos.nombreGenero]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = await consulta.one(SQL_GENEROS.ADD, [datos.nombreGenero]);
@@ -38,8 +57,7 @@ class GeneroDAO {
                         break;
                 }
             }).catch(err => {
-                console.log(err);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: err });
             });
     }
 
@@ -55,8 +73,7 @@ class GeneroDAO {
             });
         })
         .catch((miErrorcito)=>{
-            console.log(miErrorcito);
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+            res.status(400).json({respuesta: miErrorcito});
         });
     }
 
@@ -81,8 +98,7 @@ class GeneroDAO {
                     break;
             }
         }).catch(err => {
-            console.log(err);
-            res.status(400).json({ respuesta: "Se totio mano" });
+            res.status(400).json({ respuesta: err });
         });
     }
 }

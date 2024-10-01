@@ -13,6 +13,7 @@ class SalaRuta {
         this.apiRutaSala.post("/addicto", SalaControlador_1.default.cogeTusala);
         this.apiRutaSala.delete("/delete/:idSala", SalaControlador_1.default.borraTuSala);
         this.apiRutaSala.put("/update", SalaControlador_1.default.actualizaTuTAbla);
+        this.apiRutaSala.put("/changeRoomCapacity", SalaControlador_1.default.actualizarCapacidadDeSalas);
     }
 }
 const salaRuta = new SalaRuta();
