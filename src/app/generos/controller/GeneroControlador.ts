@@ -13,6 +13,10 @@ class GeneroControlador extends GeneroDAO {
         GeneroDAO.grabeloYa(objCubi, res);
     }
 
+    public funcionesPaginadas(req: Request, res: Response) : void {
+        GeneroDAO.vistaPaginada(req, res); 
+    }
+
     public borraTuGenero(req: Request, res: Response): void {
         if(isNaN(Number(req.params.idGenero))){
             res.status(400).json({respuesta: "Y el codigo mi vale"});

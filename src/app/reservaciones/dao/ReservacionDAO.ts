@@ -23,9 +23,11 @@ class ReservacionDAO {
             .task(async (consulta) => {
                 let queHacer = 1;
                 let respuBase: any;
-                const cubi = await consulta.one(SQL_RESERVACIONES.HOW_MANY, [datos.idReservacion]);
+                const cubi = await consulta.one(SQL_RESERVACIONES.HOW_MANY_ESPECIFIC, [datos.idPersona, datos.idButaca, datos.idFuncion]);
+
                 if (cubi.existe == 0) {
                     queHacer = 2;
+                    console.log(datos);
                     respuBase = await consulta.one(SQL_RESERVACIONES.ADD, [datos.idPersona, datos.idButaca, datos.idFuncion]);
                 }
                 return { queHacer, respuBase };
@@ -33,7 +35,7 @@ class ReservacionDAO {
             .then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe la sala" });
+                        res.status(400).json({ respuesta: "Compita ya existe la Reservacion" });
                         break;
                     default:
                         res.status(200).json(respuBase);
@@ -41,9 +43,28 @@ class ReservacionDAO {
                 }
             })
             .catch((miError: any) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: miError.detail });
             });
+    }
+
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;
+            const salas = await consulta.manyOrNone(SQL_RESERVACIONES.GET_PAGE, [Number(limit), Number(desde)]);
+            return salas;
+        }).then((salas) => {
+            res.status(200).json(salas);
+        })
+        .catch(err => {
+            res.status(400).json({
+                "respuesta": err
+                });
+            }
+        );
     }
 
     protected static async borreloYa(datos: Reservacion, res: Response): Promise<any> {
@@ -58,8 +79,7 @@ class ReservacionDAO {
                 });
             })
             .catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: miErrorcito.detail });
             });
     }
 
@@ -86,8 +106,7 @@ class ReservacionDAO {
                 }
             })
             .catch((miError: any) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: miError.detail });
             });
     }
 

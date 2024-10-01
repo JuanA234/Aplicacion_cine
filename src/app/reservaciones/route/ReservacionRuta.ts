@@ -7,6 +7,7 @@ class ReservacionRuta{
     constructor(){
         this.apiRutaReservacion = Router();
         this.apiRutaReservacion.get("/getall", reservacionControlador.dameReservaciones);
+        this.apiRutaReservacion.get("/getPage", reservacionControlador.funcionesPaginadas);
         this.apiRutaReservacion.post("/addicto", reservacionControlador.cogeTuReservacion);
         this.apiRutaReservacion.delete("/delete/:idReservacion", reservacionControlador.borraTuReservacion);
         this.apiRutaReservacion.put("/update", reservacionControlador.actualizaTuTAbla);

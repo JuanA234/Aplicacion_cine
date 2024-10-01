@@ -22,9 +22,8 @@ class SalaDAO {
                 .then((resultado) => {
                 res.status(200).json(resultado.rows);
             }).catch((miError) => {
-                console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    "respuesta": miError
                 });
             });
         });
@@ -43,9 +42,8 @@ class SalaDAO {
                 res.status(200).json(salas);
             })
                 .catch(err => {
-                console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "Se estalló"
+                    "respuesta": err
                 });
             });
         });
@@ -56,7 +54,7 @@ class SalaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY, [datos.idSala]);
+                const cubi = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY_CINE, [datos.idCine]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_sala_1.SQL_SALAS.ADD, [datos.salaCapacidad, datos.idCine]);
@@ -74,8 +72,7 @@ class SalaDAO {
                 }
             })
                 .catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: miError });
             });
         });
     }
@@ -97,9 +94,36 @@ class SalaDAO {
                 });
             }
             catch (e) {
-                //console.log(e);
-                res.status(400).json({ respuesta: "se explotó" });
+                res.status(400).json({ respuesta: e });
             }
+        });
+    }
+    static actualizarCapacidadDeSalas(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuBase;
+                const cubi = yield consulta.one(sql_sala_1.SQL_SALAS.HOW_MANY_CINE, [datos.idCine]);
+                if (cubi.existe != 0) {
+                    queHacer = 2;
+                    respuBase = yield consulta.none(sql_sala_1.SQL_SALAS.MASSIVE_UPDATE, [datos.salaCapacidad, datos.idCine]);
+                }
+                return { queHacer, respuBase };
+            }))
+                .then(({ queHacer, respuBase }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(400).json({ respuesta: "Compita no existe" });
+                        break;
+                    default:
+                        res.status(200).json({ acualizado: "Ok" });
+                        break;
+                }
+            })
+                .catch((miError) => {
+                res.status(400).json({ respuesta: miError });
+            });
         });
     }
     static actualiceloYa(datos, res) {
@@ -126,8 +150,7 @@ class SalaDAO {
                 }
             })
                 .catch((miError) => {
-                console.log(miError);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: miError });
             });
         });
     }

@@ -9,9 +9,11 @@ class FuncionRuta {
     constructor() {
         this.apiRutaFuncion = (0, express_1.Router)();
         this.apiRutaFuncion.get("/getall", FuncionesControlador_1.default.dameFunciones);
+        this.apiRutaFuncion.get("/getPage", FuncionesControlador_1.default.funcionesPaginadas);
         this.apiRutaFuncion.post("/addicto", FuncionesControlador_1.default.cogeTuFuncion);
         this.apiRutaFuncion.delete("/delete/:idFuncion", FuncionesControlador_1.default.borraTuFuncion);
         this.apiRutaFuncion.put("/update", FuncionesControlador_1.default.actualizaTuFuncion);
+        this.apiRutaFuncion.put("/changeRoomSchedule", FuncionesControlador_1.default.cambiarHorariosDeSalas);
     }
 }
 const rutaFuncion = new FuncionRuta();

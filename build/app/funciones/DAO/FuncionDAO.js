@@ -22,9 +22,8 @@ class FuncionDAO {
                 .then((resultado) => {
                 res.status(200).json(resultado.rows);
             }).catch((miError) => {
-                console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    "respuesta": miError
                 });
             });
         });
@@ -35,7 +34,7 @@ class FuncionDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_funciones_1.SQL_FUNCIONES.HOW_MANY, [datos.idFuncion]);
+                const cubi = yield consulta.one(sql_funciones_1.SQL_FUNCIONES.HOW_MANY_SPECIFIC, [datos.idSala, datos.idHorario]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_funciones_1.SQL_FUNCIONES.ADD, [datos.idSala, datos.idHorario]);
@@ -44,15 +43,14 @@ class FuncionDAO {
             })).then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe el género" });
+                        res.status(400).json({ respuesta: "Compita ya existe la función" });
                         break;
                     case 2:
                         res.status(200).json(respuBase);
                         break;
                 }
             }).catch(err => {
-                console.log(err);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: err });
             });
         });
     }
@@ -69,8 +67,54 @@ class FuncionDAO {
                 });
             })
                 .catch((miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
+                res.status(400).json({ respuesta: miErrorcito });
+            });
+        });
+    }
+    static vistaPaginada(params, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const page = parseInt(params.query.page) || 1; // Valor por defecto a 1
+                const limit = parseInt(params.query.limit) || 10; // Valor por defecto a 10
+                if (page > limit && page <= 0)
+                    return res.status(400).json({ respuesta: "Pagina invalida" });
+                const desde = (page - 1) * limit;
+                const salas = yield consulta.manyOrNone(sql_funciones_1.SQL_FUNCIONES.GET_PAGE, [Number(limit), Number(desde)]);
+                return salas;
+            })).then((salas) => {
+                res.status(200).json(salas);
+            })
+                .catch(err => {
+                res.status(400).json({
+                    "respuesta": err
+                });
+            });
+        });
+    }
+    static cambiarHorarioDeLasSalas(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuBase;
+                const cubi = yield consulta.one(sql_funciones_1.SQL_FUNCIONES.HOW_MANY, [datos.idSala]);
+                console.log(cubi);
+                if (cubi.existe != 0) {
+                    queHacer = 2;
+                    respuBase = yield consulta.none(sql_funciones_1.SQL_FUNCIONES.MASSIVE_UPDATE, [datos.idHorario, datos.idSala]);
+                }
+                return { queHacer, respuBase };
+            })).then(({ queHacer, respuBase }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(400).json({ respuesta: "Compita no existe la función" });
+                        break;
+                    case 2:
+                        res.status(200).json({ acualizado: "Ok" });
+                        break;
+                }
+            }).catch(err => {
+                res.status(400).json({ respuesta: err });
             });
         });
     }
@@ -96,8 +140,7 @@ class FuncionDAO {
                         break;
                 }
             }).catch(err => {
-                console.log(err);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: err });
             });
         });
     }

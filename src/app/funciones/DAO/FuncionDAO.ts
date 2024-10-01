@@ -10,9 +10,8 @@ class FuncionDAO {
             .then((resultado) => {
                 res.status(200).json(resultado.rows);
             }).catch((miError) => {
-                console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    "respuesta": miError
                 });
             });
     }
@@ -22,7 +21,7 @@ class FuncionDAO {
             .task(async (consulta) => {
                 let queHacer = 1;
                 let respuBase: any;
-                const cubi = await consulta.one(SQL_FUNCIONES.HOW_MANY, [datos.idFuncion]);
+                const cubi = await consulta.one(SQL_FUNCIONES.HOW_MANY_SPECIFIC, [datos.idSala, datos.idHorario]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = await consulta.one(SQL_FUNCIONES.ADD, [datos.idSala, datos.idHorario]);
@@ -31,17 +30,17 @@ class FuncionDAO {
             }).then(({ queHacer, respuBase }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe el género" });
+                        res.status(400).json({ respuesta: "Compita ya existe la función" });
                         break;
                     case 2:
                         res.status(200).json(respuBase);
                         break;
                 }
             }).catch(err => {
-                console.log(err);
-                res.status(400).json({ respuesta: "Se totio mano" });
+                res.status(400).json({ respuesta: err });
             });
     }
+
 
     protected static async borreloYa(datos: Funcion, res: Response): Promise<any>{
         pool
@@ -55,9 +54,54 @@ class FuncionDAO {
             });
         })
         .catch((miErrorcito)=>{
-            console.log(miErrorcito);
-            res.status(400).json({respuesta: "Pailas, sql totiado"});
+            res.status(400).json({respuesta: miErrorcito});
         });
+    }
+
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;
+            const salas = await consulta.manyOrNone(SQL_FUNCIONES.GET_PAGE, [Number(limit), Number(desde)]);
+            return salas;
+        }).then((salas) => {
+            res.status(200).json(salas);
+        })
+        .catch(err => {
+            res.status(400).json({
+                "respuesta": err
+                });
+            }
+        );
+    }
+
+    protected static async cambiarHorarioDeLasSalas(datos: Funcion, res: Response): Promise<any> {
+        await pool
+        .task( async (consulta) => {
+            let queHacer = 1;
+            let respuBase: any;
+            const cubi = await consulta.one(SQL_FUNCIONES.HOW_MANY, [datos.idSala]);
+            console.log(cubi);
+            if(cubi.existe != 0){
+                queHacer = 2;
+                respuBase = await consulta.none(SQL_FUNCIONES.MASSIVE_UPDATE, [datos.idHorario, datos.idSala ]);
+            }
+            return { queHacer, respuBase };
+        }).then(({ queHacer, respuBase}) => {
+            switch (queHacer) {
+                case 1:
+                    res.status(400).json({ respuesta: "Compita no existe la función" });
+                    break;
+                case 2:
+                    res.status(200).json({acualizado: "Ok"});
+                    break;
+            }
+        }).catch(err => {
+            res.status(400).json({ respuesta: err });
+        } )
     }
 
     protected static async actualizaloYa(datos: Funcion, res: Response): Promise<any> {
@@ -81,8 +125,7 @@ class FuncionDAO {
                     break;
             }
         }).catch(err => {
-            console.log(err);
-            res.status(400).json({ respuesta: "Se totio mano" });
+            res.status(400).json({ respuesta: err });
         });
     }
 }

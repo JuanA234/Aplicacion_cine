@@ -10,6 +10,7 @@ class GeneroRuta {
         this.apiRutaGenero.post("/addicto", GeneroControlador.cogeTuGenero);
         this.apiRutaGenero.delete("/delete/:idGenero", GeneroControlador.borraTuGenero);
         this.apiRutaGenero.put("/update", GeneroControlador.actualizaTuGenero);
+        this.apiRutaGenero.get("/getPage", GeneroControlador.funcionesPaginadas);
     }
 }
 

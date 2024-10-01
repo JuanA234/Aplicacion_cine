@@ -15,4 +15,5 @@ exports.SQL_SALAS = {
     DELETE: "DELETE FROM salas WHERE id_sala = $1",
     UPDATE: "UPDATE salas SET sala_capacidad = $1, id_cine = $2 \
     WHERE id_sala = $3",
+    MASSIVE_UPDATE: "UPDATE salas SET sala_capacidad = $1 WHERE id_cine = $2",
 };

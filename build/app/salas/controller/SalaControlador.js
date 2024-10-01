@@ -35,6 +35,15 @@ class SalaControlador extends SalaDAO_1.default {
         objCubi.idCine = Number(req.body.idCine);
         SalaDAO_1.default.actualiceloYa(objCubi, res);
     }
+    actualizarCapacidadDeSalas(req, res) {
+        /*
+            Este metodo actualiza la capacidad de todas las salas de un cine
+        */
+        const objCubi = new Sala_1.default(0, 0, 0);
+        objCubi.salaCapacidad = Number(req.body.salaCapacidad);
+        objCubi.idCine = Number(req.body.idCine);
+        SalaDAO_1.default.actualizarCapacidadDeSalas(objCubi, res);
+    }
 }
 const salaControlador = new SalaControlador();
 exports.default = salaControlador;
