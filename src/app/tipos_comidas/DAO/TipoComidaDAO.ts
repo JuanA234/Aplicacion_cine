@@ -63,19 +63,35 @@ class TipoComidaDAO {
 
     protected static async borreloYa(datos: TipoComida, res: Response): Promise<any>{
         pool
-        .task((consulta)=>{
-            return consulta. result(SQL_TIPOS_COMIDAS.DELETE, [datos.idTipoComida]);
+        .task(async(consulta)=>{
+            let queHacer = 1;
+            let respuesta:any;
+            const existe = await consulta.one(SQL_TIPOS_COMIDAS.EXISTE_OTRA_TABLA, [datos.idTipoComida]);
+            if(existe.existe == 0){
+                queHacer = 2;
+                respuesta = consulta. result(SQL_TIPOS_COMIDAS.DELETE, [datos.idTipoComida]);
+            }
+
+            return {queHacer, respuesta};
+    
         })
-        .then((respuesta)=>{
-            res.status(200).json({
-                respuesta: "Lo borre sin miedo",
-                info: respuesta.rowCount,
-            });
+        .then(({queHacer, respuesta})=>{
+            switch(queHacer){
+                case 1: 
+                    res.status(400).json({respuesta: "Compita no puedes borrarlo, existe en otra tabla"});
+                    break;
+                default:
+                    res.status(200).json({
+                        respuesta: "Lo borre sin miedo",
+                        info: respuesta.rowCount,
+                    });
+                    break;
+            }
+           
         })
         .catch((miErrorcito)=>{
-            res.status(400).json({respuesta: "Pailas, sql totiado",
-                mensaje: miErrorcito.message,
-                error: miErrorcito
+
+            res.status(400).json({respuesta: "Pailas, sql totiado"
             });
         });
     }
@@ -104,6 +120,7 @@ class TipoComidaDAO {
             }
         })
         .catch((miError:any)=>{
+
             res.status(400).json({respuesta: "Pailas, sql totiado",
                 mensaje: miError.message,
                 error: miError

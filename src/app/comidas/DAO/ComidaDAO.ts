@@ -61,6 +61,7 @@ class ComidaDAO {
     protected static async borreloYa(datos: Comida, res: Response): Promise<any>{
         pool
         .task((consulta)=>{
+          
             return consulta. result(SQL_COMIDAS.DELETE, [datos.idComida]);
         })
         .then((respuesta)=>{
@@ -86,8 +87,8 @@ class ComidaDAO {
             const cubi = await consulta.one(SQL_COMIDAS.HOW_MANY, [datos.idComida, datos.nombreComida])
             if(cubi.existe != 0){
                 queHacer = 2;
-                 const like = datos.nombreComida + "%"
-                respuBase = await consulta.none(SQL_COMIDAS.UPDATE_MASIVO, [datos.idTipoComida, like]);
+                 //const like = datos.nombreComida + "%";
+                respuBase = await consulta.none(SQL_COMIDAS.UPDATE_MASIVO, [datos.idTipoComida, datos.nombreComida]);
             }
             return {queHacer, respuBase};
         })

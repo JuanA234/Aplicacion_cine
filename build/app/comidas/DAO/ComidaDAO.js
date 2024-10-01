@@ -98,8 +98,8 @@ class ComidaDAO {
                 const cubi = yield consulta.one(sql_comidas_1.SQL_COMIDAS.HOW_MANY, [datos.idComida, datos.nombreComida]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
-                    const like = datos.nombreComida + "%";
-                    respuBase = yield consulta.none(sql_comidas_1.SQL_COMIDAS.UPDATE_MASIVO, [datos.idTipoComida, like]);
+                    //const like = datos.nombreComida + "%";
+                    respuBase = yield consulta.none(sql_comidas_1.SQL_COMIDAS.UPDATE_MASIVO, [datos.idTipoComida, datos.nombreComida]);
                 }
                 return { queHacer, respuBase };
             }))

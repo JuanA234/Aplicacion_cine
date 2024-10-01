@@ -72,19 +72,31 @@ class TipoComidaDAO {
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             dbConnection_1.default
-                .task((consulta) => {
-                return consulta.result(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.DELETE, [datos.idTipoComida]);
-            })
-                .then((respuesta) => {
-                res.status(200).json({
-                    respuesta: "Lo borre sin miedo",
-                    info: respuesta.rowCount,
-                });
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuesta;
+                const existe = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.EXISTE_OTRA_TABLA, [datos.idTipoComida]);
+                if (existe.existe == 0) {
+                    queHacer = 2;
+                    respuesta = consulta.result(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.DELETE, [datos.idTipoComida]);
+                }
+                return { queHacer, respuesta };
+            }))
+                .then(({ queHacer, respuesta }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(400).json({ respuesta: "Compita no puedes borrarlo, existe en otra tabla" });
+                        break;
+                    default:
+                        res.status(200).json({
+                            respuesta: "Lo borre sin miedo",
+                            info: respuesta.rowCount,
+                        });
+                        break;
+                }
             })
                 .catch((miErrorcito) => {
-                res.status(400).json({ respuesta: "Pailas, sql totiado",
-                    mensaje: miErrorcito.message,
-                    error: miErrorcito
+                res.status(400).json({ respuesta: "Pailas, sql totiado"
                 });
             });
         });

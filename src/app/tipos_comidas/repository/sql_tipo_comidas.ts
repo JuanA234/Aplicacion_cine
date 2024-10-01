@@ -8,6 +8,9 @@ export const SQL_TIPOS_COMIDAS={
     HOW_MANY: "SELECT COUNT(id_tipo_comida) as existe FROM tipos_comida \
     WHERE id_tipo_comida = $1 OR nombre_tipo_comida = $2" ,
 
+    EXISTE_OTRA_TABLA: "SELECT COUNT (id_tipo_comida) as existe FROM comidas \
+    WHERE id_tipo_comida = $1",
+
     DELETE: "DELETE FROM tipos_comida WHERE id_tipo_comida = $1",
 
     UPDATE: "UPDATE tipos_comida SET nombre_tipo_comida = $1, descripcion = $2 \
