@@ -7,7 +7,7 @@ class CineRuta{
     constructor(){
         this.apiRutaCine = Router();
         this.apiRutaCine.get("/getall", cineControlador.dameCines);
-        this.apiRutaCine.post("/addicto", cineControlador.cogeTuCine);
+        this.apiRutaCine.post("/addcito", cineControlador.cogeTuCine);
         this.apiRutaCine.delete("/delete/:idCine", cineControlador.borraTuCine);
         this.apiRutaCine.put("/update", cineControlador.actualizaTuCine);
     }

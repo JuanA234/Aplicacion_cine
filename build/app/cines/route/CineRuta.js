@@ -9,7 +9,7 @@ class CineRuta {
     constructor() {
         this.apiRutaCine = (0, express_1.Router)();
         this.apiRutaCine.get("/getall", CineControlador_1.default.dameCines);
-        this.apiRutaCine.post("/addicto", CineControlador_1.default.cogeTuCine);
+        this.apiRutaCine.post("/addcito", CineControlador_1.default.cogeTuCine);
         this.apiRutaCine.delete("/delete/:idCine", CineControlador_1.default.borraTuCine);
         this.apiRutaCine.put("/update", CineControlador_1.default.actualizaTuCine);
     }

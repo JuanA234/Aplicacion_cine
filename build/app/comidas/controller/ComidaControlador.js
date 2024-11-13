@@ -31,7 +31,7 @@ class ComidaControlador extends ComidaDAO_1.default {
         objCubi.idComida = Number(req.body.idComida);
         objCubi.idTipoComida = Number(req.body.idTipoComida);
         objCubi.nombreComida = String(req.body.nombreComida);
-        ComidaDAO_1.default.actualiceloYa(objCubi, res);
+        ComidaDAO_1.default.actualiceUno(objCubi, res);
     }
 }
 const comidaControlador = new ComidaControlador();

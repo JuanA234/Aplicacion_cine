@@ -8,7 +8,8 @@ exports.SQL_COMIDAS = {
     VALUES ($1, $2) RETURNING id_comida",
     HOW_MANY: "SELECT COUNT(id_comida) as existe FROM comidas \
     WHERE id_comida = $1 OR nombre_comida = $2",
-    EXISTE_OTRA_TABLA: "SELECT COUNT (id_)",
+    EXISTE_OTRA_TABLA: "SELECT COUNT (id_comida) as existe FROM comida_cine \
+    WHERE id_comida = $1",
     DELETE: "DELETE FROM comidas WHERE id_comida = $1",
     UPDATE: "UPDATE comidas SET nombre_comida = $1, id_tipo_comida = $2 \
     WHERE id_comida = $3",

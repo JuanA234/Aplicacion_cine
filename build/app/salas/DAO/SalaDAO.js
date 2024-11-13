@@ -18,8 +18,11 @@ class SalaDAO {
     static obtenerTodo(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
-                .result(sql_sala_1.SQL_SALAS.GET_ALL, params)
-                .then((resultado) => {
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                const resultado = yield consulta.result(sql_sala_1.SQL_SALAS.GET_ALL, params);
+                return { resultado };
+            }))
+                .then(({ resultado }) => {
                 res.status(200).json(resultado.rows);
             }).catch((miError) => {
                 console.log("mi error");

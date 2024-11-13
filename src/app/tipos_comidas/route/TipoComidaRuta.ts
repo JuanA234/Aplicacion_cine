@@ -7,7 +7,7 @@ class TipoComidaRuta{
     constructor(){
         this.apiRutaTipoComida = Router();
         this.apiRutaTipoComida.get("/getall", TipoComidaControlador.dameTipoComidas);
-        this.apiRutaTipoComida.post("/addicto", TipoComidaControlador.cogeTuTipoComida);
+        this.apiRutaTipoComida.post("/add", TipoComidaControlador.cogeTuTipoComida);
         this.apiRutaTipoComida.delete("/delete/:idTipoComida", TipoComidaControlador.borraTuTipoComida);
         this.apiRutaTipoComida.put("/update", TipoComidaControlador.actualizaTuTipoComida);
     }

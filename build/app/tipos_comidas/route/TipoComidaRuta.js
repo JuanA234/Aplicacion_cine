@@ -9,7 +9,7 @@ class TipoComidaRuta {
     constructor() {
         this.apiRutaTipoComida = (0, express_1.Router)();
         this.apiRutaTipoComida.get("/getall", TipoComidaControlador_1.default.dameTipoComidas);
-        this.apiRutaTipoComida.post("/addicto", TipoComidaControlador_1.default.cogeTuTipoComida);
+        this.apiRutaTipoComida.post("/add", TipoComidaControlador_1.default.cogeTuTipoComida);
         this.apiRutaTipoComida.delete("/delete/:idTipoComida", TipoComidaControlador_1.default.borraTuTipoComida);
         this.apiRutaTipoComida.put("/update", TipoComidaControlador_1.default.actualizaTuTipoComida);
     }

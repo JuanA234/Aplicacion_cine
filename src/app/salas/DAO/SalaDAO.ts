@@ -8,8 +8,11 @@ class SalaDAO {
 
     protected static async obtenerTodo(params: any, res: Response) {
         await pool
-        .result(SQL_SALAS.GET_ALL, params)
-        .then((resultado)=>{
+        .task(async(consulta)=>{
+            const resultado = await consulta.result(SQL_SALAS.GET_ALL, params);
+            return {resultado};
+        })
+        .then(({resultado})=>{
             res.status(200).json(resultado.rows);
         }).catch((miError) => {
             console.log("mi error");

@@ -9,7 +9,7 @@ class ButacaRuta {
     constructor() {
         this.apiRutaButaca = (0, express_1.Router)();
         this.apiRutaButaca.get("/getall", ButacaControlador_1.default.dameButacas);
-        this.apiRutaButaca.post("/addicto", ButacaControlador_1.default.cogeTuButaca);
+        this.apiRutaButaca.post("/add", ButacaControlador_1.default.cogeTuButaca);
         this.apiRutaButaca.delete("/delete/:idButaca", ButacaControlador_1.default.borraTuButaca);
         this.apiRutaButaca.put("/update", ButacaControlador_1.default.actualizaTuButaca);
     }

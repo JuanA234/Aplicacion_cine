@@ -11,12 +11,14 @@ class CineDAO {
         .task(async(consulta)=>{
             const offset = (page-1)*tamPag;
             const resultado = await consulta.result(SQL_CINES.GET_ALL, [tamPag, offset]);
-        return{resultado};
+            const cubi = await consulta.manyOrNone(SQL_CINES.TOTAL);
+            const totalCines = cubi[0].count;
+        return{resultado,totalCines};
         })
-        .then(({resultado})=>{
+        .then(({resultado, totalCines})=>{
             res.status(200).json({
                 cines: resultado.rows,
-                totalCines: resultado.rowCount
+                totalCines: totalCines
             }
             );
         }).catch((miError) => {

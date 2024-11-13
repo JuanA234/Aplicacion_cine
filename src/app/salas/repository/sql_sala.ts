@@ -1,6 +1,6 @@
 export const SQL_SALAS={
     GET_ALL: "SELECT s.id_sala, s.sala_capacidad,  s.id_cine \
-    FROM salas s",
+    FROM salas s ORDER BY s.id_sala",
 
     ADD: "INSERT INTO salas (sala_capacidad, id_cine) \
     VALUES ($1, $2) RETURNING id_sala",
