@@ -324,9 +324,14 @@ ALTER TABLE Personas ADD CONSTRAINT Personas_usuario
 ;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+
+
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 -- End of file.
 

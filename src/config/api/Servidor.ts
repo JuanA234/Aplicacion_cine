@@ -1,5 +1,6 @@
 import cors from "cors";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import express from "express";
 import morgan from "morgan";
 import apiRutaSala from "../../app/salas/route/SalaRuta";
@@ -15,6 +16,8 @@ import apiRutaUsuarios from "../../app/Usuarios/Route/UsuariosRuta";
 
 class Servidor {
 =======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 import  express  from "express";
 import morgan from "morgan";
 import apiSalaRuta from "../../app/salas/route/SalaRuta";
@@ -25,15 +28,22 @@ import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
 import apiRutaPelicula from "../../app/peliculas/route/PeliculasRuta"
 import apiRutaUsuarios from "../../app/usuarios/route/UsuariosRuta";
 import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta"
+<<<<<<< HEAD
 
 class Servidor{
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+import apiRutaComidaCine from "../../app/comidaCine/route/ComidaCineRuta";
+
+class Servidor{
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
     public app:express.Application;
 
     constructor(){
         this.app = express();
         this.cargarConfiguracion();
         this.exponerEndPoint();
+<<<<<<< HEAD
 <<<<<<< HEAD
     }
 
@@ -59,6 +69,8 @@ class Servidor{
         this.app.use("/menu", apiRutaComidaCine);
         this.app.use("/users", apiRutaUsuarios);
 =======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
     }
     public exponerEndPoint() :void{
@@ -70,6 +82,10 @@ class Servidor{
        this.app.use("/movies", apiRutaPelicula);
        this.app.use("/users", apiRutaUsuarios);
        this.app.use("/billboards", apiRutaCarteleras);
+<<<<<<< HEAD
+=======
+       this.app.use("/menu", apiRutaComidaCine);
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
     }
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);
@@ -77,23 +93,35 @@ class Servidor{
         this.app.use(morgan("dev"));
         this.app.use(express.json({limit: "50mb"}));     
         this.app.use(express.urlencoded({extended:true}));         
+<<<<<<< HEAD
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
     }
 
     public iniciar():void{
         this.app.listen(this.app.get("PORT"),()=>{
 <<<<<<< HEAD
+<<<<<<< HEAD
             console.log("Listo me fui", this.app.get("PORT"));
 =======
             console.log("Listo me fui", this.app.get("PORT"))
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+            console.log("Listo me fui", this.app.get("PORT"))
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
         });
     }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export default Servidor;
 =======
 
 export default Servidor;
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+
+export default Servidor;
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('velit nec', 'velit vivamus');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('luctus nec', 'nulla integer');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('adipiscing', 'elementum');
@@ -100,6 +101,8 @@ insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
 =======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (1, 'velit nec', 'velit vivamus');
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (2, 'luctus nec', 'nulla integer');
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (3, 'adipiscing', 'elementum');
@@ -200,7 +203,10 @@ insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (97, 'orci
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (98, 'convallis nunc', 'vestibulum sed');
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (99, 'proin', 'porttitor');
 insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (100, 'mattis', 'nulla ac');
+<<<<<<< HEAD
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 insert into Ubicaciones (id_ubicacion, nombre_ubicacion, id_padre) values (1, 1, 1);
 insert into Ubicaciones (id_ubicacion, nombre_ubicacion, id_padre) values (2, 2, 2);
@@ -1215,6 +1221,7 @@ insert into Usuarios (id_usuario, correo, contrasena) values (100, 'kpocknoll2r@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (1, '1.53', 69, 1, 1);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (2, '9.92', 23, 2, 2);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (3, '0.67', 40, 3, 3);
@@ -1316,6 +1323,8 @@ insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cin
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (99, '1.54', 12, 99, 99);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (100, '6.67', 65, 100, 100);
 =======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (1, '$1.53', 69, 1, 1);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (2, '$9.92', 23, 2, 2);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (3, '$0.67', 40, 3, 3);
@@ -1416,7 +1425,10 @@ insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cin
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (98, '$5.59', 33, 98, 98);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (99, '$1.54', 12, 99, 99);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (100, '$6.67', 65, 100, 100);
+<<<<<<< HEAD
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 insert into Horarios (id_horario, fecha, hora, id_pelicula) values (1, '2010-08-04', '9:38 PM', 96);
 insert into Horarios (id_horario, fecha, hora, id_pelicula) values (2, '1960-09-07', '8:54 AM', 16);
@@ -1621,6 +1633,7 @@ insert into Funciones (id_funcion, id_horario, id_sala) values (99, 99, 99);
 insert into Funciones (id_funcion, id_horario, id_sala) values (100, 100, 100);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Lyndsey Curragh', '2014-08-30', 49, 1, 46, 9);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Huntington McKerton', '2018-06-10', 54, 99, 65, 47);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Winonah Giabucci', '2007-06-06', 39, 41, 60, 49);
@@ -1722,6 +1735,8 @@ insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Malcolm Gammet', '1993-08-02', 47, 38, 24, 58);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Lindsay McNamee', '1981-08-06', 69, 79, 15, 18);
 =======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (1, 'Lyndsey Curragh', '2014-08-30', 49, 1, 46, 9);
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (2, 'Huntington McKerton', '2018-06-10', 54, 99, 65, 47);
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (3, 'Winonah Giabucci', '2007-06-06', 39, 41, 60, 49);
@@ -1822,7 +1837,10 @@ insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_u
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (98, 'Tulley Ragate', '1965-02-21', 50, 28, 11, 87);
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (99, 'Malcolm Gammet', '1993-08-02', 47, 38, 24, 58);
 insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (100, 'Lindsay McNamee', '1981-08-06', 69, 79, 15, 18);
+<<<<<<< HEAD
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 
 insert into Reservaciones (id_reservacion, id_persona, id_butaca, id_funcion) values (1, 1, 1, 1);

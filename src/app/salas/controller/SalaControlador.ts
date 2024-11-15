@@ -1,7 +1,12 @@
 import { Response, Request } from "express";
+<<<<<<< HEAD
 
 import Sala from "../entity/Sala";
 import SalaDAO from "../dao/SalaDAO";
+=======
+import SalaDAO from "../DAO/SalaDAO";
+import Sala from "../entity/Sala";
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 
 class SalaControlador extends SalaDAO{
@@ -16,6 +21,7 @@ class SalaControlador extends SalaDAO{
         objCubi.idCine = req.body.idCine;
         SalaDAO.grabeloYa(objCubi, res);
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
     /*
     public borraTuSala(req: Request, res: Response): void {
@@ -42,6 +48,8 @@ class SalaControlador extends SalaDAO{
 const salaControlador = new SalaControlador();
 export default salaControlador;
 =======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
     public salasPaginadas(req: Request, res: Response) : void {
         SalaDAO.vistaPaginada(req, res); 
@@ -79,4 +87,7 @@ export default salaControlador;
 const salaControlador = new SalaControlador();
 
 export default salaControlador;
+<<<<<<< HEAD
 >>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
