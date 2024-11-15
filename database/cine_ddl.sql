@@ -4,32 +4,31 @@
 -- tables
 -- Table: Butacas
 CREATE TABLE Butacas (
-    id_butaca int  NOT NULL,
+    id_butaca SERIAL PRIMARY KEY,
     fila char  NOT NULL,
     columna int  NOT NULL,
-    id_sala int  NOT NULL,
-    CONSTRAINT Butacas_pk PRIMARY KEY (id_butaca)
+    id_sala int  NOT NULL
 );
 
 -- Table: Cargos
 CREATE TABLE Cargos (
-    id_cargo SERIAL NOT NULL,
-    nombre_cargo varchar(30) NOT NULL,
-    descripcion_cargo varchar(50) NOT NULL,
+    id_cargo serial,
+    nombre_cargo varchar(30)  NOT NULL,
+    descripcion_cargo varchar(50)  NOT NULL,
     CONSTRAINT Cargos_pk PRIMARY KEY (id_cargo)
 );
 
 -- Table: Carteleras
 CREATE TABLE Carteleras (
-    id_cartelera int  NOT NULL,
+    id_cartelera serial,
     id_cine int  NOT NULL,
     CONSTRAINT Carteleras_pk PRIMARY KEY (id_cartelera)
 );
 
 -- Table: Carteleras_Cines
 CREATE TABLE Carteleras_Cines (
-    id_cartelera int  NOT NULL,
-    id_pelicula int  NOT NULL,
+    id_cartelera serial,
+    id_pelicula serial,
     fecha_desde date  NOT NULL,
     fecha_hasta date  NOT NULL,
     id_cine int  NOT NULL,
@@ -38,15 +37,15 @@ CREATE TABLE Carteleras_Cines (
 
 -- Table: Cines
 CREATE TABLE Cines (
-    id_cine int  NOT NULL,
-    nombre_cine int  NOT NULL,
+    id_cine serial,
+    nombre_cine varchar(30) NOT NULL,
     id_ubicacion int  NOT NULL,
     CONSTRAINT Cines_pk PRIMARY KEY (id_cine)
 );
 
 -- Table: Comidas_Cines
 CREATE TABLE Comida_Cine (
-    id_menu int  NOT NULL,
+    id_menu serial,
     precio money  NOT NULL,
     cantidad_disponible int  NOT NULL,
     id_comida int  NOT NULL,
@@ -56,7 +55,7 @@ CREATE TABLE Comida_Cine (
 
 -- Table: Comidas
 CREATE TABLE Comidas (
-    id_comida int  NOT NULL,
+    id_comida serial,
     nombre_comida varchar(30)  NOT NULL,
     id_tipo_comida int  NOT NULL,
     CONSTRAINT Comidas_pk PRIMARY KEY (id_comida)
@@ -64,7 +63,7 @@ CREATE TABLE Comidas (
 
 -- Table: Funciones
 CREATE TABLE Funciones (
-    id_funcion int  NOT NULL,
+    id_funcion serial,
     id_horario int  NOT NULL,
     id_sala int  NOT NULL,
     CONSTRAINT Funciones_pk PRIMARY KEY (id_funcion)
@@ -72,14 +71,14 @@ CREATE TABLE Funciones (
 
 -- Table: Generos
 CREATE TABLE Generos (
-    id_genero int  NOT NULL,
+    id_genero serial,
     nombre_genero varchar(30)  NOT NULL,
     CONSTRAINT asd PRIMARY KEY (id_genero)
 );
 
 -- Table: Horarios
 CREATE TABLE Horarios (
-    id_horario int  NOT NULL,
+    id_horario serial,
     fecha date  NOT NULL,
     hora time  NOT NULL,
     id_pelicula int  NOT NULL,
@@ -88,7 +87,7 @@ CREATE TABLE Horarios (
 
 -- Table: Peliculas
 CREATE TABLE Peliculas (
-    id_pelicula int  NOT NULL,
+    id_pelicula serial,
     nombre_pelicula varchar(30)  NOT NULL,
     duracion_pelicula time  NOT NULL,
     id_genero int  NOT NULL,
@@ -97,20 +96,19 @@ CREATE TABLE Peliculas (
 
 -- Table: Personas
 CREATE TABLE Personas (
-   id_persona SERIAL NOT NULL,  -- Cambiado a SERIAL para auto-incremento
-   nombre_persona varchar(30) NOT NULL,
-   fecha_nacimiento_persona date NOT NULL,
-   id_ubicacion int NOT NULL,
-   id_cine int NULL,
-   id_cargo int NOT NULL,
-   id_usuario int NOT NULL,
+   id_persona serial,
+   nombre_persona varchar(30)  NOT NULL,
+   fecha_nacimiento_persona date  NOT NULL,
+   id_ubicacion int  NOT NULL,
+   id_cine int  NULL,
+   id_cargo int  NOT NULL,
+   id_usuario int  NOT NULL,
    CONSTRAINT Personas_pk PRIMARY KEY (id_persona)
 );
 
-
 -- Table: Reservaciones
 CREATE TABLE Reservaciones (
-    id_reservacion int  NOT NULL,
+    id_reservacion serial,
     id_persona int  NOT NULL,
     id_butaca int  NOT NULL,
     id_funcion int  NOT NULL,
@@ -119,15 +117,13 @@ CREATE TABLE Reservaciones (
 
 -- Table: Salas
 CREATE TABLE Salas (
-    id_sala int  NOT NULL,
+    id_sala SERIAL PRIMARY KEY,
     sala_capacidad int  NOT NULL,
-    id_cine int  NOT NULL,
-    CONSTRAINT Salas_pk PRIMARY KEY (id_sala)
+    id_cine int  NOT NULL  
 );
-
 -- Table: Tipos_Comida
 CREATE TABLE Tipos_Comida (
-    id_tipo_comida int  NOT NULL,
+    id_tipo_comida serial,
     nombre_tipo_comida varchar(30)  NOT NULL,
     descripcion varchar(200)  NOT NULL,
     CONSTRAINT Tipos_Comida_pk PRIMARY KEY (id_tipo_comida)
@@ -135,15 +131,15 @@ CREATE TABLE Tipos_Comida (
 
 -- Table: Ubicaciones
 CREATE TABLE Ubicaciones (
-    id_ubicacion int  NOT NULL,
-    nombre_ubicacion int  NOT NULL,
+    id_ubicacion serial,
+    nombre_ubicacion varchar(30)  NOT NULL,
     id_padre int  NULL,
     CONSTRAINT Ubicaciones_pk PRIMARY KEY (id_ubicacion)
 );
 
 -- Table: usuarios
 CREATE TABLE Usuarios (
-   id_usuario int  NOT NULL,
+   id_usuario serial,
    correo varchar(50)  NOT NULL,
    contrasena varchar(50)  NOT NULL,
    CONSTRAINT usuario_pk PRIMARY KEY (id_usuario)
@@ -327,5 +323,15 @@ ALTER TABLE Personas ADD CONSTRAINT Personas_usuario
    INITIALLY IMMEDIATE
 ;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+
+
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 -- End of file.
 

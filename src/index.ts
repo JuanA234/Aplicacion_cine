@@ -1,3 +1,4 @@
-import Servidor from "./config/api/Servidor"
-const miServidor = new Servidor();
-miServidor.iniciar();
+import Servidor from "./config/api/Servidor";
+
+const myServidor = new Servidor();
+myServidor.iniciar();

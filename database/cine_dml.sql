@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('velit nec', 'velit vivamus');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('luctus nec', 'nulla integer');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('adipiscing', 'elementum');
@@ -98,6 +100,113 @@ insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
 insert into Cargos (nombre_cargo, descripcion_cargo) values ('ut', 'cras non');
+=======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (1, 'velit nec', 'velit vivamus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (2, 'luctus nec', 'nulla integer');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (3, 'adipiscing', 'elementum');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (4, 'facilisi', 'nunc viverra');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (5, 'ut suscipit', 'ultrices');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (6, 'volutpat erat', 'id');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (7, 'pharetra magna', 'hac habitasse');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (8, 'tristique', 'fusce');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (9, 'nulla tempus', 'auctor gravida');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (10, 'nisi volutpat', 'consequat nulla');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (11, 'duis bibendum', 'erat nulla');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (12, 'iaculis congue', 'orci');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (13, 'tempor convallis', 'lectus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (14, 'mi', 'primis');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (15, 'proin', 'in');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (16, 'morbi quis', 'consectetuer');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (17, 'potenti', 'ut');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (18, 'mi in', 'ultrices posuere');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (19, 'at', 'ut massa');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (20, 'ultrices', 'molestie sed');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (21, 'nisi vulputate', 'ultrices');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (22, 'eu mi', 'in imperdiet');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (23, 'vestibulum sagittis', 'nec');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (24, 'quisque', 'ligula sit');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (25, 'tincidunt', 'aliquam augue');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (26, 'sed vel', 'rhoncus aliquet');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (27, 'at', 'metus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (28, 'elementum', 'phasellus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (29, 'eros elementum', 'tortor quis');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (30, 'viverra diam', 'leo maecenas');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (31, 'in', 'posuere');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (32, 'sodales scelerisque', 'porttitor id');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (33, 'natoque', 'nulla');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (34, 'feugiat et', 'lectus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (35, 'orci', 'potenti');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (36, 'enim', 'nulla');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (37, 'eget', 'id mauris');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (38, 'sapien', 'pulvinar');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (39, 'aliquet', 'maecenas tincidunt');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (40, 'sapien dignissim', 'lectus in');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (41, 'fringilla rhoncus', 'nulla');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (42, 'ac nulla', 'posuere nonummy');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (43, 'consequat', 'augue');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (44, 'sit', 'massa');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (45, 'eget', 'sollicitudin');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (46, 'sociis natoque', 'montes nascetur');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (47, 'integer tincidunt', 'pede lobortis');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (48, 'viverra eget', 'fermentum justo');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (49, 'cras', 'consectetuer');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (50, 'suscipit nulla', 'mi');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (51, 'fusce', 'odio');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (52, 'purus', 'nulla');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (53, 'nullam', 'in');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (54, 'adipiscing', 'erat');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (55, 'leo rhoncus', 'quis orci');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (56, 'consequat', 'nunc');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (57, 'pellentesque eget', 'ullamcorper');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (58, 'quis odio', 'accumsan');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (59, 'vitae', 'morbi');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (60, 'eu massa', 'massa id');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (61, 'etiam', 'luctus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (62, 'aenean', 'vestibulum');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (63, 'in hac', 'magna');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (64, 'lorem', 'nec dui');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (65, 'leo', 'elit sodales');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (66, 'posuere cubilia', 'dui');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (67, 'blandit', 'vel');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (68, 'vel lectus', 'sapien');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (69, 'in purus', 'rutrum');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (70, 'dapibus', 'sed');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (71, 'elit ac', 'tellus semper');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (72, 'nibh', 'praesent');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (73, 'eu', 'lobortis ligula');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (74, 'sagittis nam', 'nonummy integer');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (75, 'vulputate', 'vitae nisi');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (76, 'aliquam non', 'in hac');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (77, 'justo', 'risus praesent');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (78, 'congue', 'suspendisse ornare');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (79, 'gravida nisi', 'rutrum');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (80, 'in sagittis', 'rhoncus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (81, 'sapien', 'quis');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (82, 'ut blandit', 'lectus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (83, 'et ultrices', 'varius integer');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (84, 'ut', 'cras non');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (85, 'morbi vestibulum', 'eros');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (86, 'sit', 'commodo');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (87, 'mauris', 'curae');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (88, 'nulla justo', 'amet');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (89, 'eget', 'elementum eu');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (90, 'velit', 'turpis');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (91, 'tristique fusce', 'libero quis');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (92, 'nibh', 'tristique');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (93, 'in', 'interdum eu');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (94, 'amet nulla', 'quisque id');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (95, 'eget', 'vitae');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (96, 'quam nec', 'faucibus');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (97, 'orci', 'tempor');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (98, 'convallis nunc', 'vestibulum sed');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (99, 'proin', 'porttitor');
+insert into Cargos (id_cargo, nombre_cargo, descripcion_cargo) values (100, 'mattis', 'nulla ac');
+<<<<<<< HEAD
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 insert into Ubicaciones (id_ubicacion, nombre_ubicacion, id_padre) values (1, 1, 1);
 insert into Ubicaciones (id_ubicacion, nombre_ubicacion, id_padre) values (2, 2, 2);
@@ -1111,6 +1220,8 @@ insert into Usuarios (id_usuario, correo, contrasena) values (99, 'akimber2q@ucl
 insert into Usuarios (id_usuario, correo, contrasena) values (100, 'kpocknoll2r@mit.edu', 'yZ3~`OUC)F@6*');
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (1, '1.53', 69, 1, 1);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (2, '9.92', 23, 2, 2);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (3, '0.67', 40, 3, 3);
@@ -1211,6 +1322,113 @@ insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cin
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (98, '5.59', 33, 98, 98);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (99, '1.54', 12, 99, 99);
 insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (100, '6.67', 65, 100, 100);
+=======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (1, '$1.53', 69, 1, 1);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (2, '$9.92', 23, 2, 2);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (3, '$0.67', 40, 3, 3);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (4, '$5.60', 39, 4, 4);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (5, '$0.90', 25, 5, 5);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (6, '$2.64', 86, 6, 6);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (7, '$5.66', 41, 7, 7);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (8, '$9.40', 12, 8, 8);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (9, '$6.01', 2, 9, 9);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (10, '$1.48', 49, 10, 10);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (11, '$6.46', 46, 11, 11);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (12, '$4.40', 1, 12, 12);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (13, '$0.93', 53, 13, 13);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (14, '$6.25', 9, 14, 14);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (15, '$5.80', 63, 15, 15);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (16, '$6.20', 13, 16, 16);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (17, '$4.77', 57, 17, 17);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (18, '$6.50', 81, 18, 18);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (19, '$2.17', 8, 19, 19);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (20, '$0.86', 41, 20, 20);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (21, '$2.87', 64, 21, 21);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (22, '$0.36', 22, 22, 22);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (23, '$4.45', 100, 23, 23);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (24, '$4.11', 28, 24, 24);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (25, '$5.94', 80, 25, 25);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (26, '$4.64', 53, 26, 26);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (27, '$7.83', 37, 27, 27);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (28, '$3.93', 8, 28, 28);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (29, '$4.95', 88, 29, 29);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (30, '$3.82', 36, 30, 30);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (31, '$7.66', 16, 31, 31);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (32, '$8.93', 96, 32, 32);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (33, '$1.08', 85, 33, 33);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (34, '$9.11', 78, 34, 34);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (35, '$3.96', 43, 35, 35);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (36, '$7.82', 90, 36, 36);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (37, '$2.07', 15, 37, 37);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (38, '$7.19', 69, 38, 38);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (39, '$9.76', 23, 39, 39);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (40, '$6.68', 69, 40, 40);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (41, '$9.54', 48, 41, 41);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (42, '$7.36', 26, 42, 42);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (43, '$8.62', 36, 43, 43);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (44, '$0.50', 54, 44, 44);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (45, '$8.53', 97, 45, 45);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (46, '$9.06', 90, 46, 46);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (47, '$3.13', 35, 47, 47);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (48, '$1.12', 13, 48, 48);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (49, '$6.32', 47, 49, 49);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (50, '$2.50', 22, 50, 50);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (51, '$8.89', 98, 51, 51);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (52, '$2.23', 38, 52, 52);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (53, '$9.06', 65, 53, 53);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (54, '$1.43', 58, 54, 54);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (55, '$0.85', 81, 55, 55);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (56, '$7.62', 7, 56, 56);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (57, '$6.25', 16, 57, 57);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (58, '$9.10', 64, 58, 58);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (59, '$7.64', 9, 59, 59);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (60, '$4.43', 78, 60, 60);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (61, '$2.88', 63, 61, 61);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (62, '$3.60', 84, 62, 62);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (63, '$9.75', 93, 63, 63);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (64, '$9.83', 79, 64, 64);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (65, '$0.21', 56, 65, 65);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (66, '$1.13', 52, 66, 66);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (67, '$8.27', 1, 67, 67);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (68, '$1.48', 4, 68, 68);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (69, '$8.63', 32, 69, 69);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (70, '$4.32', 61, 70, 70);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (71, '$9.74', 54, 71, 71);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (72, '$0.10', 69, 72, 72);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (73, '$2.68', 18, 73, 73);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (74, '$7.74', 59, 74, 74);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (75, '$9.05', 23, 75, 75);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (76, '$0.07', 60, 76, 76);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (77, '$0.93', 46, 77, 77);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (78, '$9.87', 96, 78, 78);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (79, '$5.69', 96, 79, 79);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (80, '$6.60', 40, 80, 80);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (81, '$6.14', 19, 81, 81);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (82, '$8.55', 85, 82, 82);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (83, '$8.36', 27, 83, 83);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (84, '$1.57', 69, 84, 84);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (85, '$8.76', 17, 85, 85);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (86, '$6.12', 24, 86, 86);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (87, '$6.25', 23, 87, 87);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (88, '$5.66', 54, 88, 88);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (89, '$7.20', 7, 89, 89);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (90, '$4.96', 88, 90, 90);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (91, '$0.49', 99, 91, 91);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (92, '$2.62', 100, 92, 92);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (93, '$5.04', 34, 93, 93);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (94, '$0.30', 4, 94, 94);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (95, '$8.69', 49, 95, 95);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (96, '$2.44', 51, 96, 96);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (97, '$3.41', 78, 97, 97);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (98, '$5.59', 33, 98, 98);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (99, '$1.54', 12, 99, 99);
+insert into Comida_Cine (id_menu, precio, cantidad_disponible, id_comida, id_cine) values (100, '$6.67', 65, 100, 100);
+<<<<<<< HEAD
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 insert into Horarios (id_horario, fecha, hora, id_pelicula) values (1, '2010-08-04', '9:38 PM', 96);
 insert into Horarios (id_horario, fecha, hora, id_pelicula) values (2, '1960-09-07', '8:54 AM', 16);
@@ -1414,6 +1632,8 @@ insert into Funciones (id_funcion, id_horario, id_sala) values (98, 98, 98);
 insert into Funciones (id_funcion, id_horario, id_sala) values (99, 99, 99);
 insert into Funciones (id_funcion, id_horario, id_sala) values (100, 100, 100);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Lyndsey Curragh', '2014-08-30', 49, 1, 46, 9);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Huntington McKerton', '2018-06-10', 54, 99, 65, 47);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Winonah Giabucci', '2007-06-06', 39, 41, 60, 49);
@@ -1514,6 +1734,113 @@ insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Tulley Ragate', '1965-02-21', 50, 28, 11, 87);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Malcolm Gammet', '1993-08-02', 47, 38, 24, 58);
 insert into Personas (nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values ('Lindsay McNamee', '1981-08-06', 69, 79, 15, 18);
+=======
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (1, 'Lyndsey Curragh', '2014-08-30', 49, 1, 46, 9);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (2, 'Huntington McKerton', '2018-06-10', 54, 99, 65, 47);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (3, 'Winonah Giabucci', '2007-06-06', 39, 41, 60, 49);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (4, 'Shoshana Brech', '1982-06-15', 15, 5, 4, 58);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (5, 'Vicki Vogeler', '1995-10-12', 28, 33, 79, 82);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (6, 'Chrissy Oseland', '2012-02-20', 19, 64, 78, 68);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (7, 'Rafe Iacovazzi', '1988-07-31', 93, 37, 29, 50);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (8, 'Ferd Devitt', '1967-05-21', 47, 72, 91, 30);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (9, 'Cornelle Itschakov', '1977-04-12', 60, 66, 69, 90);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (10, 'Toinette Cordelet', '1971-12-22', 9, 12, 49, 5);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (11, 'Madlin Thomesson', '1996-10-23', 70, 78, 46, 60);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (12, 'Penny Mildner', '1981-10-31', 100, 34, 61, 11);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (13, 'Dun Facey', '1988-02-17', 21, 23, 21, 10);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (14, 'Cindelyn Barriball', '1975-04-04', 93, 55, 100, 38);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (15, 'Eliza MacClay', '2010-07-17', 16, 42, 46, 92);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (16, 'Hayes Rose', '2023-02-15', 99, 60, 71, 75);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (17, 'Ines Pridgeon', '2018-05-28', 6, 93, 5, 81);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (18, 'Winny Leadstone', '1964-01-12', 96, 83, 20, 80);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (19, 'Josephina Moralee', '1974-10-27', 52, 6, 82, 35);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (20, 'Quint Reed', '2024-04-03', 9, 47, 7, 46);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (21, 'Olva Loachhead', '1991-03-21', 46, 36, 10, 33);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (22, 'Eirena Allsworth', '1987-03-07', 24, 58, 84, 38);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (23, 'Doretta Merill', '1989-12-20', 93, 58, 48, 7);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (24, 'Aubrie Spillard', '1979-08-01', 54, 56, 28, 12);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (25, 'Weider Sherwell', '2001-01-22', 3, 53, 16, 61);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (26, 'Gothart Culver', '1983-10-07', 82, 29, 13, 89);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (27, 'Lionello Galler', '2002-12-17', 98, 68, 56, 19);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (28, 'Onida Gouly', '2009-06-20', 11, 49, 59, 51);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (29, 'Danya Kloisner', '2007-04-02', 83, 81, 58, 61);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (30, 'Newton Elliot', '1988-12-12', 83, 21, 89, 23);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (31, 'Alexis Marians', '1982-04-13', 36, 43, 76, 13);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (32, 'Kamillah Cafe', '1995-10-10', 10, 52, 6, 28);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (33, 'Tammie Scragg', '1987-12-08', 62, 15, 30, 36);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (34, 'Ettore Rapa', '1995-02-11', 32, 81, 10, 7);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (35, 'Wallache Truder', '2000-11-25', 34, 4, 64, 33);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (36, 'Tobias Shingler', '2013-02-03', 30, 18, 49, 77);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (37, 'Vonny Filippov', '2008-04-30', 56, 76, 3, 38);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (38, 'Dani Sunderland', '2024-02-08', 12, 23, 65, 29);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (39, 'Engracia Penquet', '1979-01-07', 22, 49, 28, 69);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (40, 'Clayborn Coey', '1987-02-03', 1, 70, 72, 80);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (41, 'Horatia Rumsby', '1968-03-07', 51, 27, 23, 14);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (42, 'Victoir Orrin', '1970-06-07', 9, 55, 60, 12);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (43, 'Tamara Jowers', '2005-07-03', 59, 42, 84, 88);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (44, 'Abagael Jollands', '1994-07-28', 66, 40, 100, 32);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (45, 'Hillyer Stovold', '1966-11-05', 40, 6, 83, 53);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (46, 'Karlene Loren', '2003-05-13', 72, 17, 14, 28);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (47, 'Sheffield Skrine', '1967-02-04', 50, 51, 99, 52);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (48, 'Ursula Egentan', '1969-09-09', 40, 64, 41, 85);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (49, 'Ryann Chittock', '2020-11-15', 45, 56, 48, 34);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (50, 'Gerome Kitchingman', '1979-06-11', 95, 7, 91, 2);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (51, 'Conn Rickersey', '2008-10-23', 1, 50, 40, 14);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (52, 'Sioux Murrie', '1998-11-14', 18, 6, 57, 4);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (53, 'Arlin Culpin', '2004-07-11', 87, 75, 42, 98);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (54, 'Chas Cash', '1975-12-18', 72, 19, 57, 35);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (55, 'Elihu Sewart', '2003-04-28', 40, 47, 27, 51);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (56, 'Reinaldo Olufsen', '1997-04-26', 73, 31, 73, 32);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (57, 'Brandtr Kornyshev', '2019-01-04', 3, 84, 42, 55);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (58, 'Wade Senn', '1990-03-30', 54, 19, 4, 7);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (59, 'Kellyann Scoyne', '1967-08-04', 65, 92, 82, 2);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (60, 'Lenci Woodard', '2021-10-05', 21, 70, 34, 19);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (61, 'Chet Fissenden', '1988-07-13', 78, 62, 64, 35);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (62, 'Nico Sherrett', '1979-08-19', 30, 78, 48, 98);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (63, 'Schuyler Combe', '1987-08-10', 82, 72, 8, 95);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (64, 'Tybie Aspole', '2020-04-11', 51, 36, 59, 70);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (65, 'Gaile Duplain', '1980-07-22', 59, 8, 24, 83);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (66, 'Brewer Camerati', '1997-11-18', 33, 38, 64, 38);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (67, 'Shermie Arthars', '1979-01-13', 81, 99, 24, 70);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (68, 'Alina Say', '1980-10-02', 11, 16, 83, 18);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (69, 'Dare Purslow', '1992-08-14', 51, 74, 48, 75);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (70, 'Shermie Bockings', '2010-04-06', 54, 35, 18, 87);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (71, 'Josefa Gibbings', '1983-02-16', 4, 96, 97, 34);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (72, 'Charlton Tomaszewicz', '2007-06-11', 26, 6, 21, 14);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (73, 'Rickie Pagnin', '1996-07-19', 63, 39, 75, 40);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (74, 'Gordon Puddephatt', '2001-03-06', 11, 19, 3, 89);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (75, 'Joseph Keslake', '2017-12-05', 7, 86, 34, 22);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (76, 'Hatty Scranny', '1974-12-23', 57, 96, 80, 52);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (77, 'Clarita Scruton', '1965-09-18', 16, 66, 7, 98);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (78, 'Jackson Mandrake', '1974-07-17', 38, 65, 32, 3);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (79, 'Zorana Musselwhite', '1979-12-14', 92, 72, 21, 100);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (80, 'Eadie Silversmid', '2015-02-22', 78, 36, 73, 43);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (81, 'Holly Schulze', '1989-03-12', 15, 85, 10, 100);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (82, 'Althea Hawkey', '1967-08-18', 66, 92, 52, 62);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (83, 'Raphaela Trouncer', '1979-10-10', 36, 62, 92, 4);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (84, 'Abbie Vicker', '1996-04-20', 52, 3, 23, 30);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (85, 'Bar Oak', '2008-05-17', 43, 29, 44, 30);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (86, 'Bibby Stentiford', '2024-08-01', 24, 12, 86, 31);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (87, 'Vincents MacGray', '1984-01-04', 92, 42, 41, 82);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (88, 'Georgi Evamy', '1990-05-05', 55, 67, 64, 14);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (89, 'Thomasine Leuty', '2008-09-08', 97, 58, 57, 74);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (90, 'Courtnay Fuggle', '1972-12-15', 50, 6, 85, 99);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (91, 'Kain McCathie', '2023-04-06', 26, 29, 22, 65);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (92, 'Sallyann Davidoff', '1967-05-26', 3, 57, 91, 4);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (93, 'Minerva McQuaide', '2015-01-20', 86, 42, 64, 77);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (94, 'Gusty Auton', '2003-12-19', 49, 1, 17, 84);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (95, 'Perri MacAirt', '1991-12-10', 71, 33, 62, 46);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (96, 'Andre Gliddon', '2022-11-07', 84, 67, 43, 48);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (97, 'Brianna Culshew', '1984-05-04', 73, 1, 34, 50);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (98, 'Tulley Ragate', '1965-02-21', 50, 28, 11, 87);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (99, 'Malcolm Gammet', '1993-08-02', 47, 38, 24, 58);
+insert into Personas (id_persona, nombre_persona, fecha_nacimiento_persona, id_ubicacion, id_cine, id_cargo, id_usuario) values (100, 'Lindsay McNamee', '1981-08-06', 69, 79, 15, 18);
+<<<<<<< HEAD
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
+=======
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
 
 insert into Reservaciones (id_reservacion, id_persona, id_butaca, id_funcion) values (1, 1, 1, 1);
