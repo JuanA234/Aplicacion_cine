@@ -4,6 +4,19 @@ import pool from "../../../config/connection/dbConnection";
 import Ubicacion from "../entity/Ubicacion";
 
 class UbicacionDAO {
+<<<<<<< HEAD
+
+    protected static async obtenerTodo(params: any, res: Response) {
+        await pool.result(SQL_UBICACIONES.GET_ALL).then((resultado)=>{
+            res.status(200).json(resultado.rows);
+        }).catch((miError) => {
+            console.log(miError);
+            res.status(400).json({
+                "Respuesta": "No funciona"
+            });
+        });
+    };
+=======
     protected static async obtenerTodo(tamPag: any, page: any, res: Response){
         await pool
         .task(async(consulta)=>{
@@ -31,6 +44,7 @@ class UbicacionDAO {
             });
         });
     }
+>>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
 
     protected static async grabeloYa(datos: Ubicacion, res: Response): Promise<any> {
         await pool.task(async (consulta) => {
