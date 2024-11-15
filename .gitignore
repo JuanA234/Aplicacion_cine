@@ -25,3 +25,4 @@ yarn-error.log*
 # IDE settings (Opcional, si usas algún editor específico)
 .vscode/
 .idea/
+.bk/
