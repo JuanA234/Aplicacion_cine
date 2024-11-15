@@ -41,7 +41,6 @@ class PeliculasDAO {
     };
 
     protected static async borreloYa(datos: Peliculas, res: Response): Promise<any> {
-        console.log("hola");
         pool.task((consulta) => {
             return consulta.result(SQL_PELICULAS.DELETE, [datos.idPelicula]);
         }).then((respuesta) => {
@@ -50,6 +49,7 @@ class PeliculasDAO {
                 info: respuesta.rowCount,
             });
         }).catch( (miErrorcito) => {
+            console.log(miErrorcito.detail);
             res.status(400).json({ respuesta: miErrorcito.detail});
         });
     };
@@ -96,7 +96,6 @@ class PeliculasDAO {
                         break;
                 }
             }).catch( (miErrorcito) => {
-                console.log(miErrorcito);
                 res.status(400).json({ respuesta: "Pailas, sql totiado" });
             });
     }

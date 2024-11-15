@@ -22,3 +22,6 @@ yarn-error.log*
 # IDE settings (Opcional, si usas algún editor específico)
 .vscode/
 .idea/
+
+# Build files (Opcional, si usas algún sistema de build)
+/build

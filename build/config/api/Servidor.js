@@ -14,6 +14,7 @@ const ReservacionRuta_1 = __importDefault(require("../../app/reservaciones/route
 const PeliculasRuta_1 = __importDefault(require("../../app/peliculas/route/PeliculasRuta"));
 const UsuariosRuta_1 = __importDefault(require("../../app/usuarios/route/UsuariosRuta"));
 const CartelerasRuta_1 = __importDefault(require("../../app/carteleras/route/CartelerasRuta"));
+const PersonasRuta_1 = __importDefault(require("../../app/personas/route/PersonasRuta"));
 class Servidor {
     constructor() {
         this.app = (0, express_1.default)();
@@ -21,6 +22,7 @@ class Servidor {
         this.exponerEndPoint();
     }
     exponerEndPoint() {
+        this.app.use("/person", PersonasRuta_1.default);
         this.app.use("/rooms", SalaRuta_1.default);
         this.app.use("/butacas", ButacaRuta_1.default);
         this.app.use("/genders", GeneroRuta_1.default);

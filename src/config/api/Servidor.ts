@@ -9,6 +9,7 @@ import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
 import apiRutaPelicula from "../../app/peliculas/route/PeliculasRuta"
 import apiRutaUsuarios from "../../app/usuarios/route/UsuariosRuta";
 import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta"
+import apiRutaPersonas from "../../app/personas/route/PersonasRuta";
 
 class Servidor{
     public app:express.Application;
@@ -20,6 +21,7 @@ class Servidor{
 
     }
     public exponerEndPoint() :void{
+        this.app.use("/person", apiRutaPersonas);
        this.app.use("/rooms", apiSalaRuta);
        this.app.use("/butacas", apiRutaButaca);
        this.app.use("/genders", apiRutaGenero);

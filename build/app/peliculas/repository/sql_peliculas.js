@@ -7,7 +7,7 @@ exports.SQL_PELICULAS = {
     ADD: "INSERT INTO Peliculas(nombre_pelicula, duracion_pelicula, id_genero) \
             VALUES ($1, $2, $3) RETURNING id_pelicula",
     HOW_MANY: "SELECT COUNT (id_pelicula) as existe FROM peliculas \
-            WHERE id_pelicula = $1 or nombre_pelicula = $2",
+            WHERE id_pelicula = $1",
     DELETE: "DELETE FROM peliculas WHERE id_pelicula = $1",
     UPDATE: "UPDATE peliculas SET nombre_pelicula = $1, duracion_pelicula = $2, id_genero = $3 \
             WHERE id_pelicula = $4",

@@ -56,7 +56,6 @@ class PeliculasDAO {
     ;
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("hola");
             dbConnection_1.default.task((consulta) => {
                 return consulta.result(sql_peliculas_1.SQL_PELICULAS.DELETE, [datos.idPelicula]);
             }).then((respuesta) => {
@@ -65,6 +64,7 @@ class PeliculasDAO {
                     info: respuesta.rowCount,
                 });
             }).catch((miErrorcito) => {
+                console.log(miErrorcito.detail);
                 res.status(400).json({ respuesta: miErrorcito.detail });
             });
         });
@@ -112,7 +112,6 @@ class PeliculasDAO {
                         break;
                 }
             }).catch((miErrorcito) => {
-                console.log(miErrorcito);
                 res.status(400).json({ respuesta: "Pailas, sql totiado" });
             });
         });

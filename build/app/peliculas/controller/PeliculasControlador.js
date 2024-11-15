@@ -22,14 +22,15 @@ class PeliculasControlador extends PeliculasDAO_1.default {
         PeliculasDAO_1.default.vistaPaginada(req, res);
     }
     borraTuPelicula(req, res) {
-        if (isNaN(Number(req.params.idPelicula))) {
+        const idPelicula = req.params.idPelicula;
+        console.log(idPelicula);
+        if (!idPelicula || isNaN(Number(idPelicula))) {
             res.status(400).json({ respuesta: "Y el código mi vale?" });
+            return;
         }
-        else {
-            const codiguito = Number(req.params.idPelicula);
-            const objcubi = new Peliculas_1.default(codiguito, "", "", 0);
-            PeliculasDAO_1.default.borreloYa(objcubi, res);
-        }
+        const codiguito = Number(idPelicula);
+        const objcubi = new Peliculas_1.default(codiguito, "", "", 0);
+        PeliculasDAO_1.default.borreloYa(objcubi, res);
     }
     actualizaTuPelicula(req, res) {
         const objCubi = new Peliculas_1.default(0, "", "", 0);
