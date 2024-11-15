@@ -10,7 +10,11 @@ import apiRutaCartelerasCines from "../../app/cartelerasCines/route/CartelerasCi
 import apiRutaUbicacion from "../../app/ubicaciones/route/UbicacionRuta";
 import apiRutaCine from "../../app/cines/Route/CineRuta";
 
+<<<<<<< HEAD
 
+=======
+import apiRutaUsuarios from "../../app/Usuarios/Route/UsuariosRuta";
+>>>>>>> 98d3aaf4ec96a6e2ee6cdc2f30fce0ef85f31d54
 import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
 import apiRutaGenero from "../../app/generos/route/GeneroRuta";
 import apiRutaFuncion from "../../app/funciones/route/FuncionRuta";
