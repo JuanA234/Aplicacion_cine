@@ -17,7 +17,7 @@ import apiRutaGenero from "../../app/generos/route/GeneroRuta";
 import apiRutaFuncion from "../../app/funciones/route/FuncionRuta";
 import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
 import apiRutaComidaCine from "../../app/comidaCine/route/ComidaCineRuta";
-import apiRutaUsuarios from "../../app/usuarios/route/UsuariosRuta";
+import apiRutaUsuarios from "../../app/Usuarios/Route/UsuariosRuta";
 
 class Servidor{
     public app:express.Application;

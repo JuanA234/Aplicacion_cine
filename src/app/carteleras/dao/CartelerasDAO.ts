@@ -22,29 +22,13 @@ class CartelerasDAO {
             const cubi = await consulta.one(SQL_CARTELERAS.HOW_MANY, [datos.idCartelera]);
             if (cubi.existe == 0) {
                 queHacer = 2;
-<<<<<<< HEAD
-<<<<<<< HEAD
-                respuBase = await consulta.one(SQL_CARTELERAS.ADD, [datos.idCartelera, datos.idCine]);
-=======
                 respuBase = await consulta.one(SQL_CARTELERAS.ADD, [datos.idCine]);
->>>>>>> aad73346a56658c710226d091211dadaf994c603
-=======
-                respuBase = await consulta.one(SQL_CARTELERAS.ADD, [datos.idCine]);
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
             }
             return { queHacer, respuBase };
         }).then( ({ queHacer, respuBase }) => {
             switch (queHacer) {
                 case 1:
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    res.status(400).json({ respuesta: "El cargo ya existe" });
-=======
                     res.status(400).json({ respuesta: "La cartelera ya existe" });
->>>>>>> aad73346a56658c710226d091211dadaf994c603
-=======
-                    res.status(400).json({ respuesta: "La cartelera ya existe" });
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
                     break;
                 default:
                     res.status(200).json(respuBase);
@@ -55,13 +39,8 @@ class CartelerasDAO {
             res.status(400).json({ respuesta: "Ocurrio un error" });
         });
     };
-<<<<<<< HEAD
-<<<<<<< HEAD
-     
-    protected static async borreloYa(datos: Carteleras, res: Response): Promise<any> {
-=======
-=======
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
+
+    
 
     protected static async vistaPaginada(params: any, res: Response){
         await pool.task(async (consulta) => {
@@ -87,10 +66,6 @@ class CartelerasDAO {
      
     protected static async borreloYa(datos: Carteleras, res: Response): Promise<any> {
         console.log("hola");
-<<<<<<< HEAD
->>>>>>> aad73346a56658c710226d091211dadaf994c603
-=======
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
         pool.task((consulta) => {
             return consulta.result(SQL_CARTELERAS.DELETE, [datos.idCartelera]);
         }).then((respuesta) => {
@@ -99,46 +74,24 @@ class CartelerasDAO {
                 info: respuesta.rowCount,
             });
         }).catch( (miErrorcito) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
             console.log(miErrorcito);
-            res.status(400).json({ respuesta: "Pailas, sql totiado" });
-        });
-    };
-
-=======
-=======
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
-            res.status(400).json({ respuesta: miErrorcito.detail});
+            res.status(400).json({ respuesta: miErrorcito.detail });
         });
     };
 
 
-
-<<<<<<< HEAD
->>>>>>> aad73346a56658c710226d091211dadaf994c603
-=======
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
     protected static async actualiceloYa(datos: Carteleras, res: Response): Promise<any> {
         try {
             const result = await pool.task(async (consulta) => {
                 const cubi = await consulta.one(SQL_CARTELERAS.HOW_MANY, [datos.idCartelera]);
-<<<<<<< HEAD
-<<<<<<< HEAD
-                if (cubi.existe == 0) {
-=======
                 if (cubi.existe != 0) {
->>>>>>> aad73346a56658c710226d091211dadaf994c603
-=======
-                if (cubi.existe != 0) {
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
                     // Si no existe, actualizamos
                     await consulta.none(SQL_CARTELERAS.UPDATE, [datos.idCartelera, datos.idCine]);
                     return { queHacer: 2 };
                 }
                 return { queHacer: 1 }; // Ya existe
             });
-    
+            
             switch (result.queHacer) {
                 case 1:
                     res.status(400).json({ respuesta: "Compita ya existe" });
@@ -149,8 +102,8 @@ class CartelerasDAO {
             }
         } catch (miErrorcito) {
             console.log(miErrorcito);
-            res.status(400).json({ respuesta: "Pailas, sql totiado" });
-        }
+            res.status(400).json({ respuesta: "Pailas, sql totiado"});
+        }
     }
 }
 
