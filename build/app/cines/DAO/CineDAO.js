@@ -20,7 +20,10 @@ class CineDAO {
             yield dbConnection_1.default
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 const offset = (page - 1) * tamPag;
-                const resultado = yield consulta.result(sql_cine_1.SQL_CINES.GET_ALL, [tamPag, offset]);
+                const resultado = yield consulta.result(sql_cine_1.SQL_CINES.GET_ALL, [
+                    tamPag,
+                    offset,
+                ]);
                 const cubi = yield consulta.manyOrNone(sql_cine_1.SQL_CINES.TOTAL);
                 const totalCines = cubi[0].count;
                 return { resultado, totalCines };
@@ -28,12 +31,13 @@ class CineDAO {
                 .then(({ resultado, totalCines }) => {
                 res.status(200).json({
                     cines: resultado.rows,
-                    totalCines: totalCines
+                    totalCines: totalCines,
                 });
-            }).catch((miError) => {
+            })
+                .catch((miError) => {
                 console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    respuesta: "ay no sirve",
                 });
             });
         });
@@ -44,61 +48,109 @@ class CineDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine, datos.nombreCine]);
+                let creado = false;
+                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [
+                    datos.idCine,
+                    datos.nombreCine,
+                ]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(sql_cine_1.SQL_CINES.ADD, [datos.nombreCine, datos.idUbicacion]);
+                    respuBase = yield consulta.one(sql_cine_1.SQL_CINES.ADD, [
+                        datos.nombreCine,
+                        datos.idUbicacion,
+                    ]);
+                    creado = true;
                 }
-                return { queHacer, respuBase };
+                return { queHacer, respuBase, creado };
             }))
-                .then(({ queHacer, respuBase }) => {
+                .then(({ queHacer, respuBase, creado }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe el cine" });
+                        res.status(200).json({
+                            respuesta: "Compita ya existe el cine",
+                            creado: creado,
+                        });
                         break;
                     default:
-                        res.status(200).json(respuBase);
+                        res
+                            .status(200)
+                            .json({
+                            respuBase,
+                            respuesta: "Creado con exito",
+                            creado: creado,
+                        });
                         break;
                 }
             })
                 .catch((miError) => {
-                res.status(400).json({ respuesta: "Se totio mano",
-                    mensaje: miError.message,
-                });
+                res
+                    .status(400)
+                    .json({ respuesta: "Se totio mano", mensaje: miError.message });
             });
         });
     }
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             dbConnection_1.default
-                .task((consulta) => {
-                return consulta.result(sql_cine_1.SQL_CINES.DELETE, [datos.idCine]);
-            })
-                .then((respuesta) => {
-                res.status(200).json({
-                    respuesta: "Lo borre sin miedo",
-                    info: respuesta.rowCount,
-                });
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuesta;
+                let borradoSinMiedo = false;
+                const existe = yield consulta.one(sql_cine_1.SQL_CINES.EXISTE_OTRA_TABLA, [
+                    datos.idCine,
+                ]);
+                if (existe.existe == 0) {
+                    queHacer = 2;
+                    respuesta = consulta.result(sql_cine_1.SQL_CINES.DELETE, [datos.idCine]);
+                    borradoSinMiedo = true;
+                }
+                return { queHacer, respuesta, borradoSinMiedo };
+            }))
+                .then(({ queHacer, respuesta, borradoSinMiedo }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(200).json({
+                            respuesta: "Compita no puedes borrarlo, existe en otra tabla",
+                            borradoSinMiedo: borradoSinMiedo,
+                        });
+                        break;
+                    default:
+                        res.status(200).json({
+                            respuesta: "Lo borre sin miedo",
+                            info: respuesta.rowCount,
+                            borradoSinMiedo: borradoSinMiedo,
+                        });
+                        break;
+                }
             })
                 .catch((miErrorcito) => {
-                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                res
+                    .status(400)
+                    .json({
+                    respuesta: "Pailas, sql totiado",
                     mensaje: miErrorcito.message,
-                    error: miErrorcito
+                    error: miErrorcito,
                 });
             });
         });
     }
-    static actualiceloYa(datos, res) {
+    static actualiceVarios(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [datos.idCine, datos.nombreCine]);
+                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [
+                    datos.idCine,
+                    datos.nombreCine,
+                ]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
                     const like = datos.nombreCine + "%";
-                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE_MASIVO, [datos.idUbicacion, like]);
+                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE_MASIVO, [
+                        datos.idUbicacion,
+                        like,
+                    ]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -113,9 +165,65 @@ class CineDAO {
                 }
             })
                 .catch((miError) => {
-                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                res
+                    .status(400)
+                    .json({
+                    respuesta: "Pailas, sql totiado",
                     mensaje: miError.message,
-                    error: miError
+                    error: miError,
+                });
+            });
+        });
+    }
+    static actualiceUno(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuBase;
+                const cubi = yield consulta.one(sql_cine_1.SQL_CINES.HOW_MANY, [
+                    datos.idCine,
+                    datos.nombreCine,
+                ]);
+                let actualizado = false;
+                if (cubi.existe != 0) {
+                    queHacer = 2;
+                    respuBase = yield consulta.none(sql_cine_1.SQL_CINES.UPDATE, [
+                        datos.nombreCine,
+                        datos.idUbicacion,
+                        datos.idCine,
+                    ]);
+                    actualizado = true;
+                }
+                return { queHacer, respuBase, actualizado };
+            }))
+                .then(({ queHacer, respuBase, actualizado }) => {
+                switch (queHacer) {
+                    case 1:
+                        res
+                            .status(200)
+                            .json({
+                            respuesta: "Compita no existe",
+                            actualizado: actualizado,
+                        });
+                        break;
+                    default:
+                        res
+                            .status(200)
+                            .json({
+                            respuesta: "Actualizado con éxito",
+                            actualizado: actualizado,
+                        });
+                        break;
+                }
+            })
+                .catch((miError) => {
+                res
+                    .status(400)
+                    .json({
+                    respuesta: "Pailas, sql totiado",
+                    mensaje: miError.message,
+                    error: miError,
                 });
             });
         });

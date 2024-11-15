@@ -31,7 +31,7 @@ class CineControlador extends CineDAO_1.default {
         objCubi.idCine = Number(req.body.idCine);
         objCubi.idUbicacion = Number(req.body.idUbicacion);
         objCubi.nombreCine = String(req.body.nombreCine);
-        CineDAO_1.default.actualiceloYa(objCubi, res);
+        CineDAO_1.default.actualiceUno(objCubi, res);
     }
 }
 const cineControlador = new CineControlador();

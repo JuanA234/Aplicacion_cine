@@ -33,7 +33,7 @@ class TipoComidaControlador extends TipoComidaDAO{
         objCubi.idTipoComida = Number(req.body.idTipoComida);
         objCubi.descripcion = String(req.body.descripcion);
         objCubi.nombreTipoComida = String(req.body.nombreTipoComida);
-        TipoComidaDAO.actualiceloYa(objCubi, res);
+        TipoComidaDAO.actualiceUno(objCubi, res);
     }
 
 }

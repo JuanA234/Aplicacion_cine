@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sql_butacas_1 = require("../repository/sql_butacas");
 const dbConnection_1 = __importDefault(require("../../../config/connection/dbConnection"));
+const sql_sala_1 = require("../../salas/repository/sql_sala");
 class ButacaDAO {
     static obtenerTodo(tamPag, page, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -21,12 +22,14 @@ class ButacaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 const offset = (page - 1) * tamPag;
                 const resultado = yield consulta.result(sql_butacas_1.SQL_BUTACAS.GET_ALL, [tamPag, offset]);
-                return { resultado };
+                const cubi = yield consulta.manyOrNone(sql_butacas_1.SQL_BUTACAS.TOTAL);
+                const totalButacas = cubi[0].count;
+                return { resultado, totalButacas };
             }))
-                .then(({ resultado }) => {
+                .then(({ resultado, totalButacas }) => {
                 res.status(200).json({
                     butacas: resultado.rows,
-                    totalButacas: resultado.rowCount
+                    totalButacas: totalButacas,
                 });
             }).catch((miError) => {
                 res.status(400).json({
@@ -44,20 +47,29 @@ class ButacaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
+                let creado = false;
                 const cubi = yield consulta.oneOrNone(sql_butacas_1.SQL_BUTACAS.HOW_MANY, [datos.idButaca, datos.fila, datos.columna]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
                     respuBase = yield consulta.one(sql_butacas_1.SQL_BUTACAS.ADD, [datos.fila, datos.columna, datos.idSala]);
+                    creado = true;
                 }
-                return { queHacer, respuBase };
+                return { queHacer, respuBase, creado };
             }))
-                .then(({ queHacer, respuBase }) => {
+                .then(({ queHacer, respuBase, creado }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe la butaca" });
+                        res.status(200).json({
+                            respuesta: "Compita ya existe la butaca",
+                            creado: creado
+                        });
                         break;
                     default:
-                        res.status(200).json(respuBase);
+                        res.status(200).json({
+                            respuBase,
+                            respuesta: "Agregado con éxito",
+                            creado: creado
+                        });
                         break;
                 }
             })
@@ -73,14 +85,34 @@ class ButacaDAO {
     static borreloYa(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             dbConnection_1.default
-                .task((consulta) => {
-                return consulta.result(sql_butacas_1.SQL_BUTACAS.DELETE, [datos.idButaca]);
-            })
-                .then((respuesta) => {
-                res.status(200).json({
-                    respuesta: "Lo borre sin miedo",
-                    info: respuesta.rowCount,
-                });
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuesta;
+                let borradoSinMiedo = false;
+                const existe = yield consulta.one(sql_butacas_1.SQL_BUTACAS.EXISTE_OTRA_TABLA, [datos.idButaca]);
+                if (existe.existe == 0) {
+                    queHacer = 2;
+                    respuesta = consulta.result(sql_sala_1.SQL_SALAS.DELETE, [datos.idButaca]);
+                    borradoSinMiedo = true;
+                }
+                return { queHacer, respuesta, borradoSinMiedo };
+            }))
+                .then(({ queHacer, respuesta, borradoSinMiedo }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(200).json({
+                            respuesta: "Compita no puedes borrarlo, existe en otra tabla",
+                            borradoSinMiedo: borradoSinMiedo,
+                        });
+                        break;
+                    default:
+                        res.status(200).json({
+                            respuesta: "Lo borre sin miedo",
+                            info: respuesta.rowCount,
+                            borradoSinMiedo: borradoSinMiedo,
+                        });
+                        break;
+                }
             })
                 .catch((miErrorcito) => {
                 res.status(400).json({
@@ -93,7 +125,7 @@ class ButacaDAO {
             });
         });
     }
-    static actualiceloYa(datos, res) {
+    static actualiceVarios(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
@@ -113,6 +145,45 @@ class ButacaDAO {
                         break;
                     default:
                         res.status(200).json({ acualizado: "Ok" });
+                        break;
+                }
+            })
+                .catch((miError) => {
+                res.status(400).json({ respuesta: "pailas, sql totiao",
+                    mensaje: miError.message,
+                    NombreError: miError.name,
+                    Error: miError,
+                    //stackError: miError.stack
+                });
+            });
+        });
+    }
+    static actualiceUno(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuBase;
+                let actualizado = false;
+                const cubi = yield consulta.one(sql_butacas_1.SQL_BUTACAS.HOW_MANY, [datos.idButaca, datos.fila, datos.columna]);
+                if (cubi.existe != 0) {
+                    queHacer = 2;
+                    respuBase = yield consulta.none(sql_butacas_1.SQL_BUTACAS.UPDATE, [datos.fila, datos.columna, datos.idSala, datos.idButaca]);
+                    actualizado = true;
+                }
+                return { queHacer, respuBase, actualizado };
+            }))
+                .then(({ queHacer, respuBase, actualizado }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(200).json({ respuesta: "Compita no existe",
+                            actualizado: actualizado,
+                        });
+                        break;
+                    default:
+                        res.status(200).json({ respuesta: "Actualizado",
+                            actualizado: actualizado
+                        });
                         break;
                 }
             })

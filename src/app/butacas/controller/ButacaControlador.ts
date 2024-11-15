@@ -36,7 +36,7 @@ class ButacaControlador extends ButacaDAO{
         objCubi.columna = Number(req.body.columna);
         objCubi.fila = String(req.body.fila);
         objCubi.idSala = Number(req.body.idSala);
-        ButacaDAO.actualiceloYa(objCubi, res);
+        ButacaDAO.actualiceUno(objCubi, res);
     }
 
 }

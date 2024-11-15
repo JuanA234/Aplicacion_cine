@@ -33,7 +33,7 @@ class CineControlador extends CineDAO{
         objCubi.idCine = Number(req.body.idCine);
         objCubi.idUbicacion = Number(req.body.idUbicacion);
         objCubi.nombreCine = String(req.body.nombreCine);
-        CineDAO.actualiceloYa(objCubi, res);
+        CineDAO.actualiceUno(objCubi, res);
     }
 
 }

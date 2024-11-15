@@ -3,6 +3,7 @@ import { SQL_BUTACAS } from "../repository/sql_butacas";
 import pool from "../../../config/connection/dbConnection";
 import Butaca from "../entity/Butacas";
 import { errors, queryResult } from "pg-promise";
+import { SQL_SALAS } from "../../salas/repository/sql_sala";
 
 
 class ButacaDAO {
@@ -12,12 +13,14 @@ class ButacaDAO {
         .task(async(consulta)=>{
             const offset = (page-1)*tamPag;
             const resultado = await consulta.result(SQL_BUTACAS.GET_ALL, [tamPag, offset]);
-        return{resultado};
+            const cubi = await consulta.manyOrNone(SQL_BUTACAS.TOTAL);
+            const totalButacas = cubi[0].count;
+        return{resultado, totalButacas};
         })
-        .then(({resultado})=>{
+        .then(({resultado, totalButacas})=>{
             res.status(200).json({
                 butacas: resultado.rows,
-                totalButacas: resultado.rowCount
+                totalButacas: totalButacas,
             });
         }).catch((miError:any) => {
             res.status(400).json({
@@ -34,21 +37,29 @@ class ButacaDAO {
         .task(async(consulta)=>{
             let queHacer = 1;
             let respuBase: any;
+            let creado:boolean = false;
             const cubi = await consulta.oneOrNone(SQL_BUTACAS.HOW_MANY, [datos.idButaca, datos.fila, datos.columna]);
             if(cubi.existe == 0){
                 queHacer = 2;
                 respuBase = await consulta.one(SQL_BUTACAS.ADD, [datos.fila, datos.columna, datos.idSala]);
+                creado = true;
             }
 
-            return {queHacer, respuBase};
+            return {queHacer, respuBase, creado};
         })
-        .then(({queHacer, respuBase})=>{
+        .then(({queHacer, respuBase, creado})=>{
             switch(queHacer){
                 case 1: 
-                    res.status(400).json({respuesta: "Compita ya existe la butaca"});
+                    res.status(200).json({
+                        respuesta: "Compita ya existe la butaca",
+                        creado:creado});
                     break;
                 default:
-                    res.status(200).json(respuBase);
+                    res.status(200).json({
+                        respuBase ,
+                        respuesta:"Agregado con éxito",
+                        creado:creado
+                    });
                     break;
             }
         })
@@ -63,14 +74,35 @@ class ButacaDAO {
 
     protected static async borreloYa(datos: Butaca, res: Response): Promise<any>{
         pool
-        .task((consulta)=>{
-            return consulta.result(SQL_BUTACAS.DELETE, [datos.idButaca]);
+        .task(async(consulta)=>{
+            let queHacer = 1;
+            let respuesta:any;
+            let borradoSinMiedo:boolean = false;
+            const existe = await consulta.one(SQL_BUTACAS.EXISTE_OTRA_TABLA, [datos.idButaca]);
+            if(existe.existe == 0){
+                queHacer = 2;
+                respuesta = consulta. result(SQL_SALAS.DELETE, [datos.idButaca]);
+                borradoSinMiedo = true;
+            }
+             return {queHacer, respuesta, borradoSinMiedo};
         })
-        .then((respuesta)=>{
-            res.status(200).json({
-                respuesta: "Lo borre sin miedo",
-                info: respuesta.rowCount,
-            });
+        .then(({queHacer, respuesta, borradoSinMiedo})=>{
+            switch(queHacer){
+                case 1: 
+                    res.status(200).json({
+                        respuesta: "Compita no puedes borrarlo, existe en otra tabla",
+                        borradoSinMiedo: borradoSinMiedo,
+                    });
+                    
+                    break;
+                default:
+                    res.status(200).json({
+                        respuesta: "Lo borre sin miedo",
+                        info: respuesta.rowCount,
+                        borradoSinMiedo: borradoSinMiedo,
+                    });
+                    break;
+            }
         })
         .catch((miErrorcito:any)=>{
             res.status(400).json({
@@ -83,7 +115,7 @@ class ButacaDAO {
         });
     }
     
-    protected static async actualiceloYa(datos:Butaca, res:Response): Promise<any>{
+    protected static async actualiceVarios(datos:Butaca, res:Response): Promise<any>{
         await pool
         .task(async(consulta)=>{
             let queHacer = 1;
@@ -115,6 +147,46 @@ class ButacaDAO {
         });
     }
 
+    protected static async actualiceUno(datos:Butaca, res:Response): Promise<any>{
+        await pool
+        .task(async(consulta)=>{
+            let queHacer = 1;
+            let respuBase: any;
+            let actualizado:boolean = false;
+            const cubi = await consulta.one(SQL_BUTACAS.HOW_MANY, [datos.idButaca, datos.fila, datos.columna])
+            if(cubi.existe != 0){
+                queHacer = 2;
+                respuBase = await consulta.none(SQL_BUTACAS.UPDATE,[datos.fila, datos.columna, datos.idSala, datos.idButaca]);
+                actualizado = true;
+            }
+            return {queHacer, respuBase, actualizado};
+        })
+        .then(({queHacer, respuBase, actualizado})=>{
+            switch(queHacer){
+                case 1: 
+                    res.status(200).json({respuesta: "Compita no existe",
+                        actualizado:actualizado,
+                    });
+                    break;
+                default:
+                    res.status(200).json({respuesta: "Actualizado",
+                        actualizado: actualizado
+                    });
+                    break;
+            }
+        })
+        .catch((miError:any)=>{
+            res.status(400).json({respuesta: "pailas, sql totiao",
+                mensaje: miError.message,
+                NombreError: miError.name,
+                Error: miError,
+                //stackError: miError.stack
+            });
+        });
+    }
+
+
 }
+
 
 export default ButacaDAO;

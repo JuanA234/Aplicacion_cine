@@ -33,7 +33,7 @@ class ButacaControlador extends ButacaDAO_1.default {
         objCubi.columna = Number(req.body.columna);
         objCubi.fila = String(req.body.fila);
         objCubi.idSala = Number(req.body.idSala);
-        ButacaDAO_1.default.actualiceloYa(objCubi, res);
+        ButacaDAO_1.default.actualiceUno(objCubi, res);
     }
 }
 const butacaControlador = new ButacaControlador();

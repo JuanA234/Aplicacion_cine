@@ -20,7 +20,10 @@ class TipoComidaDAO {
             yield dbConnection_1.default
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 const offset = (page - 1) * tamPag;
-                const resultado = yield consulta.result(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.GET_ALL, [tamPag, offset]);
+                const resultado = yield consulta.result(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.GET_ALL, [
+                    tamPag,
+                    offset,
+                ]);
                 const cubi = yield consulta.manyOrNone(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.TOTAL);
                 const totalTiposComidas = cubi[0].count;
                 return { resultado, totalTiposComidas };
@@ -30,10 +33,11 @@ class TipoComidaDAO {
                     resultado: resultado.rows,
                     totalComidas: totalTiposComidas,
                 });
-            }).catch((miError) => {
+            })
+                .catch((miError) => {
                 console.log("mi error");
                 res.status(400).json({
-                    "respuesta": "ay no sirve"
+                    respuesta: "ay no sirve",
                 });
             });
         });
@@ -44,27 +48,45 @@ class TipoComidaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.HOW_MANY, [datos.idTipoComida, datos.nombreTipoComida]);
+                let creado = false;
+                const cubi = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.HOW_MANY, [
+                    datos.idTipoComida,
+                    datos.nombreTipoComida,
+                ]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.ADD, [datos.nombreTipoComida, datos.descripcion]);
+                    respuBase = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.ADD, [
+                        datos.nombreTipoComida,
+                        datos.descripcion,
+                    ]);
+                    creado = true;
                 }
-                return { queHacer, respuBase };
+                return { queHacer, respuBase, creado };
             }))
-                .then(({ queHacer, respuBase }) => {
+                .then(({ queHacer, respuBase, creado }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe el TipoComida" });
+                        res.status(200).json({
+                            respuesta: "Compita ya existe el TipoComida",
+                            creado: creado,
+                        });
                         break;
                     default:
-                        res.status(200).json(respuBase);
+                        res.status(200).json({
+                            respuBase,
+                            creado: creado,
+                            respuesta: "Creado con exito",
+                        });
                         break;
                 }
             })
                 .catch((miError) => {
-                res.status(400).json({ respuesta: "Se totio mano",
+                res
+                    .status(400)
+                    .json({
+                    respuesta: "Se totio mano",
                     mensaje: miError.message,
-                    error: miError
+                    error: miError,
                 });
             });
         });
@@ -75,43 +97,57 @@ class TipoComidaDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuesta;
-                const existe = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.EXISTE_OTRA_TABLA, [datos.idTipoComida]);
+                let borradoSinMiedo = false;
+                const existe = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.EXISTE_OTRA_TABLA, [
+                    datos.idTipoComida,
+                ]);
                 if (existe.existe == 0) {
                     queHacer = 2;
-                    respuesta = consulta.result(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.DELETE, [datos.idTipoComida]);
+                    respuesta = consulta.result(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.DELETE, [
+                        datos.idTipoComida,
+                    ]);
+                    borradoSinMiedo = true;
                 }
-                return { queHacer, respuesta };
+                return { queHacer, respuesta, borradoSinMiedo };
             }))
-                .then(({ queHacer, respuesta }) => {
+                .then(({ queHacer, respuesta, borradoSinMiedo }) => {
                 switch (queHacer) {
                     case 1:
-                        res.status(400).json({ respuesta: "Compita no puedes borrarlo, existe en otra tabla" });
+                        res.status(200).json({
+                            respuesta: "Compita no puedes borrarlo, existe en otra tabla",
+                            borradoSinMiedo: borradoSinMiedo,
+                        });
                         break;
                     default:
                         res.status(200).json({
                             respuesta: "Lo borre sin miedo",
-                            info: respuesta.rowCount,
+                            borradoSinMiedo: borradoSinMiedo,
                         });
                         break;
                 }
             })
                 .catch((miErrorcito) => {
-                res.status(400).json({ respuesta: "Pailas, sql totiado"
-                });
+                res.status(400).json({ respuesta: "Pailas, sql totiado" });
             });
         });
     }
-    static actualiceloYa(datos, res) {
+    static actualiceVarios(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield dbConnection_1.default
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.HOW_MANY, [datos.idTipoComida, datos.nombreTipoComida]);
+                const cubi = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.HOW_MANY, [
+                    datos.idTipoComida,
+                    datos.nombreTipoComida,
+                ]);
                 if (cubi.existe != 0) {
                     queHacer = 2;
                     const like = datos.nombreTipoComida + "%";
-                    respuBase = yield consulta.none(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.UPDATE_MASIVO, [datos.descripcion, like]);
+                    respuBase = yield consulta.none(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.UPDATE_MASIVO, [
+                        datos.descripcion,
+                        like,
+                    ]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -126,9 +162,61 @@ class TipoComidaDAO {
                 }
             })
                 .catch((miError) => {
-                res.status(400).json({ respuesta: "Pailas, sql totiado",
+                res
+                    .status(400)
+                    .json({
+                    respuesta: "Pailas, sql totiado",
                     mensaje: miError.message,
-                    error: miError
+                    error: miError,
+                });
+            });
+        });
+    }
+    static actualiceUno(datos, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield dbConnection_1.default
+                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+                let queHacer = 1;
+                let respuBase;
+                let actualizado = false;
+                const cubi = yield consulta.one(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.HOW_MANY, [
+                    datos.idTipoComida,
+                    datos.nombreTipoComida,
+                ]);
+                if (cubi.existe != 0) {
+                    queHacer = 2;
+                    respuBase = yield consulta.none(sql_tipo_comidas_1.SQL_TIPOS_COMIDAS.UPDATE, [
+                        datos.nombreTipoComida,
+                        datos.descripcion,
+                        datos.idTipoComida,
+                    ]);
+                    actualizado = true;
+                }
+                return { queHacer, respuBase, actualizado };
+            }))
+                .then(({ queHacer, respuBase, actualizado }) => {
+                switch (queHacer) {
+                    case 1:
+                        res.status(200).json({
+                            respuesta: "Compita no existe",
+                            actualizado: actualizado,
+                        });
+                        break;
+                    default:
+                        res.status(200).json({
+                            respuesta: "Actualizado con exito",
+                            actualizado: actualizado,
+                        });
+                        break;
+                }
+            })
+                .catch((miError) => {
+                res
+                    .status(400)
+                    .json({
+                    respuesta: "Pailas, sql totiado",
+                    mensaje: miError.message,
+                    error: miError,
                 });
             });
         });

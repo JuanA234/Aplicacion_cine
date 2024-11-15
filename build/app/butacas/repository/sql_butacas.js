@@ -13,5 +13,7 @@ exports.SQL_BUTACAS = {
     WHERE id_butaca= $4",
     UPDATE_MASIVO: "UPDATE butacas set fila = $1, columna = $2, id_sala = $3 \
     where fila = $4",
+    EXISTE_OTRA_TABLA: "SELECT COUNT (id_butaca) as existe FROM reservaciones \
+    WHERE id_butaca = $1",
     TOTAL: "SELECT COUNT(*) FROM butacas",
 };
