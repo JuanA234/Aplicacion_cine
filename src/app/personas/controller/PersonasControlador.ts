@@ -41,7 +41,7 @@ class PersonasControlador extends PersonasDAO{
         objCubi.idUsuario = req.body.idUsuario; 
         PersonasDAO.actualiceloYa(objCubi, res);
     }
-    
+
 }
 
 const personasControlador = new PersonasControlador();
