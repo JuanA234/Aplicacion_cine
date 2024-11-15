@@ -16,6 +16,10 @@ class SalaControlador extends SalaDAO{
         SalaDAO.grabeloYa(objCubi, res);
     }
 
+    public salasPaginadas(req: Request, res: Response) : void {
+        SalaDAO.vistaPaginada(req, res); 
+    }
+
     public borraTuSala(req: Request, res: Response): void {
         if(isNaN(Number(req.params.idSala))){
             res.status(400).json({respuesta: "Y el codigo mi vale"});
@@ -24,8 +28,6 @@ class SalaControlador extends SalaDAO{
             const objCubi: Sala = new Sala(codiguito, 0, 0);
             SalaDAO.borreloYa(objCubi,res);
         }
-
-        
     }
 
     public actualizaTuTAbla(req: Request, res:Response): void{
@@ -36,6 +38,15 @@ class SalaControlador extends SalaDAO{
         SalaDAO.actualiceloYa(objCubi, res);
     }
 
+    public actualizarCapacidadDeSalas(req: Request, res:Response): void{
+        /*
+            Este metodo actualiza la capacidad de todas las salas de un cine
+        */
+        const objCubi: Sala = new Sala(0, 0, 0);
+        objCubi.salaCapacidad = Number(req.body.salaCapacidad);
+        objCubi.idCine = Number(req.body.idCine);
+        SalaDAO.actualizarCapacidadDeSalas(objCubi, res);
+    }
 }
 
 const salaControlador = new SalaControlador();
