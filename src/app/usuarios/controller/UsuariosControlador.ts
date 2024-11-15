@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
-import Usuarios from "../entity/Usuarios";
 import UsuariosDAO from "../DAO/UsuariosDAO";
+import Usuarios from "../entity/Usuarios";
+
 
 class UsuariosControlador extends UsuariosDAO{
 

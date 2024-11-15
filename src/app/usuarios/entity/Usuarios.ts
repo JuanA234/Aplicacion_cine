@@ -10,5 +10,4 @@ class Usuarios{
     }
 
 }
-
 export default Usuarios;

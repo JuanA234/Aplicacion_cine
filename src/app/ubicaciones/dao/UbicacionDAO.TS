@@ -4,8 +4,6 @@ import pool from "../../../config/connection/dbConnection";
 import Ubicacion from "../entity/Ubicacion";
 
 class UbicacionDAO {
-<<<<<<< HEAD
-
     protected static async obtenerTodo(params: any, res: Response) {
         await pool.result(SQL_UBICACIONES.GET_ALL).then((resultado)=>{
             res.status(200).json(resultado.rows);
@@ -16,35 +14,7 @@ class UbicacionDAO {
             });
         });
     };
-=======
-    protected static async obtenerTodo(tamPag: any, page: any, res: Response){
-        await pool
-        .task(async(consulta)=>{
-            const cubi = await consulta.many(SQL_UBICACIONES.TOTAL);
-            const rows = cubi[0].count;
-            const offset = (page-1)*tamPag;
-            const resultado = await consulta.result(SQL_UBICACIONES.GET_ALL, [tamPag, offset]);
-            return{resultado, rows};
-        })
-        .then(({resultado, rows}) =>{
-            res.status(200).json({
-                menus : resultado.rows,
-                totalMenus : rows
-            });
-            res.status(200).json({
-                totalMenus : rows,
-                menus : resultado.rows
-            });
-        }).catch((miError:any) => {
-            res.status(400).json({
-                "respuesta" : "ay no sirve",
-                mensaje : miError.message,
-                Error : miError,
-                NombreError: miError.name
-            });
-        });
-    }
->>>>>>> 967d7b17af3889783303ac91bdf06015ff050586
+
 
     protected static async grabeloYa(datos: Ubicacion, res: Response): Promise<any> {
         await pool.task(async (consulta) => {

@@ -1,8 +1,8 @@
 import { Response } from "express";
-
 import pool from "../../../config/connection/dbConnection";
-import Usuarios from "../entity/Usuarios";
 import { SQL_USUARIOS } from "../Repository/sql_usuarios";
+import Usuarios from "../entity/Usuarios";
+
 
 class UsuariosDAO {
     protected static async obtenerTodo(params: any, res: Response) {
