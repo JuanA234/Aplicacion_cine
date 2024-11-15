@@ -1,10 +1,10 @@
 class Usuarios{
-    public idUsuario:number;
+    public id_usuario:number;
     public correo:string;
     public contrasena:string;
 
     constructor(cod:number, nom:string, des:string){
-        this.idUsuario = cod;
+        this.id_usuario = cod;
         this.correo = nom;
         this.contrasena = des;
     }
@@ -12,4 +12,3 @@ class Usuarios{
 }
 
 export default Usuarios;
-

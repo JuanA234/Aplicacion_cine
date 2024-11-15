@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import UsuariosDAO from "../dao/UsuariosDAO";
 import Usuarios from "../entity/Usuarios";
+import UsuariosDAO from "../DAO/UsuariosDAO";
 
 class UsuariosControlador extends UsuariosDAO{
 
@@ -10,23 +10,17 @@ class UsuariosControlador extends UsuariosDAO{
 
     public obtenerUsuarios(req: Request, res: Response): void {
         const objCubi: Usuarios = new Usuarios(0, "", "");
-        objCubi.idUsuario = req.body.idUsuario;
+        objCubi.id_usuario = req.body.id_usuario;
         objCubi.correo = String(req.body.correo);
         objCubi.contrasena = req.body.contrasena;
         UsuariosDAO.grabeloYa(objCubi, res);
     }
-
-    
-    public usuariosPaginadas(req: Request, res: Response) : void {
-        UsuariosDAO.vistaPaginada(req, res); 
-    }
-
     
     public borrarUsuarios(req: Request, res: Response): void {
-        if (isNaN(Number(req.params.idUsuario))) {
+        if (isNaN(Number(req.params.id_usuario))) {
             res.status(400).json({ respuesta: "Y el código mi vale?"});
         } else {
-            const codiguito = Number(req.params.idUsuario);
+            const codiguito = Number(req.params.id_usuario);
             const objcubi: Usuarios = new Usuarios(codiguito, "", "");
             UsuariosDAO.borreloYa(objcubi, res);
         }
@@ -34,7 +28,7 @@ class UsuariosControlador extends UsuariosDAO{
 
     public actualizarUsuarios(req: Request, res: Response): void {
         const objCubi: Usuarios = new Usuarios(0, "", "");
-        objCubi.idUsuario = Number(req.body.idUsuario);
+        objCubi.id_usuario = Number(req.body.id_usuario);
         objCubi.correo = String(req.body.correo);
         objCubi.contrasena = String(req.body.contrasena)
         UsuariosDAO.actualiceloYa(objCubi, res);

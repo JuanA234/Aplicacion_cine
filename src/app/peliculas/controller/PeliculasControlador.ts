@@ -2,9 +2,9 @@ import { Response, Request } from "express";
 import PeliculasDAO from "../dao/PeliculasDAO";
 import Peliculas from "../entity/Peliculas";
 
-class PeliculasControlador extends PeliculasDAO{
+class PeliculasControlador extends PeliculasDAO {
 
-    public damePeliculas(req:Request, res:Response){
+    public damePeliculas(req: Request, res: Response) {
         PeliculasDAO.obtenerTodo([], res);
     }
 
@@ -18,20 +18,22 @@ class PeliculasControlador extends PeliculasDAO{
         PeliculasDAO.grabeloYa(objCubi, res);
     }
 
-    public peliculasPaginadas(req: Request, res: Response) : void {
-        PeliculasDAO.vistaPaginada(req, res); 
+    public peliculasPaginadas(req: Request, res: Response): void {
+        PeliculasDAO.vistaPaginada(req, res);
     }
 
     public borraTuPelicula(req: Request, res: Response): void {
-        if (isNaN(Number(req.params.idPelicula))) {
-        res.status(400).json({ respuesta: "Y el código mi vale?"});
-        } else {
-        const codiguito = Number(req.params.idPelicula);
+        const idPelicula = req.params.idPelicula;
+        console.log(idPelicula);
+        if (!idPelicula || isNaN(Number(idPelicula))) {
+            res.status(400).json({ respuesta: "Y el código mi vale?" });
+            return;
+        }
+
+        const codiguito = Number(idPelicula);
         const objcubi: Peliculas = new Peliculas(codiguito, "", "", 0);
         PeliculasDAO.borreloYa(objcubi, res);
-        }
     }
-
 
     public actualizaTuPelicula(req: Request, res: Response): void {
         const objCubi: Peliculas = new Peliculas(0, "", "", 0);
@@ -41,9 +43,6 @@ class PeliculasControlador extends PeliculasDAO{
         objCubi.idGenero = Number(req.body.idGenero);
         PeliculasDAO.actualiceloYa(objCubi, res);
     }
-
-
-
 
 }
 
