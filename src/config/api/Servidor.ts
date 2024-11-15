@@ -9,7 +9,7 @@ import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
 import apiRutaPelicula from "../../app/peliculas/route/PeliculasRuta"
 import apiRutaUsuarios from "../../app/usuarios/route/UsuariosRuta";
 import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta"
-import apiRutaPersonas from "../../app/personas/route/PersonasRuta";
+import apiRutaComidaCine from "../../app/comidaCine/route/ComidaCineRuta";
 
 class Servidor{
     public app:express.Application;
@@ -30,6 +30,7 @@ class Servidor{
        this.app.use("/movies", apiRutaPelicula);
        this.app.use("/users", apiRutaUsuarios);
        this.app.use("/billboards", apiRutaCarteleras);
+       this.app.use("/menu", apiRutaComidaCine);
     }
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);
