@@ -1,14 +1,20 @@
 import cors from "cors";
-import  express  from "express";
+import express from "express";
 import morgan from "morgan";
-import apiSalaRuta from "../../app/salas/route/SalaRuta";
+import apiRutaSala from "../../app/salas/route/SalaRuta";
+import apiRutaCargos from "../../app/cargos/route/CargosRuta";
+import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta";
+import apiRutaHorario from "../../app/horarios/route/HorarioRuta";
+import apiRutaPersonas from "../../app/personas/route/PersonasRuta";
+import apiRutaCartelerasCines from "../../app/cartelerasCines/route/CartelerasCinesRuta";
+import apiRutaUbicacion from "../../app/ubicaciones/route/UbicacionRuta";
+import apiRutaCine from "../../app/cines/Route/CineRuta";
+
+import apiRutaUsuarios from "../../app/Usuarios/Route/UsuariosRuta";
 import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
 import apiRutaGenero from "../../app/generos/route/GeneroRuta";
-import apiRutaFunctions from "../../app/funciones/route/FuncionRuta";
+import apiRutaFuncion from "../../app/funciones/route/FuncionRuta";
 import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
-import apiRutaPelicula from "../../app/peliculas/route/PeliculasRuta"
-import apiRutaUsuarios from "../../app/usuarios/route/UsuariosRuta";
-import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta"
 import apiRutaComidaCine from "../../app/comidaCine/route/ComidaCineRuta";
 
 class Servidor{
@@ -21,16 +27,16 @@ class Servidor{
 
     }
     public exponerEndPoint() :void{
-       this.app.use("/rooms", apiSalaRuta);
+       this.app.use("/rooms", apiRutaSala);
        this.app.use("/butacas", apiRutaButaca);
        this.app.use("/genders", apiRutaGenero);
-       this.app.use("/functions", apiRutaFunctions);
+       this.app.use("/functions", apiRutaFuncion);
        this.app.use("/bookings", apiRutaReservacion);
-       this.app.use("/movies", apiRutaPelicula);
        this.app.use("/users", apiRutaUsuarios);
        this.app.use("/billboards", apiRutaCarteleras);
        this.app.use("/menu", apiRutaComidaCine);
     }
+
     public cargarConfiguracion() :void{
         this.app.set("PORT", 3123);
         this.app.use(cors());
@@ -41,10 +47,10 @@ class Servidor{
 
     public iniciar():void{
         this.app.listen(this.app.get("PORT"),()=>{
-            console.log("Listo me fui", this.app.get("PORT"))
+            console.log("Listo me fui", this.app.get("PORT"));
         });
     }
 }
 
-
 export default Servidor;
+
