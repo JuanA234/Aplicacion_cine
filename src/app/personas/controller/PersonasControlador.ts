@@ -1,6 +1,11 @@
 import { Response, Request } from "express";
+<<<<<<< HEAD
+import Personas from "../entity/Personas";
+import PersonasDAO from "../dao/PersonasDAO";
+=======
 import PersonasDAO from "../dao/PersonasDAO";
 import Personas from "../entity/Personas";
+>>>>>>> 98d3aaf4ec96a6e2ee6cdc2f30fce0ef85f31d54
 
 class PersonasControlador extends PersonasDAO{
 
@@ -42,6 +47,13 @@ class PersonasControlador extends PersonasDAO{
         PersonasDAO.actualiceloYa(objCubi, res);
     }
 
+<<<<<<< HEAD
+=======
+    public personasPaginadas(req: Request, res: Response) : void {
+        PersonasDAO.vistaPaginada(req, res); 
+    }
+
+>>>>>>> 9977f39f76d7f1b0087101380cd1ea1cf5b35255
 }
 
 const personasControlador = new PersonasControlador();

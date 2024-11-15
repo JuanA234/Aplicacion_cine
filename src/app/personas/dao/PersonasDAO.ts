@@ -40,6 +40,26 @@ class PersonasDAO {
             res.status(400).json({ respuesta: "Ocurrio un error" });
         });
     };
+
+    protected static async vistaPaginada(params: any, res: Response){
+        await pool.task(async (consulta) => {
+            const page = parseInt(params.query.page as string) || 1; // Valor por defecto a 1
+            const limit = parseInt(params.query.limit as string) || 10; // Valor por defecto a 10
+            if(page > limit && page <= 0)
+                return res.status(400).json({respuesta: "Pagina invalida"});
+            const desde = (page - 1) * limit;
+            const personas = await consulta.manyOrNone(SQL_PERSONAS.GET_PAGE, [Number(limit), Number(desde)]);
+            return personas;
+        }).then((personas) => {
+            res.status(200).json(personas);
+        })
+        .catch(err => {
+            res.status(400).json({
+                "respuesta": err
+                });
+            }
+        );
+    }
      
     protected static async borreloYa(datos: Personas, res: Response): Promise<any> {
         pool.task((consulta) => {

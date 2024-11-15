@@ -1,0 +1,110 @@
+@startuml prueba1
+
+    actor Cliente
+
+package Trabajadores{
+    
+    actor Taquillero
+    actor Gerente
+    actor RecursosHumanos
+    actor EmpleadoRestaurante
+    
+}
+
+package Ventas{
+    usecase "Ver cartelera" as verCar
+    usecase "Ver funciones disponibles" as verFun
+    usecase "Seleccionar funcion" as selFun
+    usecase "Comprar boleta" as comBol
+    usecase "Ver asientos disponibles" as verAsi
+    usecase "Seleccionar sillas" as selAsi
+    usecase "Reservar asientos" as resAsi 
+    
+}
+
+package logisticaCine{
+    
+    usecase "Añadir pelicula a cartelera" as addPelCar
+    usecase "Eliminar pelicula a cartelera" as eliPelCar
+    usecase "Gestionar salas" as GesSal
+    usecase "Añadir horario" as addHor
+    usecase "Eliminar horario" as eliHor
+    usecase "Modificar horario" as modHor
+    usecase "Añadir función" as addFun
+    usecase "Eliminar función" as eliFun
+    usecase "Modificar función" as modFun
+
+}
+
+package Restaurante{
+    usecase "Vender comida" as venCom
+    usecase "Ver comidas disponibles" as verCom
+    usecase "Seleccionar comida" as selCom 
+    usecase "Añadir menú" as addMen
+    usecase "Eliminar menú" as eliMen
+    usecase "Modificar menú" as modMen
+}
+
+package logisticaUsuarios{
+    
+    usecase "Iniciar sesion" as iniSes
+    usecase "Registrarse" as reg 
+    usecase "Añadir empleado" as addEmp
+    (Asignar cargos) as AsiCarg
+    usecase "Eliminar cargos" as eliCar
+    usecase "Modificar cargos" as modCar
+     
+}
+
+    Cliente -- iniSes
+    Cliente -- verCar
+    Cliente -- comBol
+    Cliente -- verCar
+    Cliente -- verFun
+    Cliente -- reg
+
+    Taquillero -- iniSes
+    Taquillero -- verFun
+    Taquillero -- selFun
+    Taquillero -- comBol
+    Taquillero -- reg
+
+    empleadoRestaurante -- venCom
+    empleadoRestaurante -- verCom
+
+    Gerente -- iniSes
+    Gerente -- GesSal
+    Gerente -- AsiCarg
+    Gerente -- addPelCar
+    Gerente -- addFun
+    Gerente -- addHor
+    Gerente -- addMen
+    Gerente -- eliCar
+    Gerente -- eliFun
+    Gerente -- eliHor
+    Gerente -- eliMen
+    Gerente -- eliPelCar
+    Gerente -- modCar
+    Gerente -- modFun
+    Gerente -- modHor
+    Gerente -- modMen
+
+    RecursosHumanos -- iniSes
+    RecursosHumanos -- modCar
+    RecursosHumanos -- addEmp
+
+    venCom ..> verCom : include
+    venCom ..> selCom : include
+
+    iniSes ..> comBol : extend
+    verCar ..> comBol : extend
+    comBol ..> verFun : include
+    comBol ..> selFun : include
+    comBol ..> verAsi : include
+    comBol ..> selAsi : include
+    comBol ..> resAsi : include
+
+
+
+
+@enduml

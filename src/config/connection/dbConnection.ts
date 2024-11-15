@@ -1,8 +1,11 @@
-import dotenv from "dotenv";
+
+import dotenv from "dotenv"; //imports anonimos
 import pgPromise from "pg-promise";
 import { optionsPG } from "./optionsPG";
 
 dotenv.config({ path: "variables.env" });
+
+const pgp = pgPromise(optionsPG);
 
 const nombre = String(process.env.NOMBRE_BASE_DE_DATOS);
 const usuario = String(process.env.EL_USUARIO);
@@ -10,7 +13,6 @@ const puerto = Number(process.env.EL_PUERTO);
 const servidor = String(process.env.EL_SERVIDOR);
 const clave = String(process.env.LA_CLAVE);
 
-const pgp = pgPromise(optionsPG);
 
 const pool = pgp({
     user: usuario,
@@ -20,11 +22,11 @@ const pool = pgp({
     host: servidor
 });
 
-pool.connect().then((miConn)=>{
+//programación en cadena o chain
+pool.connect().then((miCone) => {
     console.log("dios mio sirve", nombre);
-    miConn.done();
-})
-.catch((miError) => {
+    miCone.done();
+}).catch((miError) => {
     console.log(miError);
 });
 

@@ -2,9 +2,14 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import apiRutaSala from "../../app/salas/route/SalaRuta";
+
+import apiRutaCargos from "../../app/cargos/route/CargosRuta";
 import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta";
 import apiRutaHorario from "../../app/horarios/route/HorarioRuta";
 import apiRutaPersonas from "../../app/personas/route/PersonasRuta";
+import apiRutaCartelerasCines from "../../app/cartelerasCines/route/CartelerasCinesRuta";
+import apiRutaUbicacion from "../../app/ubicaciones/route/UbicacionRuta";
+import apiRutaCine from "../../app/cines/Route/CineRuta";
 
 
 import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
