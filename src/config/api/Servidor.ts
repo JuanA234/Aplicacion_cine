@@ -1,4 +1,5 @@
 import cors from "cors";
+<<<<<<< HEAD
 import express from "express";
 import morgan from "morgan";
 import apiRutaSala from "../../app/salas/route/SalaRuta";
@@ -13,12 +14,27 @@ import apiRutaComidaCine from "../../app/comidaCine/route/ComidaCineRuta";
 import apiRutaUsuarios from "../../app/Usuarios/Route/UsuariosRuta";
 
 class Servidor {
+=======
+import  express  from "express";
+import morgan from "morgan";
+import apiSalaRuta from "../../app/salas/route/SalaRuta";
+import apiRutaButaca from "../../app/butacas/route/ButacaRuta";
+import apiRutaGenero from "../../app/generos/route/GeneroRuta";
+import apiRutaFunctions from "../../app/funciones/route/FuncionRuta";
+import apiRutaReservacion from "../../app/reservaciones/route/ReservacionRuta";
+import apiRutaPelicula from "../../app/peliculas/route/PeliculasRuta"
+import apiRutaUsuarios from "../../app/usuarios/route/UsuariosRuta";
+import apiRutaCarteleras from "../../app/carteleras/route/CartelerasRuta"
+
+class Servidor{
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
     public app:express.Application;
 
     constructor(){
         this.app = express();
         this.cargarConfiguracion();
         this.exponerEndPoint();
+<<<<<<< HEAD
     }
 
     public cargarConfiguracion():void {
@@ -42,13 +58,42 @@ class Servidor {
         this.app.use("/cinema", apiRutaCine);
         this.app.use("/menu", apiRutaComidaCine);
         this.app.use("/users", apiRutaUsuarios);
+=======
+
+    }
+    public exponerEndPoint() :void{
+       this.app.use("/rooms", apiSalaRuta);
+       this.app.use("/butacas", apiRutaButaca);
+       this.app.use("/genders", apiRutaGenero);
+       this.app.use("/functions", apiRutaFunctions);
+       this.app.use("/bookings", apiRutaReservacion);
+       this.app.use("/movies", apiRutaPelicula);
+       this.app.use("/users", apiRutaUsuarios);
+       this.app.use("/billboards", apiRutaCarteleras);
+    }
+    public cargarConfiguracion() :void{
+        this.app.set("PORT", 3123);
+        this.app.use(cors());
+        this.app.use(morgan("dev"));
+        this.app.use(express.json({limit: "50mb"}));     
+        this.app.use(express.urlencoded({extended:true}));         
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
     }
 
     public iniciar():void{
         this.app.listen(this.app.get("PORT"),()=>{
+<<<<<<< HEAD
             console.log("Listo me fui", this.app.get("PORT"));
+=======
+            console.log("Listo me fui", this.app.get("PORT"))
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
         });
     }
 }
 
+<<<<<<< HEAD
 export default Servidor;
+=======
+
+export default Servidor;
+>>>>>>> aad73346a56658c710226d091211dadaf994c603

@@ -4,5 +4,11 @@
 			"path": "."
 		}
 	],
+<<<<<<< HEAD
 	"settings": {}
+=======
+	"settings": {
+		"workbench.colorTheme": "Solarized Dark"
+	}
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
 }

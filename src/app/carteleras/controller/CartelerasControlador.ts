@@ -11,13 +11,25 @@ class CartelerasControlador extends CartelerasDAO {
 
     
     public obtenerCartelera(req: Request, res: Response): void {
+<<<<<<< HEAD
         const objCartelera: Carteleras = new Carteleras(0, 0);
         objCartelera.idCartelera = Number(req.body.idCartelera);
+=======
+        const objCartelera: Carteleras = new Carteleras(0,0);
+        //objCartelera.idCartelera = Number(req.body.idCartelera);
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
         objCartelera.idCine = Number(req.body.idCine);
     
         CartelerasDAO.grabeloYa(objCartelera, res);  
     }
 
+<<<<<<< HEAD
+=======
+    public cartelerasPaginadas(req: Request, res: Response) : void {
+        CartelerasDAO.vistaPaginada(req, res); 
+    }
+
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
     
     public borrarCartelera(req: Request, res: Response): void {
         if (isNaN(Number(req.params.idCartelera))) {

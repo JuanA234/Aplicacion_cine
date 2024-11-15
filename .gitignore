@@ -1,8 +1,8 @@
 # Node modules
 /node_modules
 
-#Build 
-/Build
+#build 
+/build
 
 # Logs
 logs

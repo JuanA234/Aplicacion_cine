@@ -1,12 +1,20 @@
 {
+<<<<<<< HEAD
   "name": "backend-cine",
+=======
+  "name": "backendcine",
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
   "version": "1.0.0",
   "description": "Este es el backend de ingeniería de software",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -w",
+<<<<<<< HEAD
     "dev": "nodemon build /index.js"
+=======
+    "dev": "nodemon build/index.js"
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
   },
   "keywords": [
     "node",
@@ -14,9 +22,16 @@
     "typescript",
     "cines"
   ],
+<<<<<<< HEAD
   "author": "Joseph Ferrer",
   "license": "ISC",
   "dependencies": {
+=======
+  "author": "Andrés Federico Escobar Díaz",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.21.0",
@@ -26,6 +41,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+<<<<<<< HEAD
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "dotenv": "^16.4.5",
@@ -39,4 +55,10 @@
     "url": "https://github.com/JuanA234/Aplicacion_cine/issues"
   },
   "homepage": "https://github.com/JuanA234/Aplicacion_cine#readme"
+=======
+    "@types/morgan": "^1.9.9",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.7"
+  }
+>>>>>>> aad73346a56658c710226d091211dadaf994c603
 }
