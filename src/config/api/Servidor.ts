@@ -13,6 +13,7 @@ import apiRutaPeliculas from "../../app/peliculas/route/PeliculasRuta";
 import apiRutaCine from "../../app/cines/Route/CineRuta";
 import apiRutaUbicacion from "../../app/ubicaciones/route/UbicacionRuta";
 import apiRutaPersonas from "../../app/personas/route/PersonasRuta";
+import apiRutaHorario from "../../app/horarios/route/HorarioRuta";
 
 
 class Servidor {
@@ -22,7 +23,6 @@ class Servidor {
         this.app = express();
         this.cargarConfiguracion();
         this.exponerEndPoint();
-
     }
     public exponerEndPoint(): void {
         this.app.use("/rooms", apiRutaSala);
@@ -37,6 +37,7 @@ class Servidor {
         this.app.use("/cinemas", apiRutaCine);
         this.app.use("/locations", apiRutaUbicacion);
         this.app.use("/person", apiRutaPersonas);
+        this.app.use("/schedule", apiRutaHorario);
     }
 
     public cargarConfiguracion(): void {
