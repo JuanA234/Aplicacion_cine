@@ -1,5 +1,5 @@
 import { Router } from "express";
-import usuariosControlador from "../Controller/UsuariosControlador";
+import usuariosControlador from "../controller/UsuariosControlador";
 
 
 class UsuariosRuta{

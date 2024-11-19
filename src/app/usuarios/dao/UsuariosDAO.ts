@@ -1,12 +1,13 @@
 import { Response } from "express";
 import pool from "../../../config/connection/dbConnection";
-import { SQL_USUARIOS } from "../Repository/sql_usuarios";
-import Usuarios from "../entity/Usuarios";
+
+import Usuarios from "../entity/Usuario";
+import { SQL_USUARIOS } from "../repository/sql_usuarios";
 
 
 class UsuariosDAO {
     protected static async obtenerTodo(params: any, res: Response) {
-        await pool.result(SQL_USUARIOS.GET_ALL).then((resultado)=>{
+        await pool.result(SQL_USUARIOS.GET_ALL).then((resultado) => {
             res.status(200).json(resultado.rows);
         }).catch((miError) => {
             console.log(miError);
@@ -26,7 +27,7 @@ class UsuariosDAO {
                 respuBase = await consulta.one(SQL_USUARIOS.ADD, [datos.correo, datos.contrasena]);
             }
             return { queHacer, respuBase };
-        }).then( ({ queHacer, respuBase }) => {
+        }).then(({ queHacer, respuBase }) => {
             switch (queHacer) {
                 case 1:
                     res.status(400).json({ respuesta: "El usuario ya existe" });
@@ -40,22 +41,22 @@ class UsuariosDAO {
             res.status(400).json({ respuesta: "Ocurrio un error" });
         });
     };
-     
+
     protected static async borreloYa(datos: Usuarios, res: Response): Promise<any> {
         pool.task((consulta) => {
             return consulta.result(SQL_USUARIOS.DELETE, [datos.id_usuario]);
         }).then((respuesta) => {
-            res.status (200).json({
+            res.status(200).json({
                 respuesta: "Lo borré sin miedo",
                 info: respuesta.rowCount,
             });
-        }).catch( (miErrorcito) => {
+        }).catch((miErrorcito) => {
             console.log(miErrorcito);
             res.status(400).json({ respuesta: "Pailas, sql totiado" });
         });
     };
 
-    protected static async actualiceloYa(datos: Usuarios, res: Response): Promise<any>{
+    protected static async actualiceloYa(datos: Usuarios, res: Response): Promise<any> {
         pool.task(async (consulta) => {
             let queHacer = 1;
             let respuBase: any;
@@ -65,19 +66,19 @@ class UsuariosDAO {
                 respuBase = await consulta.none(SQL_USUARIOS.UPDATE, [datos.correo, datos.contrasena, datos.id_usuario]);
             }
             return { queHacer, respuBase };
-            }).then( ({ queHacer, respuBase }) => {
-                switch (queHacer) {
-                    case 1:
-                        res.status(400).json({ respuesta: "Compita ya existe" });
-                        break;
-                    default:
-                        res.status(200).json({ actualizado: "ok" });
-                        break;
-                }
-            }).catch( (miErrorcito) => {
-                console.log(miErrorcito);
-                res.status(400).json({ respuesta: "Pailas, sql totiado" });
-            });
+        }).then(({ queHacer, respuBase }) => {
+            switch (queHacer) {
+                case 1:
+                    res.status(400).json({ respuesta: "Compita ya existe" });
+                    break;
+                default:
+                    res.status(200).json({ actualizado: "ok" });
+                    break;
+            }
+        }).catch((miErrorcito) => {
+            console.log(miErrorcito);
+            res.status(400).json({ respuesta: "Pailas, sql totiado" });
+        });
     }
 }
 
