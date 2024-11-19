@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import comidaControlador from "../Controller/ComidaControlador";
 
 class ComidaRuta{

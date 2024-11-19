@@ -3,6 +3,7 @@ import pool from "../../../config/connection/dbConnection";
 import { SQL_COMIDAS } from "../Repository/sql_comidas";
 import Comida from "../Entity/Comida";
 
+
 class ComidaDAO {
   protected static async obtenerTodo(tamPag: any, page: any, res: Response) {
     await pool
